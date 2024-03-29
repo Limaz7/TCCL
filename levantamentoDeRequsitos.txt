@@ -1,0 +1,4 @@
+manter usuario
+manter eventos
+vizualizar eventos
+comprar ingresso
