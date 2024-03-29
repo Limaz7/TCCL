@@ -3,3 +3,4 @@ manter eventos
 vizualizar eventos
 comprar ingresso
 realizar login
+vizualizar ingressos comprados
