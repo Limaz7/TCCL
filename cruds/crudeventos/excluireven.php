@@ -6,7 +6,7 @@ include "../conexao.php";
 
 $sql = "DELETE FROM eventos WHERE id_eventos = $id";
 
-mysqli_query($conecta, $sql);
+mysqli_query($conecta, $sql);   
 
 if($conecta->error){
     die("Erro".$conecta->error);
