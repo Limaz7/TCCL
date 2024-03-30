@@ -13,7 +13,7 @@
 
     echo "<p><a href=\"formeventos.php\">Cadastrar eventos</a></p>";
 
-    include "conexao.php";
+    include "../conexao.php";
 
     $sql = "SELECT * FROM eventos";
 
@@ -38,7 +38,7 @@
         echo '<td><img src='.$dados["imagem"].'></td>';
 
         echo '<td><a href="formedit?id='.$dados['id_eventos'].'&">Editar</a></td>';
-        echo '<td><a href="formexclu?id='.$dados['id_eventos'].'&">Excluir</td>';
+        echo '<td><a href="excluireven?id='.$dados['id_eventos'].'&">Excluir</td>';
         echo '</tr>';
     }
 

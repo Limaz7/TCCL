@@ -4,7 +4,7 @@ $nome = $_POST["nome"];
 $desc = $_POST["desc"];
 $data = $_POST["data"];
 
-include "conexao.php";
+include "../conexao.php";
 
 $sql = "INSERT INTO eventos(nome, descricao, data) VALUES ('$nome', '$desc', '$data')";
 

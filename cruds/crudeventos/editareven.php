@@ -7,7 +7,7 @@ $img = $_POST["img"];
 $data = $_POST["data"];
 
 
-include "conexao.php";
+include "../conexao.php";
 
 $sql = "UPDATE eventos SET nome = '$nome', descricao = '$desc', imagem = '$img', data = '$data'WHERE id_eventos = $id";
 

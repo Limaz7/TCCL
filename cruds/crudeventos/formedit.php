@@ -2,7 +2,7 @@
 
 $id = $_GET["id"];
 
-include "conexao.php";
+include "../conexao.php";
 
 $sql = "SELECT * FROM eventos WHERE id_eventos = $id";
 
