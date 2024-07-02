@@ -1,6 +1,26 @@
-manter usuario
-manter eventos
-vizualizar eventos
-comprar ingresso
-realizar login
-vizualizar ingressos comprados
+Funcionalidades
+Cadastro de Eventos:
+
+Criação e edição de eventos com informações detalhadas (data, horário, local, descrição, etc.).
+Upload de imagens e documentos relacionados ao evento.
+Gerenciamento de Participantes:
+
+Registro de participantes.
+Gestão de listas de presença.
+Envio de convites e lembretes.
+Venda de Ingressos:
+
+Sistema de venda e emissão de ingressos.
+Integração com métodos de pagamento.
+Notificações e Alertas:
+
+Notificações por e-mail e SMS sobre eventos futuros, mudanças de horário, etc.
+Alertas personalizados para participantes.
+Divulgação:
+
+Integração com redes sociais para promoção de eventos.
+Criação de páginas de eventos compartilháveis.
+Feedback e Avaliações:
+
+Sistema de feedback pós-evento.
+Avaliações de participantes sobre a organização e o conteúdo.
