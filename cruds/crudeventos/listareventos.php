@@ -21,7 +21,6 @@
 
     echo '<table border=1>
     <tr>
-        <th>ID EVENTOS</th>
         <th>NOME</th>
         <th>DESCRIÇÃO</th>
         <th>DATA</th>
@@ -31,7 +30,6 @@
 
     while($dados = mysqli_fetch_assoc($resultado)){
         echo '<tr>';
-        echo '<td>'.$dados["id_eventos"].'</td>';
         echo '<td>'.$dados["nome"].'</td>';
         echo '<td>'.$dados["descricao"].'</td>';
         echo '<td>'.$dados["data"].'</td>';

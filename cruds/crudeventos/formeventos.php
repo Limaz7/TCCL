@@ -14,6 +14,7 @@
     <p>Nome: <input type="text" name="nome" required></p>
     <p>Descrição: <textarea type="text" name="desc" required></textarea></p>
     <p>Data: <input type="datetime-local" name="data" required></p>
+    <p>Imagem <input type="file" name="arquivo">
     <p><input type="submit" value="Enviar"></p>
 
 

@@ -3,10 +3,11 @@
 $nome = $_POST["nome"];
 $desc = $_POST["desc"];
 $data = $_POST["data"];
+$arq = $_POST['arquivo'];
 
 include "../conexao.php";
 
-$sql = "INSERT INTO eventos(nome, descricao, data) VALUES ('$nome', '$desc', '$data')";
+$sql = "INSERT INTO eventos(nome, descricao, data, imagem) VALUES ('$nome', '$desc', '$data', '$a')";
 
 mysqli_query($conecta, $sql);
 
