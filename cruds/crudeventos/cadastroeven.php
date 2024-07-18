@@ -7,7 +7,7 @@ $arq = $_POST['arquivo'];
 
 include "../conexao.php";
 
-$sql = "INSERT INTO eventos(nome, descricao, data, imagem) VALUES ('$nome', '$desc', '$data', '$a')";
+$sql = "INSERT INTO eventos(nome, descricao, data, imagem) VALUES ('$nome', '$desc', '$data', '$arq')";
 
 mysqli_query($conecta, $sql);
 

@@ -16,8 +16,14 @@
     include "../conexao.php";
 
     $sql = "SELECT * FROM eventos";
-
     $resultado = mysqli_query($conecta, $sql);
+
+    if($resultado != false){
+        $arquivos = mysqli_fetch_all($resultado, MYSQLI_BOTH);
+    } else {
+        echo "Erro ao executar o comando SQL.";
+        die();
+    }
 
     echo '<table border=1>
     <tr>
@@ -28,18 +34,17 @@
         <th colspan=3>OPÇÕES</th>
     </tr>';
 
-    while($dados = mysqli_fetch_assoc($resultado)){
+    foreach ($arquivos as $dados){
+        $arq = $dados['imagem'];
         echo '<tr>';
         echo '<td>'.$dados["nome"].'</td>';
         echo '<td>'.$dados["descricao"].'</td>';
         echo '<td>'.$dados["data"].'</td>';
-        echo '<td><img src='.$dados["imagem"].'></td>';
-
+        echo "<td><img src='imagens/$arq' width='100px' height='100px'></td>";
         echo '<td><a href="formedit?id='.$dados['id_eventos'].'&">Editar</a></td>';
         echo '<td><a href="excluireven?id='.$dados['id_eventos'].'&">Excluir</td>';
         echo '</tr>';
     }
-
     echo '</table>';
 ?>
 </body>
