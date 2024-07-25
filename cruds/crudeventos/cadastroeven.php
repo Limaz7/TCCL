@@ -6,10 +6,11 @@ $data = $_POST["data"];
 $arq = $_POST['arquivo'];
 
 include "../conexao.php";
+$conecta = conectar();
 
 $sql = "INSERT INTO eventos(nome, descricao, data, imagem) VALUES ('$nome', '$desc', '$data', '$a')";
 
-mysqli_query($conecta, $sql);
+executarSQL($conecta, $sql);
 
 if($conecta->errno){
     die("erro".$conecta->error);

@@ -14,10 +14,11 @@
     echo "<p><a href=\"formeventos.php\">Cadastrar eventos</a></p>";
 
     include "../conexao.php";
+    $conecta = conectar();
 
-    $sql = "SELECT * FROM eventos";
+    $sql = "SELECT * FROM eventos ";
 
-    $resultado = mysqli_query($conecta, $sql);
+    $resultado = executarSQL($conecta, $sql);
 
     echo '<table border=1>
     <tr>

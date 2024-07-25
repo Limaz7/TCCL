@@ -3,10 +3,11 @@
 $id = $_GET["id"];
 
 include "../conexao.php";
+$conecta = conectar();
 
 $sql = "SELECT * FROM eventos WHERE id_eventos = $id";
 
-$resultado = mysqli_query($conecta, $sql);
+$resultado = executarSQL($conecta, $sql);
 
 $dados = mysqli_fetch_assoc($resultado);
 
