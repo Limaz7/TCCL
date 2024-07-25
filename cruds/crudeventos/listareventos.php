@@ -1,47 +1,43 @@
+<?php
+
+
+include "../conexao.php";
+$conecta = conectar();
+
+$sql = "SELECT * FROM eventos";
+
+$resultado = executarSQL($conecta, $sql);
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listar eventos</title>
 </head>
+
 <body>
-    
+
     <h1> CRUD EVENTOS </h1>
 
-<?php
+    <h5>
+        <p><a href="formeventos.php">Cadastrar eventos</a></p>
+    </h5>
 
-    echo "<p><a href=\"formeventos.php\">Cadastrar eventos</a></p>";
-
-    include "../conexao.php";
-    $conecta = conectar();
-
-    $sql = "SELECT * FROM eventos ";
-
-    $resultado = executarSQL($conecta, $sql);
-
-    echo '<table border=1>
-    <tr>
-        <th>NOME</th>
-        <th>DESCRIÇÃO</th>
-        <th>DATA</th>
-        <th>IMAGEM</th> 
-        <th colspan=3>OPÇÕES</th>
-    </tr>';
-
+    <?php
     while($dados = mysqli_fetch_assoc($resultado)){
-        echo '<tr>';
-        echo '<td>'.$dados["nome"].'</td>';
-        echo '<td>'.$dados["descricao"].'</td>';
-        echo '<td>'.$dados["data"].'</td>';
-        echo '<td><img src='.$dados["imagem"].'></td>';
+        $arq = $dados['imagem'];
 
-        echo '<td><a href="formedit?id='.$dados['id_eventos'].'&">Editar</a></td>';
-        echo '<td><a href="excluireven?id='.$dados['id_eventos'].'&">Excluir</td>';
-        echo '</tr>';
+        echo '<h4>' . 'nome: ' .  $dados['nome'] . '</h4>';
+        echo '<h4>' . 'Descrição: ' . $dados['descricao'] . '</h4>';
+        echo '<h4>' . 'data: ' . $dados['data'] . '</h4>';
+
+        echo "<td><img src='../imagens/$arq' width='100px' height='100px'></td>";;
     }
-
-    echo '</table>';
-?>
+    ?>
 </body>
+
 </html>

@@ -10,7 +10,7 @@ function conectar()
         $config['host'],
         $config['user'], 
         $config['pass'], 
-        $config['banco'],
+        $config['bd'],
     
     );
 

@@ -9,7 +9,7 @@
     
     <h1> Cadastrar eventos </h1>
 
-    <form method="post" action="cadastroeven.php">
+    <form method="post" action="cadastroeven.php" enctype="multipart/form-data">
         
     <p>Nome: <input type="text" name="nome" required></p>
     <p>Descrição: <textarea type="text" name="desc" required></textarea></p>

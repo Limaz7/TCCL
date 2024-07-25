@@ -7,11 +7,12 @@ $img = $_POST["img"];
 $data = $_POST["data"];
 
 
-include "../conexao.php";
+include "./conexao.php";
+$conecta = conectar();
 
-$sql = "UPDATE eventos SET nome = '$nome', descricao = '$desc', imagem = '$img', data = '$data'WHERE id_eventos = $id";
+$sql = "UPDATE eventos SET nome = '$nome', descricao = '$desc', imagem = '$img', data = '$data' WHERE id_eventos = $id";
 
-mysqli_query($conecta, $sql);
+executarSQL($conecta, $sql);
 
 if($conecta->error){
     die("erro".$conecta->error);
