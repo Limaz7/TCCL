@@ -8,7 +8,7 @@ $arq = $_POST['arquivo'];
 include "../conexao.php";
 $conecta = conectar();
 
-$sql = "INSERT INTO eventos(nome, descricao, data, imagem) VALUES ('$nome', '$desc', '$data', '$a')";
+$sql = "INSERT INTO eventos(nome, descricao, data, imagem) VALUES ('$nome', '$desc', '$data', '$arq')";
 
 executarSQL($conecta, $sql);
 
