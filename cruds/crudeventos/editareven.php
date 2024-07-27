@@ -1,7 +1,7 @@
 <?php
 
 $id = $_POST["id"];
-$nome = $_POST["nome"];
+$nomeEven = $_POST["nomeEven"];
 $desc = $_POST["desc"];
 $img = $_POST["img"];
 $data = $_POST["data"];

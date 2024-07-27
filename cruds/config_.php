@@ -2,7 +2,7 @@
 
 $config = [
     'host' => '',
-    'username' => '',
+    'user' => '',
     'pass' => '',
     'bd' => '',
     'email' => '',

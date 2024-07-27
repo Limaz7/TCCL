@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -9,9 +15,10 @@
     
     <h1> Cadastrar eventos </h1>
 
-    <form method="post" action="cadastroeven.php" enctype="multipart/form-data">
+    <form method="post" action="../cadastroeven.php" enctype="multipart/form-data">
         
-    <p>Nome: <input type="text" name="nome" required></p>
+    <input type="hidden" name="nomeEmp" value="<?php echo $_SESSION['nomeUser']; ?>">
+    <p>Nome do evento: <input type="text" name="nomeEven" required></p>
     <p>Descrição: <textarea type="text" name="desc" required></textarea></p>
     <p>Data: <input type="datetime-local" name="data" required></p>
     <p>Imagem <input type="file" name="arquivo">

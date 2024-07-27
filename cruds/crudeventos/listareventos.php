@@ -31,7 +31,8 @@ $resultado = executarSQL($conecta, $sql);
     while($dados = mysqli_fetch_assoc($resultado)){
         $arq = $dados['imagem'];
 
-        echo '<h4>' . 'nome: ' .  $dados['nome'] . '</h4>';
+        echo '<h4>' . 'nome da empresa organizadora: </h4>' .  $dados['nome_empresa'];
+        echo '<h4>' . 'nome: ' . $dados['nome'] . '</h4>';
         echo '<h4>' . 'Descrição: ' . $dados['descricao'] . '</h4>';
         echo '<h4>' . 'data: ' . $dados['data'] . '</h4>';
 
