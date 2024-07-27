@@ -42,16 +42,6 @@ if (
 
         //criar o caminho.
         $caminho = $novo_nome_ft . "." . $extensao;
-
-        if (isset($_POST['imagem'])) {
-
-            unlink($pastaDestino . $_POST['imagem']);
-
-            header("location: trocarImg.php");
-        } else {
-
-            header("location: trocarImg.php");
-        }
     }
 }
 

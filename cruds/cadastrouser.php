@@ -14,10 +14,10 @@ if($eoq == 1){
     $sql = "INSERT INTO usuario (nome, email, senha, empresa) 
         VALUES ('$nome', '$email', '$hash', '$eoq')";
     executarSQL($conexao, $sql);
-    header('location: ../iniempresa.php');
+    header('location: ../index.php');
 } else {
     $sql = "INSERT INTO usuario (nome, email, senha, empresa) 
     VALUES ('$nome', '$email', '$hash', '$eoq')";
     executarSQL($conexao, $sql);
-    header("location: ../inipessoa.php");
+    header("location: ../index.php");
 }

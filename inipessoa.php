@@ -23,9 +23,11 @@ $result = executarSQL($conexao, $sql);
 
 <body>
 
+    <a href="logout.php">Sair</a>
+
     <?php
 
-    echo "Bem vindo! " . $_SESSION['nome'];
+    echo "Bem vindo! " . $_SESSION['nome'][1];
 
     while ($dados = mysqli_fetch_assoc($result)) {
 
@@ -41,7 +43,6 @@ $result = executarSQL($conexao, $sql);
 
     ?>
 
-    <a href="logout.php">Sair</a>
 </body>
 
 </html>

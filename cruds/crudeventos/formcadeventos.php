@@ -17,7 +17,7 @@ session_start();
 
     <form method="post" action="../cadastroeven.php" enctype="multipart/form-data">
         
-    <input type="hidden" name="nomeEmp" value="<?php echo $_SESSION['nomeUser']; ?>">
+    <input type="hidden" name="nomeEmp" value="<?php echo $_SESSION['user'][1]; ?>">
     <p>Nome do evento: <input type="text" name="nomeEven" required></p>
     <p>Descrição: <textarea type="text" name="desc" required></textarea></p>
     <p>Data: <input type="datetime-local" name="data" required></p>
