@@ -22,7 +22,7 @@ Sistema de venda e emissão de ingressos;
 Integração com métodos de pagamento;
 
 Notificações e Alertas:
-Notificações por e-mail e SMS sobre eventos futuros, mudanças de horário, etc;
+Notificações por e-mail sobre eventos futuros, mudanças de horário, etc;
 Alertas personalizados para participantes;
 
 Feedback e Avaliações:
@@ -32,6 +32,7 @@ Avaliações de participantes sobre a organização e o conteúdo;
 ----------------------------------
 
 Divulgação:
+
 Integração com redes sociais para promoção de eventos.
 Criação de páginas de eventos compartilháveis.
 

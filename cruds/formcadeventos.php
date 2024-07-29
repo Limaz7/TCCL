@@ -2,6 +2,14 @@
 
 session_start();
 
+require_once "conexao.php";
+$conexao = conectar();
+
+$sql = "SELECT * FROM eventos";
+$result = executarSQL($conexao, $sql);
+
+$dados = mysqli_fetch_assoc($result);
+
 ?>
 
 <!DOCTYPE html>
@@ -15,8 +23,9 @@ session_start();
     
     <h1> Cadastrar eventos </h1>
 
-    <form method="post" action="../cadastroeven.php" enctype="multipart/form-data">
+    <form method="post" action="cadastroeven.php" enctype="multipart/form-data">
         
+    <input type="hidden" name="idEven" value="<?php echo $dados['id_eventos']; ?>">
     <input type="hidden" name="nomeEmp" value="<?php echo $_SESSION['user'][1]; ?>">
     <p>Nome do evento: <input type="text" name="nomeEven" required></p>
     <p>Descrição: <textarea type="text" name="desc" required></textarea></p>

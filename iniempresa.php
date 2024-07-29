@@ -22,7 +22,7 @@ session_start();
     Bem vindo! <?php echo $_SESSION['user'][1]; ?>
 
     <h4>
-        <p><a href="cruds/crudeventos/formcadeventos.php">Cadastrar eventos</a></p>
+        <p><a href="cruds/formcadeventos.php">Cadastrar eventos</a></p>
     </h4>
 
     <a href="logout.php">Sair</a>
@@ -35,8 +35,12 @@ session_start();
         echo '<h4>' . 'Evento: ' . $dados['nome_evento'] . '</h4>';
         echo '<h4>' . 'Descrição: ' . $dados['descricao'] . '</h4>';
         echo '<h4>' . 'data: ' . $dados['data'] . '</h4>';
-        echo '<a href="cruds/crudeventos/formedit?id_eventos='.$dados['id_eventos'].'">Editar evento</a><br>';
-
+        if ($_SESSION['user'][1] == $dados['nome_empresa']) {
+            echo '<p><a href="cruds/formediteven?id_eventos=' . $dados['id_eventos'] . '">
+        Editar evento</a></p>';
+            echo '<p><a href="cruds/excluireven?id_eventos=' . $dados['id_eventos'] . '">
+        Excluir evento</a></p>';
+        }
         echo "<img src='cruds/imagens/$arq' width='100px' height='100px'><br>";
     }
     ?>

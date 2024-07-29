@@ -5,7 +5,7 @@ function conectar()
 
     require_once "config.php";
 
-    $mysqli = mysqli_connect(
+    $conexao = mysqli_connect(
 
         $config['host'],
         $config['user'], 
@@ -14,7 +14,7 @@ function conectar()
     
     );
 
-    if ($mysqli === false) {
+    if ($conexao === false) {
 
         echo "Erro ao conectar com o banco de dados. N° do erro:" .
             mysqli_connect_errno() . " " . 
@@ -22,17 +22,17 @@ function conectar()
         die();
     }
 
-    return $mysqli;
+    return $conexao;
 }
 
-function executarSQL($mysqli, $sql)
+function executarSQL($conexao, $sql)
 {
 
-    $resultado = mysqli_query($mysqli, $sql);
+    $resultado = mysqli_query($conexao, $sql);
 
     if ($resultado === false) {
 
-        echo "Erro ao excutar o comando sql" . ' ' . mysqli_errno($mysqli) . ' ' . ':' . ' ' . mysqli_error($mysqli);
+        echo "Erro ao excutar o comando sql" . ' ' . mysqli_errno($conexao) . ' ' . ':' . ' ' . mysqli_error($conexao);
 
         die ();
     }

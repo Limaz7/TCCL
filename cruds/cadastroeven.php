@@ -1,6 +1,13 @@
 <?php
+
+session_start();
+session_regenerate_id(true);
+
 include "conexao.php";
 $conecta = conectar();
+
+$idEven = $_POST['idEven'];
+$_SESSION['even'][0] = $idEven;
 
 $nomeEven = $_POST["nomeEven"];
 $nomeEmp = $_POST['nomeEmp'];
