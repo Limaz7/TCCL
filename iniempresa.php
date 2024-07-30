@@ -7,6 +7,7 @@ $sql = "SELECT * FROM eventos";
 $result = executarSQL($conexao, $sql);
 
 session_start();
+session_regenerate_id(true);
 
 ?>
 <!DOCTYPE html>
