@@ -12,9 +12,11 @@ $sql1 = "SELECT e.imagem FROM eventos e WHERE id_eventos = '$id'";
 $result = executarSQL($conexao, $sql1);
 $img = mysqli_fetch_assoc($result);
 
+$sql_endere = "DELETE FROM endereco WHERE id_eventos = '$id'";
+executarSQL($conexao, $sql_endere);   
 
-$sql2 = "DELETE FROM eventos WHERE id_eventos = '$id'";
-executarSQL($conexao, $sql2);   
+$sql_even = "DELETE FROM eventos WHERE id_eventos = '$id'";
+executarSQL($conexao, $sql_even);   
 unlink($pastaImg . $img['imagem']);
 
 header('location: ../iniempresa.php');

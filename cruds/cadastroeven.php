@@ -6,32 +6,23 @@ session_regenerate_id(true);
 include "conexao.php";
 $conecta = conectar();
 
-$idEven = $_POST['idEven'];
-$_SESSION['even'][0] = $idEven;
-
 $nomeEven = $_POST["nomeEven"];
 $nomeEmp = $_POST['nomeEmp'];
 $desc = $_POST["desc"];
 $data = $_POST["data"];
-
-// Definindo a pasta de destino
-$pastaDestino = "imagens/";
-
-// Pegar o nome do arquivo
 $foto = $_FILES['arquivo'];
+$cep = $_POST['cep'];
+$rua = $_POST["rua"];
+$numImo = $_POST["numImo"];
+$bairro = $_POST["bairro"];
+$cidade = $_POST["cidade"];
+$estado = $_POST["estado"];
 
-// Nome da foto
-$nome_foto = $foto['name'];
-
-$novo_nome_ft = uniqid();
-
-$extensao = strtolower(pathinfo($_FILES['arquivo']['name'], PATHINFO_EXTENSION));
-
+$extensao = strtolower(pathinfo($foto['name'], PATHINFO_EXTENSION));
 
 if ($_FILES['arquivo']['size'] > 10000000) {
     echo "O arquivo é maior que 10Mb. 
-        Escolha outra foto";
-
+    Escolha outra foto";
     die();
 }
 
@@ -41,25 +32,27 @@ if (
     && $extensao != "svg"
 ) {
     echo "Isso nao é uma imagem";
-    exit;
+    die();
 } else {
-    $mover_foto = move_uploaded_file($foto['tmp_name'], $pastaDestino . $novo_nome_ft . "." . $extensao);
 
-    if ($mover_foto) {
+    if ($foto['error'] == 0) {
+        $pastaDestino = "imagens/";
+        $novo_nome_ft = uniqid() . "." . $extensao;
+        $move_foto = move_uploaded_file($foto['tmp_name'], $pastaDestino . $novo_nome_ft);
+    }
 
-        //criar o caminho.
-        $caminho = $novo_nome_ft . "." . $extensao;
+    if ($conecta->errno) {
+        die("erro" . $conecta->error);
+    } else {
+        header("location: ../iniempresa.php");
     }
 }
 
-if ($conecta->errno) {
-    die("erro" . $conecta->error);
-} else {
-    header("location: ../iniempresa.php");
-}
+$sql_even = "INSERT INTO eventos(nome_evento, nome_empresa, descricao, data, imagem) 
+                VALUES ('$nomeEven', '$nomeEmp', '$desc', '$data', '$novo_nome_ft')";
+executarSQL($conecta, $sql_even);
+$id_evento = mysqli_insert_id($conecta);
 
-
-
-$sql = "INSERT INTO eventos(nome_evento, nome_empresa, descricao, data, imagem) VALUES ('$nomeEven', '$nomeEmp', '$desc', '$data', '$caminho')";
-
-executarSQL($conecta, $sql);
+$sql_endere = "INSERT INTO endereco (id_eventos, cep, rua, numero, bairro, cidade, estado) 
+                VALUES ('$id_evento', '$cep', '$rua', '$numImo', '$bairro', '$cidade', '$estado')";
+executarSQL($conecta, $sql_endere);
