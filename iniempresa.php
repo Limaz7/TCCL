@@ -10,6 +10,7 @@ $sql1 = "SELECT * FROM endereco";
 $result1 = executarSQL($conexao, $sql1);
 
 session_start();
+session_regenerate_id(true);
 
 ?>
 <!DOCTYPE html>
