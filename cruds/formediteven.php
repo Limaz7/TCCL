@@ -7,11 +7,15 @@ $id = $_GET['id_eventos'];
 include "conexao.php";
 $conexao = conectar();
 
-$sql = "SELECT * FROM eventos WHERE id_eventos = '$id'";
+$sql_even = "SELECT * FROM eventos WHERE id_eventos = '$id'";
 
-$resultado = executarSQL($conexao, $sql);
+$sql_endere = "SELECT * FROM endereco WHERE id_eventos = '$id'";
+
+$resultado = executarSQL($conexao, $sql_even);
+$result = executarSQL($conexao, $sql_endere);
 
 $dados = mysqli_fetch_assoc($resultado);
+$dados1 = mysqli_fetch_assoc($result);
 
 ?>
 
@@ -37,6 +41,12 @@ $dados = mysqli_fetch_assoc($resultado);
         Descrição: <input type="text" value="<?php echo $dados['descricao']; ?>" name="desc" /><br>
         Imagem: <input type="file" value="<?php echo $dados['imagem']; ?>" name="img" /> <br>
         Data: <input type="datetime-local" value="<?php echo $dados['data']; ?>" name="data" /> <br>
+        CEP: <input type="datetime-local" value="<?php echo $dados1['cep']; ?>" name="data" /> <br>
+        Número do imóvel: <input type="datetime-local" value="<?php echo $dados1['numero']; ?>" name="data" /> <br>
+        Rua: <input type="datetime-local" value="<?php echo $dados1['rua']; ?>" name="data" /> <br>
+        Bairro: <input type="datetime-local" value="<?php echo $dados1['bairro']; ?>" name="data" /> <br>
+        Cidade: <input type="datetime-local" value="<?php echo $dados1['cidade']; ?>" name="data" /> <br>
+        Estado: <input type="datetime-local" value="<?php echo $dados1['estado']; ?>" name="estado" /> <br>
 
         <p><input type="submit" value="Enviar"></p>
     </form>

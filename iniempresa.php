@@ -10,6 +10,8 @@ $sql1 = "SELECT * FROM endereco";
 $result1 = executarSQL($conexao, $sql1);
 
 session_start();
+
+
 session_regenerate_id(true);
 
 ?>
@@ -17,13 +19,16 @@ session_regenerate_id(true);
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <?php  include_once "headers.php" ?>
+    
+
+
     <title>Inicio</title>
 </head>
 
 <body>
-    Bem vindo! <?php echo $_SESSION['user'][1]; ?>
+    Bem vindo! <?=  $_SESSION['user'][1]; ?>
 
     <h4>
         <p><a href="cruds/formcadeventos.php">Cadastrar eventos</a></p>
@@ -34,6 +39,7 @@ session_regenerate_id(true);
     <?php
     while ($dados = mysqli_fetch_assoc($result) and $dados1 = mysqli_fetch_assoc($result1)) {
         $arq = $dados['imagem'];
+       
 
         echo '<h4>' . 'Empresa organizadora: </h4>' .  $dados['nome_empresa'];
         echo '<h4>' . 'Evento: ' . $dados['nome_evento'] . '</h4>';
