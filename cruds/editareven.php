@@ -16,7 +16,6 @@ $nomeEven = $_POST["nome"];
 $desc = $_POST["desc"];
 $img = $_FILES["img"];
 $data = $_POST["data"];
-var_dump($img);
 
 $destino = "imagens/";
 

@@ -15,8 +15,7 @@ $dados = mysqli_fetch_assoc($result);
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?= include_once "../headers.php" ?>
     <title>Cadastrar eventos</title>
 </head>
 <body>
@@ -24,6 +23,7 @@ $dados = mysqli_fetch_assoc($result);
     <h1> Cadastrar eventos </h1>
 
     <form method="post" action="cadastroeven.php" enctype="multipart/form-data">
+
         
     <input type="hidden" name="nomeEmp" value="<?php echo $_SESSION['user'][1]; ?>">
     <p>Nome do evento: <input type="text" name="nomeEven" required></p>

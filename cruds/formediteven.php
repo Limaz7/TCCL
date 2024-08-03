@@ -24,8 +24,7 @@ $dados1 = mysqli_fetch_assoc($result);
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?= include_once "../headers.php" ?>
     <title>Editar eventos</title>
 </head>
 
@@ -41,12 +40,12 @@ $dados1 = mysqli_fetch_assoc($result);
         Descrição: <input type="text" value="<?php echo $dados['descricao']; ?>" name="desc" /><br>
         Imagem: <input type="file" value="<?php echo $dados['imagem']; ?>" name="img" /> <br>
         Data: <input type="datetime-local" value="<?php echo $dados['data']; ?>" name="data" /> <br>
-        CEP: <input type="datetime-local" value="<?php echo $dados1['cep']; ?>" name="data" /> <br>
-        Número do imóvel: <input type="datetime-local" value="<?php echo $dados1['numero']; ?>" name="data" /> <br>
-        Rua: <input type="datetime-local" value="<?php echo $dados1['rua']; ?>" name="data" /> <br>
-        Bairro: <input type="datetime-local" value="<?php echo $dados1['bairro']; ?>" name="data" /> <br>
-        Cidade: <input type="datetime-local" value="<?php echo $dados1['cidade']; ?>" name="data" /> <br>
-        Estado: <input type="datetime-local" value="<?php echo $dados1['estado']; ?>" name="estado" /> <br>
+        CEP: <input type="number" value="<?php echo $dados1['cep']; ?>" name="data" /> <br>
+        Número do imóvel: <input type="number" value="<?php echo $dados1['numero']; ?>" name="data" /> <br>
+        Rua: <input type="text" value="<?php echo $dados1['rua']; ?>" name="data" /> <br>
+        Bairro: <input type="text" value="<?php echo $dados1['bairro']; ?>" name="data" /> <br>
+        Cidade: <input type="text" value="<?php echo $dados1['cidade']; ?>" name="data" /> <br>
+        Estado: <input type="text" value="<?php echo $dados1['estado']; ?>" name="estado" /> <br>
 
         <p><input type="submit" value="Enviar"></p>
     </form>

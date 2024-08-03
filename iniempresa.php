@@ -19,16 +19,14 @@ session_regenerate_id(true);
 <html lang="pt-br">
 
 <head>
-   
-    <?php  include_once "headers.php" ?>
-    
 
+    <?php include_once "headers.php" ?>
 
     <title>Inicio</title>
 </head>
 
 <body>
-    Bem vindo! <?=  $_SESSION['user'][1]; ?>
+    Bem vindo! <?= $_SESSION['user'][1]; ?>
 
     <h4>
         <p><a href="cruds/formcadeventos.php">Cadastrar eventos</a></p>
@@ -39,25 +37,54 @@ session_regenerate_id(true);
     <?php
     while ($dados = mysqli_fetch_assoc($result) and $dados1 = mysqli_fetch_assoc($result1)) {
         $arq = $dados['imagem'];
-       
 
-        echo '<h4>' . 'Empresa organizadora: </h4>' .  $dados['nome_empresa'];
-        echo '<h4>' . 'Evento: ' . $dados['nome_evento'] . '</h4>';
-        echo '<h4>' . 'Descrição: ' . $dados['descricao'] . '</h4>';
-        echo '<h4>' . 'data: ' . $dados['data'] . '</h4>';
-        echo '<h4>' . 'CEP: ' . $dados1['cep'] . '</h4>';
-        echo '<h4>' . 'Número do imóvel: ' . $dados1['numero'] . '</h4>';
-        echo '<h4>' . 'Rua: ' . $dados1['rua'] . '</h4>';
-        echo '<h4>' . 'Bairro: ' . $dados1['bairro'] . '</h4>';
-        echo '<h4>' . 'Cidade: ' . $dados1['cidade'] . '</h4>';
-        echo '<h4>' . 'Estado: ' . $dados1['estado'] . '</h4>';
-        if ($_SESSION['user'][1] == $dados['nome_empresa']) {
-            echo '<p><a href="cruds/formediteven?id_eventos=' . $dados['id_eventos'] . '">
-        Editar evento</a></p>';
-            echo '<p><a href="cruds/excluireven?id_eventos=' . $dados['id_eventos'] . '">
-        Excluir evento</a></p>';
-        }
-        echo "<img src='cruds/imagens/$arq' width='100px' height='100px'><br>";
+    ?>
+
+        <table class="centered">
+            <thead>
+                <tr>
+                    <th>Imagem</th>
+                    <th>Empresa organizadora</th>
+                    <th>Evento</th>
+                    <th>Descrição</th>
+                    <th>Data</th>
+                    <th>CEP</th>
+                    <th>Número do imóvel</th>
+                    <th>Rua</th>
+                    <th>Bairro</th>
+                    <th>Cidade</th>
+                    <th>Estado</th>
+                    <th colspan="2">Opções</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <?php 
+                    echo "<td><img src='cruds/imagens/$arq' width='100px' height='100px'><br></td>";
+                    ?>
+                    <td><?= $dados['nome_empresa']; ?></td>
+                    <td><?= $dados['nome_evento']; ?></td>
+                    <td><?= $dados['descricao']; ?></td>
+                    <td><?= $dados['data']; ?></td>
+                    <td><?= $dados1['cep']; ?></td>
+                    <td><?= $dados1['numero']; ?></td>
+                    <td><?= $dados1['rua']; ?></td>
+                    <td><?= $dados1['bairro']; ?></td>
+                    <td><?= $dados1['cidade']; ?></td>
+                    <td><?= $dados1['estado']; ?></td>
+                    <?php
+                    if ($_SESSION['user'][1] == $dados['nome_empresa']) {
+                        echo '<td><p><a href="cruds/formediteven?id_eventos=' . $dados['id_eventos'] . '">
+                                Editar evento</a></p></td>';
+                        echo '<td><p><a href="cruds/excluireven?id_eventos=' . $dados['id_eventos'] . '">
+                                Excluir evento</a></p></td>';
+                    }
+                    ?>
+                </tr>
+            </tbody>
+        </table>
+    <?php
     }
     ?>
 
