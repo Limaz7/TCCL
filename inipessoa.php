@@ -1,8 +1,11 @@
 <?php
-
 session_start();
-
 session_regenerate_id(true);
+
+if (!isset($_SESSION['user'][0])) {
+    header("location:../index.php");
+    die();
+}
 
 include_once "cruds/conexao.php";
 $conexao = conectar();

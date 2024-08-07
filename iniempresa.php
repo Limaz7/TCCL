@@ -20,7 +20,7 @@ session_regenerate_id(true);
 
 <head>
 
-    <?php include_once "headers.php" ?>
+    <?php require "headers.php" ?>
 
     <title>Inicio</title>
 </head>

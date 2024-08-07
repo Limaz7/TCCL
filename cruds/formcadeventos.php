@@ -15,7 +15,7 @@ $dados = mysqli_fetch_assoc($result);
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <?= include_once "../headers.php" ?>
+    <?php include "../headers.php" ?>
     <title>Cadastrar eventos</title>
 </head>
 <body>

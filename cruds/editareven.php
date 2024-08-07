@@ -16,6 +16,12 @@ $nomeEven = $_POST["nome"];
 $desc = $_POST["desc"];
 $img = $_FILES["img"];
 $data = $_POST["data"];
+$cep = $_POST["cep"];
+$rua = $_POST["rua"];
+$numImo = $_POST["numImo"];
+$bairro = $_POST["bairro"];
+$cidade = $_POST["cidade"];
+$estado = $_POST["estado"];
 
 $destino = "imagens/";
 
@@ -24,6 +30,11 @@ if ($_FILES['img']['name'] == null) {
             data = '$data' WHERE id_eventos = '$id'";
 
     executarSQL($conexao, $sql);
+
+    $sql_endere = "UPDATE endereco SET cep = '$cep', rua = '$rua', numero = '$numImo',
+            bairro = '$bairro', cidade = '$cidade', estado = '$estado' 
+            WHERE id_eventos = '$id'";
+    executarSQL($conexao, $sql_endere);
 
     header('location: ../iniempresa.php');
     die();
