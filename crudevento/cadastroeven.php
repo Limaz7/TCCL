@@ -3,7 +3,7 @@
 session_start();
 session_regenerate_id(true);
 
-include "conexao.php";
+include "../conexao.php";
 $conecta = conectar();
 
 $nomeEven = $_POST["nomeEven"];

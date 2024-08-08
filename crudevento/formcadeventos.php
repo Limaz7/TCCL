@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once "conexao.php";
+require_once "../conexao.php";
 $conexao = conectar();
 
 $sql = "SELECT * FROM eventos";

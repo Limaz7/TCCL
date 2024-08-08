@@ -4,7 +4,7 @@ session_start();
 
 $id = $_GET['id_eventos'];
 
-include "conexao.php";
+include "../conexao.php";
 $conexao = conectar();
 
 $sql_even = "SELECT * FROM eventos WHERE id_eventos = '$id'";

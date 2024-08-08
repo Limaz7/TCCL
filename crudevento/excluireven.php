@@ -2,7 +2,7 @@
 
 $id = $_GET['id_eventos'];
 
-include "conexao.php";
+include "../conexao.php";
 $conexao = conectar();
 
 $pastaImg = "imagens/";
@@ -22,8 +22,8 @@ unlink($pastaImg . $img['imagem']);
 header('location: ../iniempresa.php');
 
 
-if($conecta->error){
-    die("Erro".$conecta->error);
+if($conexao->error){
+    die("Erro" . $conexao->error);
 } else {
     header("location: ../iniempresa.php");
 }

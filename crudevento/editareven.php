@@ -2,11 +2,11 @@
 session_start();
 session_regenerate_id(true);
 
-include "conexao.php";
+include "../conexao.php";
 $conexao = conectar();
 
-if (!isset($_SESSION['user'][0])) {
-    header("location:../index.php");
+if (!isset($_SESSION)) {
+    header("location: ../index.php");
     die();
 }
 
@@ -77,8 +77,8 @@ if ($_FILES['img']['name'] == null) {
     }
 }
 
-if ($conecta->error) {
-    die("erro" . $conecta->error);
+if ($conexao->error) {
+    die("erro" . $conexao->error);
 } else {
     header("location: ../iniempresa.php");
 }
