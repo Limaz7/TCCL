@@ -1,6 +1,6 @@
 <?php
 
-include_once "conexao.php";
+include_once "../conexao.php";
 $conexao = conectar();
 
 $eoq = $_POST['eoq'];

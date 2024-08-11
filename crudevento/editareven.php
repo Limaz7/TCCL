@@ -23,12 +23,11 @@ $bairro = $_POST["bairro"];
 $cidade = $_POST["cidade"];
 $estado = $_POST["estado"];
 
-$destino = "imagens/";
+$extensao = strtolower(pathinfo($img['name'], PATHINFO_EXTENSION));
 
 if ($_FILES['img']['name'] == null) {
     $sql = "UPDATE eventos SET nome_evento = '$nomeEven', descricao = '$desc', 
             data = '$data' WHERE id_eventos = '$id'";
-
     executarSQL($conexao, $sql);
 
     $sql_endere = "UPDATE endereco SET cep = '$cep', rua = '$rua', numero = '$numImo',
@@ -38,44 +37,32 @@ if ($_FILES['img']['name'] == null) {
 
     header('location: ../iniempresa.php');
     die();
-} else {
-
-    if ($img['error'] != 0) {
-        echo "Falha ao receber a foto do evento! <p><a href = \"formediteven.php\">Tente novamente</a></p>";
-        die();
-    } else {
+}
 
 
-        $nome_img = $img['name'];
+if (
+    $extensao != "jpg" && $extensao != "png"
+    && $extensao != "gif" && $extensao != "jfif"
+    && $extensao != "svg"
+) {
+    echo "Isso nao é uma imagem! <a href='formediteven.php'>Voltar</a>";
+    die();
+}
 
-        $novo_nome_img = uniqid();
 
-        $extensao = strtolower(pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION));
-    }
-    if (
-        $extensao != "png" and $extensao != "jpeg" and
-        $extensao != "gif" and $extensao != "jfif" and
-        $extensao != "svg"  and $extensao != "jpg"
-    ) {
-        echo "Isso não é uma imagem! Tente novamente: <p><a href = \"formediteven.php\">Voltar</a></p>";
-    } else {
+if ($img['error'] == 0) {
+    $pastaDestino = "../imagens/";
+    $novo_nome_ft = uniqid() . "." . $extensao;
+    $trocar_img = move_uploaded_file($img['tmp_name'],  $pastaDestino . $novo_nome_ft);
 
-        $trocar_img = move_uploaded_file($img['tmp_name'], $destino . $novo_nome_img . "." . $extensao);
-
-        if ($trocar_img) {
-
-            $caminho = $novo_nome_img . "." . $extensao;
-
-            $sql = "UPDATE eventos SET imagem = '$caminho' WHERE id_eventos = '$id'";
-
-            executarSQL($conexao, $sql);
-
-            unlink($destino . $antfoto);
-
-            header("location: ../iniempresa.php");
-        }
+    if ($trocar_img) {
+        $sql = "UPDATE eventos SET imagem = '$novo_nome_ft' WHERE id_eventos='$id'";
+        executarSQL($conexao, $sql);
+        unlink($pastaDestino . $antfoto);
+        header("location: ../iniempresa.php");
     }
 }
+
 
 if ($conexao->error) {
     die("erro" . $conexao->error);

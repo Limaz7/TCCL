@@ -1,8 +1,7 @@
 <?php
 
 session_start();
-
-$id = $_GET['id_eventos'];
+$id = $_SESSION['evento'][0];
 
 include "../conexao.php";
 $conexao = conectar();
@@ -37,7 +36,7 @@ $dados1 = mysqli_fetch_assoc($result);
     <form method="post" action="editareven.php" enctype="multipart/form-data">
 
         <input type="hidden" value="<?php echo $dados['imagem']; ?>" name="antfoto" />
-        <input type="hidden" value="<?php echo $dados['id_eventos']; ?>" name="id" />
+        <input type="hidden" value="<?php echo $_SESSION['evento'][0]; ?>" name="id" />
         Nome: <input type="text" value="<?php echo $dados['nome_evento']; ?>" name="nome" /> <br>
         Descrição: <input type="text" value="<?php echo $dados['descricao']; ?>" name="desc" /><br>
         Imagem: <input type="file" value="<?php echo $dados['imagem']; ?>" name="img" /> <br>

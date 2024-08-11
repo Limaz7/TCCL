@@ -1,6 +1,6 @@
 <?php
 
-include "cruds/conexao.php";
+include "conexao.php";
 $conexao = conectar();
 
 session_start();

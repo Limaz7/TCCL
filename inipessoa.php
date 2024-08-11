@@ -2,7 +2,7 @@
 session_start();
 session_regenerate_id(true);
 
-if (!isset($_SESSION['user'][0])) {
+if (!isset($_SESSION)) {
     header("location: index.php");
     die();
 }
@@ -10,11 +10,9 @@ if (!isset($_SESSION['user'][0])) {
 include_once "conexao.php";
 $conexao = conectar();
 
-$sql = "SELECT * FROM eventos";
+$sql = "SELECT e.*, en.* FROM eventos e 
+        JOIN endereco en ON e.id_eventos= en.id_eventos";
 $result = executarSQL($conexao, $sql);
-
-$sql_endere = "SELECT * FROM endereco";
-$result1 = executarSQL($conexao, $sql_endere);
 
 ?>
 
@@ -28,19 +26,18 @@ $result1 = executarSQL($conexao, $sql_endere);
 
 <body>
 
-
-
     <a href="crudperfil/vizuperfil.php"> Vizualizar perfil </a> <br><br>
 
     <?php
 
     echo '<a href="logout.php">Sair</a>';
 
-    while ($dados = mysqli_fetch_assoc($result) and $dados1 = mysqli_fetch_assoc($result1)) {
+    while ($dados = mysqli_fetch_assoc($result)) {
         $arq = $dados['imagem'];
 
     ?>
-        <table class="centered">
+
+        <table>
             <thead>
                 <tr>
                     <th>Imagem</th>
@@ -54,31 +51,31 @@ $result1 = executarSQL($conexao, $sql_endere);
                     <th>Bairro</th>
                     <th>Cidade</th>
                     <th>Estado</th>
-                    <th>Adcionar Comentario</th>
-                    <th>Comentario</th>
+                    <th>Adicionar comentario</th>
+                    <th>Vizualizar comentario</th>
                 </tr>
             </thead>
 
             <tbody>
                 <tr>
-                    <?php
-                    echo "<td><img src='cruds/imagens/$arq' width='100px' height='100px'><br></td>";
-                    ?>
+                    <td><img src='imagens/<?= $arq ?>' width='100px' height='100px'><br></td>
                     <td><?= $dados['nome_empresa']; ?></td>
                     <td><?= $dados['nome_evento']; ?></td>
                     <td><?= $dados['descricao']; ?></td>
                     <td><?= $dados['data']; ?></td>
-                    <td><?= $dados1['cep']; ?></td>
-                    <td><?= $dados1['numero']; ?></td>
-                    <td><?= $dados1['rua']; ?></td>
-                    <td><?= $dados1['bairro']; ?></td>
-                    <td><?= $dados1['cidade']; ?></td>
-                    <td><?= $dados1['estado']; ?></td>
-                    <td><form action="" method="post">
-                    <br><textarea name="" id=""></textarea><br>
-                    <input type="submit" value="Enviar"></td><h4>Adicionar comentario:</h4><br>
-                    </form>
-            <?php } ?>
+                    <td><?= $dados['cep']; ?></td>
+                    <td><?= $dados['numero']; ?></td>
+                    <td><?= $dados['rua']; ?></td>
+                    <td><?= $dados['bairro']; ?></td>
+                    <td><?= $dados['cidade']; ?></td>
+                    <td><?= $dados['estado']; ?></td>
+                    <td>
+                        <form action="adccoment" method="post">
+                            <br><textarea name="coment"></textarea><br>
+                            <input type="submit" value="Enviar">
+                        </form>
+                    </td>
+                <?php } ?>
 
 </body>
 

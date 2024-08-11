@@ -20,32 +20,35 @@ $estado = $_POST["estado"];
 
 $extensao = strtolower(pathinfo($foto['name'], PATHINFO_EXTENSION));
 
-if ($_FILES['arquivo']['size'] > 10000000) {
+if ($foto['size'] > 10000000) {
     echo "O arquivo é maior que 10Mb. 
     Escolha outra foto";
     die();
 }
 
+if ($foto['error'] != 0){
+    echo "Erro ao receber a imagem do evento! Tente novamente: <a href='formcadeventos.php'>Voltar</a>";
+    die();
+}
 if (
     $extensao != "jpg" && $extensao != "png"
     && $extensao != "gif" && $extensao != "jfif"
     && $extensao != "svg"
 ) {
-    echo "Isso nao é uma imagem";
+    echo "Isso nao é uma imagem! <a href='formcadeventos.php'>Voltar</a>";
     die();
+}
+
+if ($foto['error'] == 0) {
+    $pastaDestino = "../imagens/";
+    $novo_nome_ft = uniqid() . "." . $extensao;
+    $move_foto = move_uploaded_file($foto['tmp_name'], $pastaDestino . $novo_nome_ft);
+}
+
+if ($conecta->errno) {
+    die("erro" . $conecta->error);
 } else {
-
-    if ($foto['error'] == 0) {
-        $pastaDestino = "imagens/";
-        $novo_nome_ft = uniqid() . "." . $extensao;
-        $move_foto = move_uploaded_file($foto['tmp_name'], $pastaDestino . $novo_nome_ft);
-    }
-
-    if ($conecta->errno) {
-        die("erro" . $conecta->error);
-    } else {
-        header("location: ../iniempresa.php");
-    }
+    header("location: ../iniempresa.php");
 }
 
 $sql_even = "INSERT INTO eventos(nome_evento, nome_empresa, descricao, data, imagem) 

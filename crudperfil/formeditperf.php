@@ -16,6 +16,7 @@ $dados = mysqli_fetch_assoc($result);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/style.css" rel="stylesheet">
     <title>Editar perfil</title>
 </head>
 <body>
@@ -27,7 +28,8 @@ $dados = mysqli_fetch_assoc($result);
         </label> <br> <br>
         <label for="email">
             Email: <input type="text" name="email" id="email" value="<?= $dados['email']; ?>">
-        </label> <br> <br>
+        </label> <br> 
+        <p><a href="excluirperfil.php">Excluir seu perfil</a></p>
         <input type="submit" value="Enviar">
     </form>
 </body>

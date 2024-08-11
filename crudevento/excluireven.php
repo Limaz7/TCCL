@@ -5,7 +5,7 @@ $id = $_GET['id_eventos'];
 include "../conexao.php";
 $conexao = conectar();
 
-$pastaImg = "imagens/";
+$pastaImg = "../imagens/";
 
 
 $sql1 = "SELECT e.imagem FROM eventos e WHERE id_eventos = '$id'";

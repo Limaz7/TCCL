@@ -1,17 +1,13 @@
 <?PHP
 
-include_once "cruds/conexao.php";
+include_once "conexao.php";
 $conexao = conectar();
 
-$sql = "SELECT * FROM eventos";
+$sql = "SELECT e.*, en.* FROM eventos e 
+        JOIN endereco en ON e.id_eventos= en.id_eventos";
 $result = executarSQL($conexao, $sql);
 
-$sql1 = "SELECT * FROM endereco";
-$result1 = executarSQL($conexao, $sql1);
-
 session_start();
-
-
 session_regenerate_id(true);
 
 ?>
@@ -29,18 +25,19 @@ session_regenerate_id(true);
     Bem vindo! <?= $_SESSION['user'][1]; ?>
 
     <h4>
-        <p><a href="cruds/formcadeventos.php">Cadastrar eventos</a></p>
+        <p><a href="crudevento/formcadeventos.php">Cadastrar eventos</a></p>
     </h4>
 
     <a href="logout.php">Sair</a>
 
     <?php
-    while ($dados = mysqli_fetch_assoc($result) and $dados1 = mysqli_fetch_assoc($result1)) {
+    while ($dados = mysqli_fetch_assoc($result)) {
+        $_SESSION['evento'][0] = $dados['id_eventos'];
         $arq = $dados['imagem'];
 
     ?>
 
-        <table class="centered">
+        <table>
             <thead>
                 <tr>
                     <th>Imagem</th>
@@ -60,24 +57,24 @@ session_regenerate_id(true);
 
             <tbody>
                 <tr>
-                    <?php 
-                    echo "<td><img src='cruds/imagens/$arq' width='100px' height='100px'><br></td>";
-                    ?>
+
+                    <td><img src='imagens/<?= $arq ?>' width='100px' height='100px'><br></td>
+
                     <td><?= $dados['nome_empresa']; ?></td>
                     <td><?= $dados['nome_evento']; ?></td>
                     <td><?= $dados['descricao']; ?></td>
                     <td><?= $dados['data']; ?></td>
-                    <td><?= $dados1['cep']; ?></td>
-                    <td><?= $dados1['numero']; ?></td>
-                    <td><?= $dados1['rua']; ?></td>
-                    <td><?= $dados1['bairro']; ?></td>
-                    <td><?= $dados1['cidade']; ?></td>
-                    <td><?= $dados1['estado']; ?></td>
+                    <td><?= $dados['cep']; ?></td>
+                    <td><?= $dados['numero']; ?></td>
+                    <td><?= $dados['rua']; ?></td>
+                    <td><?= $dados['bairro']; ?></td>
+                    <td><?= $dados['cidade']; ?></td>
+                    <td><?= $dados['estado']; ?></td>
                     <?php
                     if ($_SESSION['user'][1] == $dados['nome_empresa']) {
-                        echo '<td><p><a href="cruds/formediteven?id_eventos=' . $dados['id_eventos'] . '">
+                        echo '<td><p><a href="crudevento/formediteven?id_eventos=' . $_SESSION['evento'][0] . '">
                                 Editar evento</a></p></td>';
-                        echo '<td><p><a href="cruds/excluireven?id_eventos=' . $dados['id_eventos'] . '">
+                        echo '<td><p><a href="crudevento/excluireven?id_eventos=' . $dados['id_eventos'] . '">
                                 Excluir evento</a></p></td>';
                     }
                     ?>
