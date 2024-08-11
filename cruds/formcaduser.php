@@ -8,26 +8,30 @@
     <title>Cadastro</title>
 </head>
 
-<body>
-    <form action="cadastrouser.php" method="post">
-
-        <h1> Cadastre-se </h1>
-
-        Empresa: <input type="radio" name="eoq" value="1">
-        Pessoa: <input type="radio" name="eoq" value="0"> <br><br>
-        <label for="nome"> Nome:
-            <input type="text" name="nome"> <br><br>
-        </label>
-        <label for="email"> Email:
-            <input type="text" name="email"> <br><br>
-        </label>
-        <label for="senha"> Senha:
-            <input type="password" name="senha"> <br><br>
-        </label>
-
-        <input type="submit" value="Enviar">
-
-    </form>
+<body class="bodyform">
+    <div class="boxcad">
+        <form action="cadastrouser.php" method="post">
+            <h2> Cadastre-se </h2>
+            Empresa: <input type="radio" name="eoq" value="1">
+            Pessoa: <input type="radio" name="eoq" value="0">
+            <div class="boxinput">
+                <input type="text" name="nome" required>
+                <span>Nome</span>
+                <i></i>
+            </div>
+            <div class="boxinput">
+                <input type="text" name="email" required>
+                <span>Email</span>
+                <i></i>
+            </div>
+            <div class="boxinput">
+                <input type="password" name="senha" required>
+                <span>Senha</span>
+                <i></i>
+            </div>
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
 </body>
 
 </html>

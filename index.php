@@ -6,21 +6,33 @@
     <title>Login</title>
 </head>
 
-<body>
-    <h1> Bem vindo! Faça o login.</h1>
-    <form action="login.php" method="post">
-        <label for="nome">
-            Nome: <input type="text" name="nome" > <br>
-        </label>
-        <label for="email">
-            Email: <input type="text" name="email"> <br>
-        </label>
-        <label for="senha">
-            Senha: <input type="password" name="senha"> <br> <br>
-        </label>
-        <input type="submit" value="Enviar"> <br><br>
-        <a href="cruds/formcaduser.php">Não tem conta? cadastre-se! </a>
-    </form>
+<body class="bodyform">
+    <div class="boxlogin">
+        <form action="login.php" method="post">
+            <h2> Bem-vindo! Faça o login.</h2>
+            <div class="boxinput">
+                <input type="text" name="nome" required>
+                <span>Nome</span>
+                <i></i>
+            </div>
+            <div class="boxinput">
+                <input type="text" name="email" required>
+                <span>Email</span>
+                <i></i>
+            </div>
+            <div class="boxinputsenha">
+                <input type="password" name="senha" id="password" required>
+                <span>Senha</span>
+                <i></i>
+            </div>
+            <div id="icon" onclick="showHide()"></div>
+            <div class="links">
+                <a href="cruds/formcaduser.php">Não tem conta? cadastre-se!</a>
+            </div>
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+    <script src="script/script.js"></script>
 </body>
 
 </html>
