@@ -87,7 +87,7 @@ td {
 
 .boxlogin form .boxinputsenha {
     position: relative;
-    width: 250px;    
+    width: 250px;
     margin-top: 35px;
 }
 
@@ -167,7 +167,7 @@ td {
     cursor: pointer;
 }
 
-.boxlogin form #icon.hide{
+.boxlogin form #icon.hide {
     background: url(../imagens/close.png);
     background-size: cover;
 }
@@ -310,4 +310,45 @@ td {
 
 .boxcad form input[type="submit"]:active {
     opacity: 0.8;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+}
+
+.card{
+    margin: 10px;
+    background-color: #1c1c1c;
+    color: white;
+    width: 300px;
+    height: auto;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.card .text-container>h1{
+    font-size: 25px;
+    padding-top: 10px;
+}
+
+.card .text-container>h2{
+    font-size: 20px;
+    padding-top: 10px;
+}
+
+.card .text-container>p{
+    font-size: 17px;
+    padding: 5px 20px;
+}
+
+.card>img{
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.card .text-container .links{
+    text-decoration: none;
 }
