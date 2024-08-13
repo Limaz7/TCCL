@@ -33,7 +33,7 @@ if ($foto['error'] != 0){
 if (
     $extensao != "jpg" && $extensao != "png"
     && $extensao != "gif" && $extensao != "jfif"
-    && $extensao != "svg"
+    && $extensao != "svg" && $extensao != "jpeg"
 ) {
     echo "Isso nao é uma imagem! <a href='formcadeventos.php'>Voltar</a>";
     die();
