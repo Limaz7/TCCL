@@ -11,12 +11,12 @@ $email = $_POST['email'];
 $hash = password_hash($senha, PASSWORD_ARGON2I);
 
 if($eoq == 1){
-    $sql = "INSERT INTO usuario (nome, email, senha, empresa) 
+    $sql = "INSERT INTO usuarios (nome, email, senha, tipo_usuario) 
         VALUES ('$nome', '$email', '$hash', '$eoq')";
     executarSQL($conexao, $sql);
     header('location: ../index.php');
 } else {
-    $sql = "INSERT INTO usuario (nome, email, senha, empresa) 
+    $sql = "INSERT INTO usuarios (nome, email, senha, tipo_usuario) 
     VALUES ('$nome', '$email', '$hash', '$eoq')";
     executarSQL($conexao, $sql);
     header("location: ../index.php");
