@@ -9,10 +9,10 @@ $nome = $_POST['nome'];
 $email = $_POST['email'];
 $senha = $_POST['senha'];
 
-$sql = "SELECT * FROM usuario WHERE email='$email'";
+$sql = "SELECT * FROM usuarios WHERE email='$email'";
 
 $result = executarSQL($conexao, $sql);
-$dados = mysqli_fetch_assoc($result);
+$dados = mysqli_fetch_assoc($result);   
 
 if ($email != $dados['email']) {
     echo "O email esta incorreto! Tente logar novamente
