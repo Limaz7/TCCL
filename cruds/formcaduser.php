@@ -12,8 +12,8 @@
     <div class="boxcad">
         <form action="cadastrouser.php" method="post">
             <h2> Cadastre-se </h2>
-            Empresa: <input type="radio" name="eoq" value="1">
-            Pessoa: <input type="radio" name="eoq" value="0">
+            Empresa: <input type="radio" name="eoq" value="3">
+            Pessoa: <input type="radio" name="eoq" value="2">
             <div class="boxinput">
                 <input type="text" name="nome" required>
                 <span>Nome</span>

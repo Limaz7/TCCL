@@ -10,14 +10,14 @@ $email = $_POST['email'];
 
 $hash = password_hash($senha, PASSWORD_ARGON2I);
 
-if($eoq == 1){
-    $sql = "INSERT INTO usuarios (nome, email, senha, tipo_usuario) 
-        VALUES ('$nome', '$email', '$hash', '$eoq')";
+if($eoq == 3){
+    $sql = "INSERT INTO usuarios (nome, email, senha, tipo_usuario, cod_ativacao) 
+        VALUES ('$nome', '$email', '$hash', '$eoq', '2')";
     executarSQL($conexao, $sql);
     header('location: ../index.php');
-} else {
-    $sql = "INSERT INTO usuarios (nome, email, senha, tipo_usuario) 
-    VALUES ('$nome', '$email', '$hash', '$eoq')";
+} elseif($eoq == 2) {
+    $sql = "INSERT INTO usuarios (nome, email, senha, tipo_usuario, cod_ativacao) 
+    VALUES ('$nome', '$email', '$hash', '$eoq' '1')";
     executarSQL($conexao, $sql);
     header("location: ../index.php");
 }
