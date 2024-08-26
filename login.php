@@ -29,9 +29,10 @@ if ($email != $dados['email']) {
         } elseif ($dados['cod_ativacao'] == 2){
             echo "Olá {$dados['nome']} você precisa estar aceito para entrar
             no sistema! Sua solicitação está em análise.";
+            echo "<a href='index.php'>Voltar</a>";
         } elseif ($dados['cod_ativacao'] == 3){
             echo "Olá {$dados['nome']} Você não pode entrar no sistema,
-            ";
+            sua solicitação foi negada";
         }
         if ($dados['cod_ativacao'] == 1) {
             $_SESSION['user'][0] = $dados['id_usuario'];
