@@ -15,8 +15,6 @@ $cep = $_POST['cep'];
 $rua = $_POST["rua"];
 $numImo = $_POST["numImo"];
 $bairro = $_POST["bairro"];
-$cidade = $_POST["cidade"];
-$estado = $_POST["estado"];
 
 $extensao = strtolower(pathinfo($foto['name'], PATHINFO_EXTENSION));
 
@@ -26,7 +24,7 @@ if ($foto['size'] > 10000000) {
     die();
 }
 
-if ($foto['error'] != 0){
+if ($foto['error'] != 0) {
     echo "Erro ao receber a imagem do evento! Tente novamente: <a href='formcadeventos.php'>Voltar</a>";
     die();
 }
@@ -56,6 +54,6 @@ $sql_even = "INSERT INTO eventos(nome_evento, nome_empresa, descricao, data, ima
 executarSQL($conecta, $sql_even);
 $id_evento = mysqli_insert_id($conecta);
 
-$sql_endere = "INSERT INTO endereco (id_eventos, cep, rua, numero, bairro, cidade, estado) 
-                VALUES ('$id_evento', '$cep', '$rua', '$numImo', '$bairro', '$cidade', '$estado')";
+$sql_endere = "INSERT INTO enderecos (id_evento, cep, rua, numero, bairro) 
+                VALUES ('$id_evento', '$cep', '$rua', '$numImo', '$bairro')";
 executarSQL($conecta, $sql_endere);

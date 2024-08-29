@@ -4,9 +4,9 @@ include_once "conexao.php";
 $conexao = conectar();
 
 $sql = "SELECT e.*, en.* FROM eventos e 
-        JOIN endereco en ON e.id_eventos= en.id_eventos";
+        JOIN enderecos en ON e.id_evento= en.id_evento";
 $result = executarSQL($conexao, $sql);
-
+    
 session_start();
 
 ?>
@@ -31,7 +31,7 @@ session_start();
         <?php
         $counter = 1; // Contador para diferenciar os cards
         while ($dados = mysqli_fetch_assoc($result)) {
-            $_SESSION['evento'][0] = $dados['id_eventos'];
+            $_SESSION['evento'][0] = $dados['id_evento'];
             $arq = $dados['imagem'];
         ?>
             <div class="card card-<?= $counter; ?>"> <!-- Adiciona uma classe única para cada card -->
@@ -45,13 +45,12 @@ session_start();
                     <p><?= $dados['rua']; ?>, <?= $dados['numero']; ?>
                         <?= $dados['bairro']; ?></p>
                     <p>CEP: <?= $dados['cep']; ?></p>
-                    <p><?= $dados['cidade']; ?>-<?= $dados['estado']; ?></p>
                 </div>
                 <div class="links">
                     <?php
                     if ($_SESSION['user'][1] == $dados['nome_empresa']) {
                         echo '<p><a class="link edit" href="crudevento/formediteven?id_eventos=' . $_SESSION['evento'][0] . '">Editar evento</a></p>';
-                        echo '<p><a class="link excluir" href="crudevento/excluireven?id_eventos=' . $dados['id_eventos'] . '">Excluir evento</a></p>';
+                        echo '<p><a class="link excluir" href="crudevento/excluireven?id_eventos=' . $dados['id_evento'] . '">Excluir evento</a></p>';
                     }
                     ?>
                 </div>

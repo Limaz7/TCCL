@@ -20,8 +20,6 @@ $cep = $_POST["cep"];
 $rua = $_POST["rua"];
 $numImo = $_POST["numImo"];
 $bairro = $_POST["bairro"];
-$cidade = $_POST["cidade"];
-$estado = $_POST["estado"];
 
 $extensao = strtolower(pathinfo($img['name'], PATHINFO_EXTENSION));
 
@@ -31,8 +29,7 @@ if ($_FILES['img']['name'] == null) {
     executarSQL($conexao, $sql);
 
     $sql_endere = "UPDATE endereco SET cep = '$cep', rua = '$rua', numero = '$numImo',
-            bairro = '$bairro', cidade = '$cidade', estado = '$estado' 
-            WHERE id_eventos = '$id'";
+            bairro = '$bairro' WHERE id_eventos = '$id'";
     executarSQL($conexao, $sql_endere);
 
     header('location: ../iniempresa.php');
@@ -43,7 +40,7 @@ if ($_FILES['img']['name'] == null) {
 if (
     $extensao != "jpg" && $extensao != "png"
     && $extensao != "gif" && $extensao != "jfif"
-    && $extensao != "svg"
+    && $extensao != "svg" && $extensao != "jpeg"
 ) {
     echo "Isso nao é uma imagem! <a href='formediteven.php'>Voltar</a>";
     die();

@@ -10,8 +10,8 @@ $nome = $_POST['nome'];
 $email = $_POST['email'];
 $senha = $_POST['senha'];
 
-$sql = "UPDATE usuario SET nome='$nome', email='$email',
-        senha='$senha' WHERE id_usuario=" . $_SESSION['user'][0];
+$sql = "UPDATE usuarios SET nome='$nome', email='$email',
+        WHERE id_usuario=" . $_SESSION['user'][0];
 executarSQL($conexao, $sql);
 
 header('location: vizuperfil.php');

@@ -6,7 +6,7 @@ session_regenerate_id(true);
 include "../conexao.php";
 $conexao = conectar();
 
-$sql_select = "SELECT senha FROM usuario WHERE id_usuario=" . $_SESSION['user'][0];
+$sql_select = "SELECT senha FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
 $result = executarSQL($conexao, $sql_select);
 $dados = mysqli_fetch_assoc($result);
 

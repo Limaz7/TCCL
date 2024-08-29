@@ -8,7 +8,7 @@ $conexao = conectar();
 
 $sql_even = "SELECT * FROM eventos WHERE id_eventos = '$id'";
 
-$sql_endere = "SELECT * FROM endereco WHERE id_eventos = '$id'";
+$sql_endere = "SELECT * FROM enderecos WHERE id_eventos = '$id'";
 
 $resultado = executarSQL($conexao, $sql_even);
 $result = executarSQL($conexao, $sql_endere);
@@ -45,8 +45,6 @@ $dados1 = mysqli_fetch_assoc($result);
         Número do imóvel: <input type="number" value="<?php echo $dados1['numero']; ?>" name="numImo" /> <br>
         Rua: <input type="text" value="<?php echo $dados1['rua']; ?>" name="rua" /> <br>
         Bairro: <input type="text" value="<?php echo $dados1['bairro']; ?>" name="bairro" /> <br>
-        Cidade: <input type="text" value="<?php echo $dados1['cidade']; ?>" name="cidade" /> <br>
-        Estado: <input type="text" value="<?php echo $dados1['estado']; ?>" name="estado" /> <br>
 
         <p><input type="submit" value="Enviar"></p>
     </form>
