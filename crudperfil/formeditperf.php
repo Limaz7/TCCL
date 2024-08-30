@@ -5,7 +5,7 @@ session_start();
 include_once "../conexao.php";
 $conexao = conectar();
 
-$sql = "SELECT * FROM usuario WHERE id_usuario=" . $_SESSION['user'][0];
+$sql = "SELECT * FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
 $result = executarSQL($conexao, $sql);
 $dados = mysqli_fetch_assoc($result);
 

@@ -11,7 +11,7 @@ include_once "conexao.php";
 $conexao = conectar();
 
 $sql = "SELECT e.*, en.* FROM eventos e 
-        JOIN endereco en ON e.id_eventos= en.id_eventos";
+        JOIN enderecos en ON e.id_evento= en.id_evento";
 $result = executarSQL($conexao, $sql);
 
 ?>

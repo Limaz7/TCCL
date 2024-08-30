@@ -20,19 +20,16 @@ $cep = $_POST["cep"];
 $rua = $_POST["rua"];
 $numImo = $_POST["numImo"];
 $bairro = $_POST["bairro"];
-$cidade = $_POST["cidade"];
-$estado = $_POST["estado"];
 
 $extensao = strtolower(pathinfo($img['name'], PATHINFO_EXTENSION));
 
 if ($_FILES['img']['name'] == null) {
     $sql = "UPDATE eventos SET nome_evento = '$nomeEven', descricao = '$desc', 
-            data = '$data' WHERE id_eventos = '$id'";
+            data = '$data' WHERE id_evento = '$id'";
     executarSQL($conexao, $sql);
 
-    $sql_endere = "UPDATE endereco SET cep = '$cep', rua = '$rua', numero = '$numImo',
-            bairro = '$bairro', cidade = '$cidade', estado = '$estado' 
-            WHERE id_eventos = '$id'";
+    $sql_endere = "UPDATE enderecos SET cep = '$cep', rua = '$rua', numero = '$numImo',
+            bairro = '$bairro' WHERE id_evento = '$id'";
     executarSQL($conexao, $sql_endere);
 
     header('location: ../iniempresa.php');
@@ -43,7 +40,7 @@ if ($_FILES['img']['name'] == null) {
 if (
     $extensao != "jpg" && $extensao != "png"
     && $extensao != "gif" && $extensao != "jfif"
-    && $extensao != "svg"
+    && $extensao != "svg" && $extensao != "jpeg"
 ) {
     echo "Isso nao é uma imagem! <a href='formediteven.php'>Voltar</a>";
     die();
@@ -56,7 +53,7 @@ if ($img['error'] == 0) {
     $trocar_img = move_uploaded_file($img['tmp_name'],  $pastaDestino . $novo_nome_ft);
 
     if ($trocar_img) {
-        $sql = "UPDATE eventos SET imagem = '$novo_nome_ft' WHERE id_eventos='$id'";
+        $sql = "UPDATE eventos SET imagem = '$novo_nome_ft' WHERE id_evento='$id'";
         executarSQL($conexao, $sql);
         unlink($pastaDestino . $antfoto);
         header("location: ../iniempresa.php");

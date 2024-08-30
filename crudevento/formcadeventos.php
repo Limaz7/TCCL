@@ -36,8 +36,6 @@ $dados = mysqli_fetch_assoc($result);
         <p>Rua: <input type="text" name="rua" required></p>
         <p>Número do imóvel: <input type="number" name="numImo" required></p>
         <p>Bairro: <input type="text" name="bairro" required></p>
-        <p>Cidade: <input type="text" name="cidade" required></p>
-        <p>Estado: <input type="text" name="estado" required></p>
         <p>Data: <input type="datetime-local" name="data" required></p>
         <p>Imagem <input type="file" name="arquivo">
         <p><input type="submit" value="Enviar"></p>
