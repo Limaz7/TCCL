@@ -25,11 +25,11 @@ $extensao = strtolower(pathinfo($img['name'], PATHINFO_EXTENSION));
 
 if ($_FILES['img']['name'] == null) {
     $sql = "UPDATE eventos SET nome_evento = '$nomeEven', descricao = '$desc', 
-            data = '$data' WHERE id_eventos = '$id'";
+            data = '$data' WHERE id_evento = '$id'";
     executarSQL($conexao, $sql);
 
     $sql_endere = "UPDATE endereco SET cep = '$cep', rua = '$rua', numero = '$numImo',
-            bairro = '$bairro' WHERE id_eventos = '$id'";
+            bairro = '$bairro' WHERE id_evento = '$id'";
     executarSQL($conexao, $sql_endere);
 
     header('location: ../iniempresa.php');

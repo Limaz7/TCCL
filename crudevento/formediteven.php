@@ -6,9 +6,9 @@ $id = $_SESSION['evento'][0];
 include "../conexao.php";
 $conexao = conectar();
 
-$sql_even = "SELECT * FROM eventos WHERE id_eventos = '$id'";
+$sql_even = "SELECT * FROM eventos WHERE id_evento = '$id'";
 
-$sql_endere = "SELECT * FROM enderecos WHERE id_eventos = '$id'";
+$sql_endere = "SELECT * FROM enderecos WHERE id_evento = '$id'";
 
 $resultado = executarSQL($conexao, $sql_even);
 $result = executarSQL($conexao, $sql_endere);
