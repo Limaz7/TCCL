@@ -49,8 +49,6 @@ $result = executarSQL($conexao, $sql);
                     <th>Número do imóvel</th>
                     <th>Rua</th>
                     <th>Bairro</th>
-                    <th>Cidade</th>
-                    <th>Estado</th>
                     <th>Adicionar comentario</th>
                     <th>Vizualizar comentario</th>
                 </tr>
@@ -67,8 +65,6 @@ $result = executarSQL($conexao, $sql);
                     <td><?= $dados['numero']; ?></td>
                     <td><?= $dados['rua']; ?></td>
                     <td><?= $dados['bairro']; ?></td>
-                    <td><?= $dados['cidade']; ?></td>
-                    <td><?= $dados['estado']; ?></td>
                     <td>
                         <form action="adccoment" method="post">
                             <br><textarea name="coment"></textarea><br>
