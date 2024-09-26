@@ -24,7 +24,7 @@ if ($foto['size'] > 10000000) {
     die();
 }
 
-if ($foto['error'] != 0){
+if ($foto['error'] != 0) {
     echo "Erro ao receber a imagem do evento! Tente novamente: <a href='formcadeventos.php'>Voltar</a>";
     die();
 }

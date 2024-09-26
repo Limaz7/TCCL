@@ -22,7 +22,11 @@ if ($email != $dados['email']) {
     $hash = $dados['senha'];
 
     if (password_verify($senha, $hash)) {
-        if ($dados['cod_ativacao'] == 2) {
+        if ($dados['tipo_usuario'] == 3 and $dados['cod_ativacao'] == 1) {
+            $_SESSION['user'][0] = $dados['id_usuario'];
+            $_SESSION['user'][1] = $dados['nome'];
+            header("location: iniempresa.php");
+        } elseif ($dados['cod_ativacao'] == 2) {
             echo "Olá {$dados['nome']} você precisa estar aceito para entrar
             no sistema! Sua solicitação está em análise.";
             echo "<a href='index.php'>Voltar</a>";
@@ -31,6 +35,7 @@ if ($email != $dados['email']) {
             sua solicitação foi negada";
         }
         if ($dados['tipo_usuario'] == 2 and $dados['cod_ativacao'] == 1) {
+
             $_SESSION['user'][0] = $dados['id_usuario'];
             $_SESSION['user'][1] = $dados['nome'];
             header('location: inipessoa.php');

@@ -7,7 +7,7 @@ $conexao = conectar();
 
 $pastaImg = "../imagens/";
 
-$sql1 = "SELECT imagem FROM eventos e WHERE id_evento = '$id'";
+$sql1 = "SELECT e.imagem FROM eventos e WHERE id_evento = '$id'";
 $result = executarSQL($conexao, $sql1);
 $img = mysqli_fetch_assoc($result);
 
@@ -16,6 +16,7 @@ executarSQL($conexao, $sql_endere);
 
 $sql_even = "DELETE FROM eventos WHERE id_evento = '$id'";
 executarSQL($conexao, $sql_even);
+
 unlink($pastaImg . $img['imagem']);
 
 header('location: ../iniempresa.php');

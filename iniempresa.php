@@ -6,7 +6,7 @@ $conexao = conectar();
 $sql = "SELECT e.*, en.* FROM eventos e 
         JOIN enderecos en ON e.id_evento= en.id_evento";
 $result = executarSQL($conexao, $sql);
-
+    
 session_start();
 
 ?>

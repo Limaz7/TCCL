@@ -29,6 +29,7 @@ if ($_FILES['img']['name'] == null) {
     executarSQL($conexao, $sql);
 
     $sql_endere = "UPDATE enderecos SET cep = '$cep', rua = '$rua', numero = '$numImo',
+
             bairro = '$bairro' WHERE id_evento = '$id'";
     executarSQL($conexao, $sql_endere);
 
