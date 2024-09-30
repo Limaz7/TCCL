@@ -3,7 +3,7 @@
 function conectar()
 {
 
-    require_once "cruds/config.php";
+    require_once "config.php";
 
     $conexao = mysqli_connect(
 

@@ -11,11 +11,16 @@ session_start();
 
 ?>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 
 <head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
 
-    <?php require "headers.php" ?>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Inicio</title>
 </head>
@@ -28,45 +33,54 @@ session_start();
 
     <p><a href="logout.php">Sair</a></p>
     <main class="container">
+
         <?php
         while ($dados = mysqli_fetch_assoc($result)) {
             $_SESSION['evento'][0] = $dados['id_evento'];
             $arq = $dados['imagem'];
         ?>
-            <div class="card" style="width: 18rem;">
-                <img src="imagens/<?= $arq ?>" class="card-img-top" alt="imagem do evento" width="200px" height="150px">
-                <div class="card-body">
-                    <h5 class="card-title"><?= $dados['nome_evento']; ?></h5>
-                    <p class="card-text">Empresa: <?= $dados['nome_empresa']; ?>
-                        Descrição:
-                    <p><?= $dados['descricao']; ?></p>
-                    Data do evento: <p><?= $dados['data']; ?></p>
-                    <h2>Endereço:</h2>
-                    <p><?= $dados['rua']; ?>, <?= $dados['numero']; ?>
-                        <?= $dados['bairro']; ?></p>
-                    <p>CEP: <?= $dados['cep']; ?></p>
-                    </p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+
+            <div class="row">
+
+                <div class="col s12 m3">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="imagens/<?= $arq ?>">
+                            <span class="card-title" width="200px"><?= $dados['nome_evento']; ?></span>
+                        </div>
+                        <div class="card-content">
+                            <p><?= $dados['descricao']; ?></p>
+                            <p>Empresa: </p><p><?= $dados['nome_empresa']; ?></p>          
+                            <p>Data do evento: </p><p><?= $dados['data']; ?></p>
+                            <h5>Endereço:</h5>
+                            <p><?= $dados['rua']; ?>, <?= $dados['numero']; ?>
+                                <?= $dados['bairro']; ?></p>
+                            <p>CEP: <?= $dados['cep']; ?></p>
+                            </p>
+                        </div>
+                        <div class="card-action">
+                            <?php
+                            if ($_SESSION['user'][1] == $dados['nome_empresa']) {
+                                
+                                echo '<p><a href="crudevento/formediteven?id_evento=' . $_SESSION['evento'][0] . '">Editar evento</a></p>';
+                                echo '<p><a href="crudevento/excluireven?id_evento=' . $dados['id_evento'] . '">Excluir evento</a></p>';
+                            }
+                            ?>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <img src='imagens/<?= $arq ?>' width="200px" height="150px"><br>
-            <h1><?= $dados['nome_evento']; ?></h1>
-            <p>Empresa: <?= $dados['nome_empresa']; ?></p>
-            Descrição: <p><?= $dados['descricao']; ?></p>
-            Data do evento: <p><?= $dados['data']; ?></p>
-            <h2>Endereço:</h2>
-            <p><?= $dados['rua']; ?>, <?= $dados['numero']; ?>
-                <?= $dados['bairro']; ?></p>
-            <p>CEP: <?= $dados['cep']; ?></p>
-            <?php
-            if ($_SESSION['user'][1] == $dados['nome_empresa']) {
-                echo '<p><a class="link edit" href="crudevento/formediteven?id_evento=' . $_SESSION['evento'][0] . '">Editar evento</a></p>';
-                echo '<p><a class="link excluir" href="crudevento/excluireven?id_evento=' . $dados['id_evento'] . '">Excluir evento</a></p>';
-            }
-            ?>
         <?php } ?>
+
+
+
+
+
     </main>
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+
 </body>
 
 </html>
