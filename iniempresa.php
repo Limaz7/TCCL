@@ -61,7 +61,7 @@ session_start();
                         <div class="card-action">
                             <?php
                             if ($_SESSION['user'][1] == $dados['nome_empresa']) {
-                                
+                                echo '<p><a href="crudingresso/formcadingresso?id|_evento">Cadastrar ingresso</a></p>';
                                 echo '<p><a href="crudevento/formediteven?id_evento=' . $_SESSION['evento'][0] . '">Editar evento</a></p>';
                                 echo '<p><a href="crudevento/excluireven?id_evento=' . $dados['id_evento'] . '">Excluir evento</a></p>';
                             }

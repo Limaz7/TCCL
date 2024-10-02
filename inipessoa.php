@@ -45,46 +45,54 @@ $result = executarSQL($conexao, $sql);
 
     echo '<a href="logout.php">Sair</a>';
 
-    while ($dados = mysqli_fetch_assoc($result)) {
-        $arq = $dados['imagem'];
-
     ?>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Imagem</th>
-                    <th>Empresa organizadora</th>
-                    <th>Evento</th>
-                    <th>Descrição</th>
-                    <th>Data</th>
-                    <th>CEP</th>
-                    <th>Número do imóvel</th>
-                    <th>Rua</th>
-                    <th>Bairro</th>
-                    <th>Adicionar comentario</th>
-                    <th>Vizualizar comentario</th>
-                </tr>
-            </thead>
+    <main class="container">
 
-            <tbody>
-                <tr>
-                    <td><img src='imagens/<?= $arq ?>' width='100px' height='100px'><br></td>
-                    <td><?= $dados['nome_empresa']; ?></td>
-                    <td><?= $dados['nome_evento']; ?></td>
-                    <td><?= $dados['descricao']; ?></td>
-                    <td><?= $dados['data']; ?></td>
-                    <td><?= $dados['cep']; ?></td>
-                    <td><?= $dados['numero']; ?></td>
-                    <td><?= $dados['rua']; ?></td>
-                    <td><?= $dados['bairro']; ?></td>
-                    <td>
-                        <form action="adccoment" method="post">
-                            <br><textarea name="coment"></textarea><br>
-                            <input type="submit" value="Enviar">
-                        </form>
-                    </td>
-                <?php } ?>
+
+        <?php
+
+        while ($dados = mysqli_fetch_assoc($result)) {
+            $arq = $dados['imagem'];
+
+        ?>
+
+
+            <div class="row">
+
+                <div class="col s12 m3">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="imagens/<?= $arq ?>">
+                            <span class="card-title" width="200px"><?= $dados['nome_evento']; ?></span>
+                        </div>
+                        <div class="card-content">
+                            <p><?= $dados['descricao']; ?></p>
+                            <p>Empresa: </p>
+                            <p><?= $dados['nome_empresa']; ?></p>
+                            <p>Data do evento: </p>
+                            <p><?= $dados['data']; ?></p>
+                            <h5>Endereço:</h5>
+                            <p>Rua: <?= $dados['rua']; ?>, <?= $dados['numero']; ?>
+                                <?= $dados['bairro']; ?></p>
+                            <p>CEP: <?= $dados['cep']; ?></p>
+                        </div>
+                        <div class="card-action">
+                            <a href="ingresso.php">Comprar ingresso</a>
+                            <form action="adccoment" method="post">
+                                <br><textarea name="coment"></textarea><br>
+                                <input type="submit" value="Enviar">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        <?php } ?>
+
+
+    </main>
 
 </body>
 
