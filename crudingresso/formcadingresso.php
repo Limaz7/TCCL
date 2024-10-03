@@ -13,10 +13,12 @@
 
 <body>
 
-    <form action="" method="post">
-        
-    </form>
 
+    <form action="cadingresso.php" method="post">
+        <label for="preco">Preço</label>
+        <input type="number" name="preco"> <br><br>
+        <input type="submit" value="Enviar">
+    </form>
 
 
 </body>

@@ -22,16 +22,25 @@ session_start();
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+
     <title>Inicio</title>
 </head>
 
+<style>
+
+#links {
+    color: black;
+}
+
+</style>
+
 <body>
+
+    <?php include_once "headers.php"; ?>
 
     <h4>
         <p><a href="crudevento/formcadeventos.php">Cadastrar eventos</a></p>
     </h4>
-
-    <p><a href="logout.php">Sair</a></p>
     <main class="container">
 
         <?php
@@ -61,9 +70,9 @@ session_start();
                         <div class="card-action">
                             <?php
                             if ($_SESSION['user'][1] == $dados['nome_empresa']) {
-                                echo '<p><a href="crudingresso/formcadingresso?id|_evento">Cadastrar ingresso</a></p>';
-                                echo '<p><a href="crudevento/formediteven?id_evento=' . $_SESSION['evento'][0] . '">Editar evento</a></p>';
-                                echo '<p><a href="crudevento/excluireven?id_evento=' . $dados['id_evento'] . '">Excluir evento</a></p>';
+                                echo '<p><a style="color:blue;" href="crudingresso/formcadingresso?id_evento=' . $_SESSION['evento'][0] . '">Cadastrar ingresso</a></p>';
+                                echo '<p><a style="color:blue;" href="crudevento/formediteven?id_evento=' . $_SESSION['evento'][0] . '">Editar evento</a></p>';
+                                echo '<p><a style="color:blue;" href="crudevento/excluireven?id_evento=' . $dados['id_evento'] . '">Excluir evento</a></p>';
                             }
                             ?>
                         </div>
