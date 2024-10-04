@@ -13,11 +13,13 @@ $sql = "SELECT * FROM usuarios WHERE email='$email'";
 $result = executarSQL($conexao, $sql);
 $dados = mysqli_fetch_assoc($result);
 
-if ($email != $dados['email']) {
-    echo "O email esta incorreto! Tente logar novamente
+if (!isset($dados['email'])) {
+    echo "Não existe esse email no banco de dados! Tente logar novamente
     <a href='index.php'>Login</a>";
     die();
-} else {
+}
+    # code...
+else{
     $hash = $dados['senha'];
 
     if (password_verify($senha, $hash)) {

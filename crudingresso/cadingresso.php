@@ -10,4 +10,4 @@ $preco = $_POST['preco'];
 $sql = "INSERT INTO ingressos (valor, id_evento) VALUES ('$preco', ' " . $_SESSION['evento'][0] . "')";
 executarSQL($conexao, $sql);
 
-header("location: ../iniempresa.php");
+header("location: ../inicial.php");
