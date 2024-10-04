@@ -12,7 +12,7 @@
         <label for="senhaAt">
             Senha atual: <input type="text" name="senhaAtual" id="senhaAt">
         </label> <br><br>
-        <label for="novaSenha">
+        <label for="novSenha">
             Nova senha: <input type="text" name="novSenha" id="novSenha">
         </label> <br><br>
         <label for="confSenha">

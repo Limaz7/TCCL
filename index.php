@@ -16,13 +16,12 @@
     <div class="container">
         <form action="login.php" method="post">
             <h2> Bem-vindo! Faça o login.</h2>
-            <span>Nome</span>
-            <input type="text" name="nome" required>
-            <span>Email</span>
+            <span>Email</span>  
             <input type="text" name="email" required>
             <span>Senha</span>
             <input type="password" name="senha" id="password" required>
-            <a href="crudusuario/formcaduser.php">Não tem conta? cadastre-se!</a>
+            <a href="crudusuario/formcaduser.php">Não tem conta? cadastre-se!</a><br>
+            <a href="rec-senha/form_rec_senha.php">Esqueceu a senha da sua conta? Recupere-a </a><br>
             <input type="submit" value="Enviar">
         </form>
     </div>

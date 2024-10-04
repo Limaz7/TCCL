@@ -46,7 +46,7 @@ if ($foto['error'] == 0) {
 if ($conecta->errno) {
     die("erro" . $conecta->error);
 } else {
-    header("location: ../iniempresa.php");
+    header("location: ../inicial.php");
 }
 
 $sql_even = "INSERT INTO eventos(nome_evento, nome_empresa, descricao, data, imagem) 

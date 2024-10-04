@@ -22,6 +22,6 @@ $dados = mysqli_fetch_assoc($result);
 <body>
     <h3> Olá <?= $dados['nome']; ?></h3>
     <a href="formeditperf.php">Editar perfil</a> <br><br>
-    <a href="../inipessoa.php">Voltar</a>
+    <a href="../inicial.php">Voltar</a>
 </body>
 </html>

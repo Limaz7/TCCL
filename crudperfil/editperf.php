@@ -8,10 +8,9 @@ session_regenerate_id(true);
 
 $nome = $_POST['nome'];
 $email = $_POST['email'];
-$senha = $_POST['senha'];
 
 
-$sql = "UPDATE usuarios SET nome='$nome', email='$email',
+$sql = "UPDATE usuarios SET nome='$nome', email='$email'
         WHERE id_usuario=" . $_SESSION['user'][0];
 executarSQL($conexao, $sql);
 

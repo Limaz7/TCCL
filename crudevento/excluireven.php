@@ -19,11 +19,11 @@ executarSQL($conexao, $sql_even);
 
 unlink($pastaImg . $img['imagem']);
 
-header('location: ../iniempresa.php');
+header('location: ../inicial.php');
 
 
 if ($conexao->error) {
     die("Erro" . $conexao->error);
 } else {
-    header("location: ../iniempresa.php");
+    header("location: ../inicial.php");
 }

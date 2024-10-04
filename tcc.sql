@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 03/10/2024 às 01:53
+-- Tempo de geração: 04/10/2024 às 03:07
 -- Versão do servidor: 8.3.0
 -- Versão do PHP: 8.2.18
 
@@ -50,14 +50,18 @@ CREATE TABLE IF NOT EXISTS `enderecos` (
   `bairro` varchar(255) NOT NULL,
   PRIMARY KEY (`id_endereco`),
   KEY `fk_id_evento` (`id_evento`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `enderecos`
 --
 
 INSERT INTO `enderecos` (`id_endereco`, `id_evento`, `cep`, `rua`, `numero`, `bairro`) VALUES
-(26, 53, 989898, 'Getulio vargas', 98980, 'Marduque');
+(32, 59, 66876, 'KJHKHKH', 6868, 'HGJGJ'),
+(33, 60, 978979, 'hkhkh', 7979, 'hkhkh'),
+(34, 61, 76868, 'ghjv', 667575, 'jgjgjg'),
+(35, 62, 575765, 'gjgjg', 856675, 'jhfjf'),
+(36, 63, 5875785, 'u6hgjhgjhg', 768768, 'gjgjhgjh');
 
 -- --------------------------------------------------------
 
@@ -74,14 +78,18 @@ CREATE TABLE IF NOT EXISTS `eventos` (
   `data` datetime NOT NULL,
   `imagem` varchar(255) NOT NULL,
   PRIMARY KEY (`id_evento`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `eventos`
 --
 
 INSERT INTO `eventos` (`id_evento`, `nome_evento`, `nome_empresa`, `descricao`, `data`, `imagem`) VALUES
-(53, 'Show', 'emp_Lazzarus', 'jkjkj', '2024-10-24 22:34:00', '66fc79022e05d.jpg');
+(59, 'HKHKH', 'lazaro', 'KHKHK', '2024-10-24 23:22:00', '66ff516e89681.jpg'),
+(60, 'jlj', 'lazaro', 'ljljl', '2024-10-30 23:22:00', '66ff517f38d04.jpg'),
+(61, 'hkhkh', 'lazaro', 'khkhkh', '2024-10-24 23:23:00', '66ff51ac281ee.jpg'),
+(62, 'gjgjg', 'lazaro', 'gjgjg', '2024-10-15 23:23:00', '66ff51b7c1e7c.jpg'),
+(63, 'hkhkh', 'lazaro', 'hkhkh', '2024-10-18 23:24:00', '66ff51ca7a101.jpg');
 
 -- --------------------------------------------------------
 
@@ -100,12 +108,29 @@ CREATE TABLE IF NOT EXISTS `ingressos` (
   KEY `fk_id_evento` (`id_evento`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- --------------------------------------------------------
+
 --
--- Despejando dados para a tabela `ingressos`
+-- Estrutura para tabela `recuperar_senha`
 --
 
-INSERT INTO `ingressos` (`id_ingresso`, `valor`, `id_evento`, `id_participante`, `quantidade`) VALUES
-(1, 1, 53, 0, 0);
+DROP TABLE IF EXISTS `recuperar_senha`;
+CREATE TABLE IF NOT EXISTS `recuperar_senha` (
+  `email` varchar(255) NOT NULL,
+  `token` char(100) NOT NULL,
+  `data_criacao` datetime NOT NULL,
+  `usado` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Despejando dados para a tabela `recuperar_senha`
+--
+
+INSERT INTO `recuperar_senha` (`email`, `token`, `data_criacao`, `usado`) VALUES
+('lazaro.2022315968@aluno.iffar.edu.br', 'c9dde6d98b5a4e4621a537a6a65caa9ef84a108f5e68a4fc07a9081d34b7f43d122ce46ca804e565434b32e010a1d23f23e1', '2024-10-03 00:00:00', 0),
+('lazaro.2022315968@aluno.iffar.edu.br', 'a614d36f72025ecf24ec2b3f53172bab68ed7de752fdfbbdf0a555958999912e5873a7570313951d70fb8f6f670421fad817', '2024-10-03 00:00:00', 0),
+('lazaro.2022315968@aluno.iffar.edu.br', 'a0fffd34de2f7bab7099a22f6f25c661c563d8277f6a5c34d2d44af8295eda48811fdb0653bd401ddc45fb7832dbd869727c', '2024-10-03 00:00:00', 0),
+('lazaro.2022315968@aluno.iffar.edu.br', '329285fb8c457d26f89d9675e6be8bb830ba747f7158b989044e45d6ebe746ef9daba770bcac01ef520af13e8dc6e0127cff', '2024-10-03 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -153,9 +178,8 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `nome`, `email`, `senha`, `tipo_usuario`, `cod_ativacao`) VALUES
-(7, 'emp_Lazzarus', 'lazaro.2022315968@aluno.iffar.edu.br', '$argon2i$v=19$m=65536,t=4,p=1$c2xKZFpDbzlOQVpsQnM4dg$txs8XhjtIdmvp9kP00E3ZgkW7fObQTaujK6IOYPma58', 3, 1),
 (8, 'lazaro', 'l@a.c', '$argon2i$v=19$m=65536,t=4,p=1$MC5mb0cwN2FnMGxzejBJag$oi63pAauxxZsuJBxVlIGPm2JImV7fUWOBipNsFKP+yM', 2, 1),
-(24, 'la', 'l@a.co', '$argon2i$v=19$m=65536,t=4,p=1$aTM4eFNOSlEwSEZsS0RqeQ$Qutnuaux8jvsNSLN0tQUbt8EnOP2w0X9adDLzMzFwMY', 3, 1);
+(24, 'lazaro', 'l@a.com', '$argon2i$v=19$m=65536,t=4,p=1$Nmp0Z3dwY3E5Y3dOaTFrag$Od/zRdKZpgsOqQNsJK/HxjrTBUZFv7qgmCqflB4J4k8', 3, 1);
 
 --
 -- Restrições para tabelas despejadas

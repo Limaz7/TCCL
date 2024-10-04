@@ -2,13 +2,13 @@
 <html>
 
 <head>
-   <!--Import Google Icon Font-->
+    <!--Import Google Icon Font
    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
+    Import materialize.css
     <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection" />
 
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    Let browser know website is optimized for mobile
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
     <title>Cadastro</title>
 </head>
 
@@ -21,7 +21,7 @@
             <span>Empresa: </span>
             <input type="radio" name="eoq" value="3">
             <span>Pessoa:</span>
-            <input type="radio" name="eoq" value="2"> 
+            <input type="radio" name="eoq" value="2">
             <span>Nome</span>
             <input type="text" name="nome" required>
             <span>Email</span>

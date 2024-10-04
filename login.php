@@ -5,7 +5,6 @@ $conexao = conectar();
 
 session_start();
 
-$nome = $_POST['nome'];
 $email = $_POST['email'];
 $senha = $_POST['senha'];
 
@@ -25,7 +24,7 @@ if ($email != $dados['email']) {
         if ($dados['tipo_usuario'] == 3 and $dados['cod_ativacao'] == 1) {
             $_SESSION['user'][0] = $dados['id_usuario'];
             $_SESSION['user'][1] = $dados['nome'];
-            header("location: iniempresa.php");
+            header("location: inicial.php");
         } elseif ($dados['cod_ativacao'] == 2) {
             echo "Olá {$dados['nome']} você precisa estar aceito para entrar
             no sistema! Sua solicitação está em análise.<br>";
@@ -39,15 +38,10 @@ if ($email != $dados['email']) {
 
             $_SESSION['user'][0] = $dados['id_usuario'];
             $_SESSION['user'][1] = $dados['nome'];
-            header('location: inipessoa.php');
-        }
-        if ($dados['tipo_usuario'] == 3 and $dados['cod_ativacao'] == 1) {
-            $_SESSION['user'][0] = $dados['id_usuario'];
-            $_SESSION['user'][1] = $dados['nome'];
-            header("location: iniempresa.php");
+            header('location: inicial.php');
         }
     } else {
         echo "A senha está incorreta! Tente logar
-            novamente <a href'index.php'>Voltar</a>";
+            novamente. <br> <a href='index.php'>Voltar</a>";
     }
 }
