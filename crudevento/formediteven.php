@@ -6,15 +6,13 @@ $id = $_SESSION['evento'][0];
 include "../conexao.php";
 $conexao = conectar();
 
-$sql_even = "SELECT * FROM eventos WHERE id_evento = '$id'";
+$sql_all = "SELECT e.*, en.*, i.* FROM eventos e JOIN enderecos en ON 
+            e.id_evento = en.id_evento JOIN ingressos i ON e.id_evento = i.id_evento 
+            WHERE e.id_evento = '$id'";
 
-$sql_endere = "SELECT * FROM enderecos WHERE id_evento = '$id'";
-
-$resultado = executarSQL($conexao, $sql_even);
-$result = executarSQL($conexao, $sql_endere);
+$resultado = executarSQL($conexao, $sql_all);
 
 $dados = mysqli_fetch_assoc($resultado);
-$dados1 = mysqli_fetch_assoc($result);
 
 ?>
 
@@ -45,16 +43,18 @@ $dados1 = mysqli_fetch_assoc($result);
 
         <form method="post" action="editareven.php" enctype="multipart/form-data">
 
-            <input type="hidden" value="<?php echo $dados['imagem']; ?>" name="antfoto" />
-            <input type="hidden" value="<?php echo $_SESSION['evento'][0]; ?>" name="id" />
-            Nome: <input type="text" value="<?php echo $dados['nome_evento']; ?>" name="nome" /> <br>
-            Descrição: <input type="text" value="<?php echo $dados['descricao']; ?>" name="desc" /><br>
-            Imagem: <input type="file" value="<?php echo $dados['imagem']; ?>" name="img" /> <br>
-            Data: <input type="datetime-local" value="<?php echo $dados['data']; ?>" name="data" /> <br>
-            CEP: <input type="number" value="<?php echo $dados1['cep']; ?>" name="cep" /> <br>
-            Número do imóvel: <input type="number" value="<?php echo $dados1['numero']; ?>" name="numImo" /> <br>
-            Rua: <input type="text" value="<?php echo $dados1['rua']; ?>" name="rua" /> <br>
-            Bairro: <input type="text" value="<?php echo $dados1['bairro']; ?>" name="bairro" /> <br>
+            <input type="hidden" value="<?= $dados['imagem']; ?>" name="antfoto" />
+            <input type="hidden" value="<?= $_SESSION['evento'][0]; ?>" name="id" />
+            Nome: <input type="text" value="<?= $dados['nome_evento']; ?>" name="nome" /> <br>
+            Descrição: <input type="text" value="<?= $dados['descricao']; ?>" name="desc" /><br>
+            <p>Preço do ingresso: <input type="text" value="<?= $dados['valor']; ?>" name="preco" /></p>
+            <p>Quantidade de ingressos: <input type="number" value="<?= $dados['quantidade']; ?>" name="qtd" /></p>
+            Data: <input type="datetime-local" value="<?= $dados['data']; ?>" name="data" /> <br>
+            CEP: <input type="number" value="<?= $dados['cep']; ?>" name="cep" /> <br>
+            Número do imóvel: <input type="number" value="<?= $dados['numero']; ?>" name="numImo" /> <br>
+            Rua: <input type="text" value="<?= $dados['rua']; ?>" name="rua" /> <br>
+            Bairro: <input type="text" value="<?= $dados['bairro']; ?>" name="bairro" /> <br>
+            Imagem: <input type="file" value="<?= $dados['imagem']; ?>" name="img" /> <br>
 
             <p><input type="submit" value="Enviar"></p>
         </form>

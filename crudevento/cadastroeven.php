@@ -15,6 +15,8 @@ $cep = $_POST['cep'];
 $rua = $_POST["rua"];
 $numImo = $_POST["numImo"];
 $bairro = $_POST["bairro"];
+$qtd = $_POST['qtd'];
+$preco = $_POST['preco'];
 
 $extensao = strtolower(pathinfo($foto['name'], PATHINFO_EXTENSION));
 
@@ -57,3 +59,7 @@ $id_evento = mysqli_insert_id($conecta);
 $sql_endere = "INSERT INTO enderecos (id_evento, cep, rua, numero, bairro) 
                 VALUES ('$id_evento', '$cep', '$rua', '$numImo', '$bairro')";
 executarSQL($conecta, $sql_endere);
+
+$sql_ingresso = "INSERT INTO ingressos (valor, id_evento, quantidade)
+                    VALUES ('$preco', '$id_evento', '$qtd')";
+executarSQL($conecta, $sql_ingresso);

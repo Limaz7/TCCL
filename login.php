@@ -18,8 +18,8 @@ if (!isset($dados['email'])) {
     <a href='index.php'>Login</a>";
     die();
 }
-    # code...
 else{
+
     $hash = $dados['senha'];
 
     if (password_verify($senha, $hash)) {
@@ -46,4 +46,5 @@ else{
         echo "A senha está incorreta! Tente logar
             novamente. <br> <a href='index.php'>Voltar</a>";
     }
+    
 }
