@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 04-Out-2024 às 16:26
+-- Tempo de geração: 08-Out-2024 às 18:56
 -- Versão do servidor: 8.0.31
 -- versão do PHP: 8.0.26
 
@@ -50,18 +50,14 @@ CREATE TABLE IF NOT EXISTS `enderecos` (
   `bairro` varchar(255) NOT NULL,
   PRIMARY KEY (`id_endereco`),
   KEY `fk_id_evento` (`id_evento`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `enderecos`
 --
 
 INSERT INTO `enderecos` (`id_endereco`, `id_evento`, `cep`, `rua`, `numero`, `bairro`) VALUES
-(32, 59, 66876, 'KJHKHKH', 6868, 'HGJGJ'),
-(33, 60, 978979, 'hkhkh', 7979, 'hkhkh'),
-(34, 61, 76868, 'ghjv', 667575, 'jgjgjg'),
-(35, 62, 575765, 'gjgjg', 856675, 'jhfjf'),
-(36, 63, 5875785, 'u6hgjhgjhg', 768768, 'gjgjhgjh');
+(48, 76, 745436, 'fdgagg', 5643, 'htsdheary');
 
 -- --------------------------------------------------------
 
@@ -72,39 +68,39 @@ INSERT INTO `enderecos` (`id_endereco`, `id_evento`, `cep`, `rua`, `numero`, `ba
 DROP TABLE IF EXISTS `eventos`;
 CREATE TABLE IF NOT EXISTS `eventos` (
   `id_evento` int NOT NULL AUTO_INCREMENT,
+  `id_usuario` int NOT NULL,
   `nome_evento` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `nome_empresa` varchar(255) NOT NULL,
   `descricao` varchar(255) NOT NULL,
   `data` datetime NOT NULL,
   `imagem` varchar(255) NOT NULL,
-  PRIMARY KEY (`id_evento`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id_evento`),
+  KEY `fk_id_usuario_1` (`id_usuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `eventos`
 --
 
-INSERT INTO `eventos` (`id_evento`, `nome_evento`, `nome_empresa`, `descricao`, `data`, `imagem`) VALUES
-(59, 'HKHKH', 'lazaro', 'KHKHK', '2024-10-24 23:22:00', '66ff516e89681.jpg'),
-(60, 'jlj', 'lazaro', 'ljljl', '2024-10-30 23:22:00', '66ff517f38d04.jpg'),
-(61, 'hkhkh', 'lazaro', 'khkhkh', '2024-10-24 23:23:00', '66ff51ac281ee.jpg'),
-(62, 'gjgjg', 'lazaro', 'gjgjg', '2024-10-15 23:23:00', '66ff51b7c1e7c.jpg'),
-(63, 'hkhkh', 'lazaro', 'hkhkh', '2024-10-18 23:24:00', '66ff51ca7a101.jpg');
+INSERT INTO `eventos` (`id_evento`, `id_usuario`, `nome_evento`, `nome_empresa`, `descricao`, `data`, `imagem`) VALUES
+(76, 29, 'dhad', 'emp_Lazzarus', 'reahr', '2024-10-17 18:43:00', '67056e687761a.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `info_ingresso`
+-- Estrutura da tabela `info_ingressos`
 --
 
-DROP TABLE IF EXISTS `info_ingresso`;
-CREATE TABLE IF NOT EXISTS `info_ingresso` (
+DROP TABLE IF EXISTS `info_ingressos`;
+CREATE TABLE IF NOT EXISTS `info_ingressos` (
   `id_ingresso` int NOT NULL,
   `token` char(100) NOT NULL,
   `id_usuario` int NOT NULL,
   `quantidade` varchar(255) NOT NULL,
   `data` datetime NOT NULL,
-  `pago` tinyint(1) NOT NULL
+  `pago` tinyint(1) NOT NULL,
+  KEY `fk_id_usuario_2` (`id_usuario`),
+  KEY `fk_id_ingresso` (`id_ingresso`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -118,18 +114,17 @@ CREATE TABLE IF NOT EXISTS `ingressos` (
   `id_ingresso` int NOT NULL AUTO_INCREMENT,
   `valor` float NOT NULL,
   `id_evento` int NOT NULL,
-  `id_participante` int NOT NULL,
   `quantidade` int NOT NULL,
   PRIMARY KEY (`id_ingresso`),
   KEY `fk_id_evento` (`id_evento`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `ingressos`
 --
 
-INSERT INTO `ingressos` (`id_ingresso`, `valor`, `id_evento`, `id_participante`, `quantidade`) VALUES
-(2, 1e24, 63, 0, 0);
+INSERT INTO `ingressos` (`id_ingresso`, `valor`, `id_evento`, `quantidade`) VALUES
+(14, 9.99, 76, 80);
 
 -- --------------------------------------------------------
 
@@ -194,15 +189,16 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `email` (`email`),
   KEY `fk_tipo_usuario` (`tipo_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `usuarios`
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `nome`, `email`, `senha`, `tipo_usuario`, `cod_ativacao`) VALUES
+(1, 'Admin', 'admin@a.com', '1', 1, 1),
 (8, 'lazaro', 'l@a.c', '$argon2i$v=19$m=65536,t=4,p=1$MC5mb0cwN2FnMGxzejBJag$oi63pAauxxZsuJBxVlIGPm2JImV7fUWOBipNsFKP+yM', 2, 1),
-(24, 'lazaro', 'l@a.com', '$argon2i$v=19$m=65536,t=4,p=1$Nmp0Z3dwY3E5Y3dOaTFrag$Od/zRdKZpgsOqQNsJK/HxjrTBUZFv7qgmCqflB4J4k8', 3, 1);
+(29, 'emp_Lazzarus', 'l@a.com', '$argon2i$v=19$m=65536,t=4,p=1$cmlMTDQuMC81WWlhUXB5Lg$iN/qRtlzKDmga4mgF0AEJC0e0C4INDPMZj2OSOkh3bU', 3, 1);
 
 --
 -- Restrições para despejos de tabelas
@@ -219,6 +215,19 @@ ALTER TABLE `comentarios`
 --
 ALTER TABLE `enderecos`
   ADD CONSTRAINT `fk_id_eventos` FOREIGN KEY (`id_evento`) REFERENCES `eventos` (`id_evento`);
+
+--
+-- Limitadores para a tabela `eventos`
+--
+ALTER TABLE `eventos`
+  ADD CONSTRAINT `fk_id_usuario_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
+
+--
+-- Limitadores para a tabela `info_ingressos`
+--
+ALTER TABLE `info_ingressos`
+  ADD CONSTRAINT `fk_id_ingresso` FOREIGN KEY (`id_ingresso`) REFERENCES `ingressos` (`id_ingresso`),
+  ADD CONSTRAINT `fk_id_usuario_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
 
 --
 -- Limitadores para a tabela `ingressos`

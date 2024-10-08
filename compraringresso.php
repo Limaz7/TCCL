@@ -25,8 +25,8 @@ if ($qtd > $quant['quantidade']) {
     $agora = $data->format('Y-m-d H:i:s');
 
     $sql2 = "INSERT INTO info_ingressos
-            (id_ingresso, id_evento, token, id_usuario, quantidade, data, pago) 
-            VALUES ('$id_ingresso', '$id_evento', '$token', '" . $_SESSION['user'][0] . "', '$qtd', 
+            (id_ingresso, token, id_usuario, quantidade, data, pago) 
+            VALUES ('$id_ingresso', '$token', '" . $_SESSION['user'][0] . "', '$qtd', 
             '$agora', 0)";
     executarSQL($conexao, $sql2);
 
