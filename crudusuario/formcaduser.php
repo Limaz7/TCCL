@@ -58,7 +58,7 @@
 
                 <div class="col s12">
                     <p class="center-align">
-                        <button class="btn waves-effect waves-light black lighten-3" type="submit" name="action">Enviar
+                        <button class="btn waves-effect waves-light black lighten-3" type="submit" name="action">Cadastrar
                     </p>
                 </div>
             </div>

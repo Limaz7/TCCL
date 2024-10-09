@@ -15,14 +15,33 @@
 
     <div class="container">
         <form action="login.php" method="post">
-            <h2> Bem-vindo! Faça o login.</h2>
-            <span>Email</span>  
-            <input type="text" name="email" required>
-            <span>Senha</span>
-            <input type="password" name="senha" id="password" required>
-            <a href="crudusuario/formcaduser.php">Não tem conta? cadastre-se!</a><br>
-            <a href="rec-senha/form_rec_senha.php">Esqueceu a senha da sua conta? Recupere-a </a><br>
-            <input type="submit" value="Enviar">
+            <h2 class="center-align"> Bem-vindo! Faça o login.</h2>
+
+            <div class="card-panel">
+
+                <div class="input-field col s10 offset-s1">
+                    <input type="text" id="email" name="email" class="validade" required>
+                    <label for="email">Email</label>
+                    <span class="helper-text" data-error="Campo com preenchimento obrigatório."></span>
+                </div>
+
+                <div class="input-field col s10 offset-s1">
+                    <input id="senha" type="password" name="senha" class="validate" required>
+                    <label for="senha">Senha</label>
+                    <span class="helper-text" data-error="Campo com preenchimento obrigatório."></span>
+                </div>
+
+
+                <a href="crudusuario/formcaduser.php">Não tem conta? cadastre-se!</a><br>
+                <a href="rec-senha/form_rec_senha.php">Esqueceu a senha da sua conta? Recupere-a </a><br>
+
+                <div class="col s12">
+                    <p class="center-align">
+                        <button class="btn waves-effect waves-light black lighten-3" type="submit" name="action">Logar
+                    </p>
+                </div>
+
+            </div>
         </form>
     </div>
 </body>
