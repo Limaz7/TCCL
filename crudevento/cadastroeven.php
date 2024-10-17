@@ -51,14 +51,10 @@ if ($conecta->errno) {
     header("location: ../inicial.php");
 }
 
-$sql_even = "INSERT INTO eventos(id_usuario, nome_evento, nome_empresa, descricao, data, imagem) 
-                VALUES ('". $_SESSION['user'][0] . "', '$nomeEven', '$nomeEmp', '$desc', '$data', '$novo_nome_ft')";
+$sql_even = "INSERT INTO eventos(id_usuario, nome_evento, nome_empresa, descricao, data, cep, rua, bairro, numero, imagem) 
+                VALUES ('". $_SESSION['user'][0] . "', '$nomeEven', '$nomeEmp', '$desc', '$data', '$cep', '$rua', '$bairro', '$numImo', '$novo_nome_ft')";
 executarSQL($conecta, $sql_even);
-$id_evento = mysqli_insert_id($conecta);
-
-$sql_endere = "INSERT INTO enderecos (id_evento, cep, rua, numero, bairro) 
-                VALUES ('$id_evento', '$cep', '$rua', '$numImo', '$bairro')";
-executarSQL($conecta, $sql_endere);
+$id_evento = mysqli_insert_id($conecta);    
 
 $sql_ingresso = "INSERT INTO ingressos (valor, id_evento, quantidade)
                     VALUES ('$preco', '$id_evento', '$qtd')";

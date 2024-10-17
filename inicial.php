@@ -9,8 +9,8 @@ if (!isset($_SESSION)) {
 include_once "conexao.php";
 $conexao = conectar();
 
-$sql = "SELECT e.*, en.*, i.* FROM eventos e
-        JOIN enderecos en ON e.id_evento= en.id_evento LEFT JOIN ingressos i ON e.id_evento = i.id_evento";
+$sql = "SELECT e.*, i.* FROM eventos e
+        JOIN ingressos i ON e.id_evento = i.id_evento";
 $result1 = executarSQL($conexao, $sql);
 
 $sql2 = "SELECT * FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
