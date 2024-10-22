@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 08-Out-2024 às 18:56
+-- Tempo de geração: 17-Out-2024 às 20:00
 -- Versão do servidor: 8.0.31
 -- versão do PHP: 8.0.26
 
@@ -37,31 +37,6 @@ CREATE TABLE IF NOT EXISTS `comentarios` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `enderecos`
---
-
-DROP TABLE IF EXISTS `enderecos`;
-CREATE TABLE IF NOT EXISTS `enderecos` (
-  `id_endereco` int NOT NULL AUTO_INCREMENT,
-  `id_evento` int NOT NULL,
-  `cep` int NOT NULL,
-  `rua` varchar(255) NOT NULL,
-  `numero` int NOT NULL,
-  `bairro` varchar(255) NOT NULL,
-  PRIMARY KEY (`id_endereco`),
-  KEY `fk_id_evento` (`id_evento`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Extraindo dados da tabela `enderecos`
---
-
-INSERT INTO `enderecos` (`id_endereco`, `id_evento`, `cep`, `rua`, `numero`, `bairro`) VALUES
-(48, 76, 745436, 'fdgagg', 5643, 'htsdheary');
-
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `eventos`
 --
 
@@ -73,17 +48,21 @@ CREATE TABLE IF NOT EXISTS `eventos` (
   `nome_empresa` varchar(255) NOT NULL,
   `descricao` varchar(255) NOT NULL,
   `data` datetime NOT NULL,
+  `cep` int NOT NULL,
+  `rua` varchar(255) NOT NULL,
+  `bairro` varchar(255) NOT NULL,
+  `numero` int NOT NULL,
   `imagem` varchar(255) NOT NULL,
   PRIMARY KEY (`id_evento`),
   KEY `fk_id_usuario_1` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `eventos`
 --
 
-INSERT INTO `eventos` (`id_evento`, `id_usuario`, `nome_evento`, `nome_empresa`, `descricao`, `data`, `imagem`) VALUES
-(76, 29, 'dhad', 'emp_Lazzarus', 'reahr', '2024-10-17 18:43:00', '67056e687761a.jpg');
+INSERT INTO `eventos` (`id_evento`, `id_usuario`, `nome_evento`, `nome_empresa`, `descricao`, `data`, `cep`, `rua`, `bairro`, `numero`, `imagem`) VALUES
+(79, 29, 'Show', 'Lazzarus', 'bvfdsg', '2024-10-23 20:29:00', 4353, 'thfdg', 'ghgfhgfdf', 5435, '6711658d195c6.png');
 
 -- --------------------------------------------------------
 
@@ -99,9 +78,19 @@ CREATE TABLE IF NOT EXISTS `info_ingressos` (
   `quantidade` varchar(255) NOT NULL,
   `data` datetime NOT NULL,
   `pago` tinyint(1) NOT NULL,
+  UNIQUE KEY `token` (`token`),
   KEY `fk_id_usuario_2` (`id_usuario`),
   KEY `fk_id_ingresso` (`id_ingresso`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Extraindo dados da tabela `info_ingressos`
+--
+
+INSERT INTO `info_ingressos` (`id_ingresso`, `token`, `id_usuario`, `quantidade`, `data`, `pago`) VALUES
+(17, '35443597ea41da00eb596357b067a684a15c3489f3691914b6b4ad957580b4b42ade6c0491bfb61bf0b5b40a68d9d45bc7c4', 8, '60', '2024-10-17 16:30:13', 0),
+(17, 'e3d1f113ed5f8ea3d8b66976cdb28e1630c871589fbd63efa98c802e9bd63581feb0b172c13233922d75d5602bcccdf39c5a', 8, '800', '2024-10-17 16:35:02', 0),
+(17, 'fc24ee798c8ed9adcf990232fd7a272fe5573a3a29671d2801cf9808426e9bc2b4702c79d948db6721cdec9a2d79eb73e426', 8, '100', '2024-10-17 16:31:39', 0);
 
 -- --------------------------------------------------------
 
@@ -112,19 +101,19 @@ CREATE TABLE IF NOT EXISTS `info_ingressos` (
 DROP TABLE IF EXISTS `ingressos`;
 CREATE TABLE IF NOT EXISTS `ingressos` (
   `id_ingresso` int NOT NULL AUTO_INCREMENT,
-  `valor` float NOT NULL,
   `id_evento` int NOT NULL,
+  `valor` float NOT NULL,
   `quantidade` int NOT NULL,
   PRIMARY KEY (`id_ingresso`),
   KEY `fk_id_evento` (`id_evento`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `ingressos`
 --
 
-INSERT INTO `ingressos` (`id_ingresso`, `valor`, `id_evento`, `quantidade`) VALUES
-(14, 9.99, 76, 80);
+INSERT INTO `ingressos` (`id_ingresso`, `id_evento`, `valor`, `quantidade`) VALUES
+(17, 79, 9.99, 5345);
 
 -- --------------------------------------------------------
 
@@ -197,8 +186,8 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 
 INSERT INTO `usuarios` (`id_usuario`, `nome`, `email`, `senha`, `tipo_usuario`, `cod_ativacao`) VALUES
 (1, 'Admin', 'admin@a.com', '1', 1, 1),
-(8, 'lazaro', 'l@a.c', '$argon2i$v=19$m=65536,t=4,p=1$MC5mb0cwN2FnMGxzejBJag$oi63pAauxxZsuJBxVlIGPm2JImV7fUWOBipNsFKP+yM', 2, 1),
-(29, 'emp_Lazzarus', 'l@a.com', '$argon2i$v=19$m=65536,t=4,p=1$cmlMTDQuMC81WWlhUXB5Lg$iN/qRtlzKDmga4mgF0AEJC0e0C4INDPMZj2OSOkh3bU', 3, 1);
+(8, 'pppppppp', 'jjjjrjrj', '$argon2i$v=19$m=65536,t=4,p=1$MC5mb0cwN2FnMGxzejBJag$oi63pAauxxZsuJBxVlIGPm2JImV7fUWOBipNsFKP+yM', 2, 1),
+(29, 'Lazzarus', 'l@a.com', '$argon2i$v=19$m=65536,t=4,p=1$cmlMTDQuMC81WWlhUXB5Lg$iN/qRtlzKDmga4mgF0AEJC0e0C4INDPMZj2OSOkh3bU', 3, 1);
 
 --
 -- Restrições para despejos de tabelas
@@ -209,12 +198,6 @@ INSERT INTO `usuarios` (`id_usuario`, `nome`, `email`, `senha`, `tipo_usuario`, 
 --
 ALTER TABLE `comentarios`
   ADD CONSTRAINT `fk_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
-
---
--- Limitadores para a tabela `enderecos`
---
-ALTER TABLE `enderecos`
-  ADD CONSTRAINT `fk_id_eventos` FOREIGN KEY (`id_evento`) REFERENCES `eventos` (`id_evento`);
 
 --
 -- Limitadores para a tabela `eventos`

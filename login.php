@@ -13,10 +13,6 @@ $sql = "SELECT * FROM usuarios WHERE email='$email'";
 $result = executarSQL($conexao, $sql);
 $dados = mysqli_fetch_assoc($result);
 
-if ($dados['tipo_usuario'] == 1){
-    header('location: telasadmin/inicioadm.php');
-}
-
 if (!isset($dados['email'])) {
     echo "Não existe esse email no banco de dados! Tente logar novamente
     <a href='index.php'>Login</a>";
