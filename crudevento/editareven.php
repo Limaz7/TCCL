@@ -28,7 +28,7 @@ $extensao = strtolower(pathinfo($img['name'], PATHINFO_EXTENSION));
 
 if ($_FILES['img']['name'] == null) {
 
-    $sql = "UPDATE eventos e JOIN ingressos i ON e.id_evento = i.id_evento
+    $sql = "UPDATE eventos e JOIN ingressos_cadastrados i ON e.id_evento = i.id_evento
             SET e.nome_evento = '$nomeEven', e.descricao = '$desc', 
             e.data = '$data', e.cep = '$cep', e.rua = '$rua', e.numero = '$numImo',
             i.valor = '$preco', i.quantidade = '$qtd'

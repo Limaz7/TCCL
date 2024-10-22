@@ -15,8 +15,6 @@ $cep = $_POST['cep'];
 $rua = $_POST["rua"];
 $numImo = $_POST["numImo"];
 $bairro = $_POST["bairro"];
-$qtd = $_POST['qtd'];
-$preco = $_POST['preco'];
 
 $extensao = strtolower(pathinfo($foto['name'], PATHINFO_EXTENSION));
 
@@ -51,13 +49,8 @@ if ($conecta->errno) {
     header("location: ../inicial.php");
 }
 
-$sql_even = "INSERT INTO eventos(id_usuario, nome_evento, nome_empresa, descricao, data, cep, rua, bairro, numero, imagem) 
+$sql_even = "INSERT INTO eventos (id_usuario, nome_evento, nome_empresa, descricao, data, cep, rua, bairro, numero, imagem) 
                 VALUES ('". $_SESSION['user'][0] . "', '$nomeEven', '$nomeEmp', '$desc', '$data', '$cep', '$rua', '$bairro', '$numImo', '$novo_nome_ft')";
 executarSQL($conecta, $sql_even);
-$id_evento = mysqli_insert_id($conecta);    
-
-$sql_ingresso = "INSERT INTO ingressos (valor, id_evento, quantidade)
-                    VALUES ('$preco', '$id_evento', '$qtd')";
-executarSQL($conecta, $sql_ingresso);
 
 header('location: ../inicial.php');

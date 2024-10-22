@@ -13,7 +13,7 @@ $img = mysqli_fetch_assoc($result);
 
 unlink($pastaImg . $img['imagem']);
 
-$sql_ingresso = "DELETE FROM ingressos WHERE id_evento = '$id'";
+$sql_ingresso = "DELETE FROM ingressos_cadastrados WHERE id_evento = '$id'";
 executarSQL($conexao, $sql_ingresso);
 
 $sql_even = "DELETE FROM eventos WHERE id_evento = '$id'";

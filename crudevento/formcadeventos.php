@@ -42,8 +42,6 @@ $dados = mysqli_fetch_assoc($result);
             <input type="hidden" name="nomeEmp" value="<?php echo $_SESSION['user'][1]; ?>">
             <p>Nome do evento: <input type="text" name="nomeEven" required></p>
             <p>Descrição: <textarea type="text" name="desc" required></textarea></p>
-            <p>Preço do ingresso: <input type="text" name="preco" required></p>
-            <p>Quantidade de ingressos: <input type="number" name="qtd" required></p>
             <p>CEP: <input type="number" name="cep" required></p>
             <p>Rua: <input type="text" name="rua" required></p>
             <p>Número do imóvel: <input type="number" name="numImo" required></p>
