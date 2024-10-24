@@ -38,13 +38,14 @@ $evento = mysqli_fetch_assoc($result);
 
         <h5>Ingresso</h5>
         <?= $evento['descricao']; ?>
+        <?= $evento['valor']; ?>
+        <?= $evento['quantidade']; ?>
         <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href='#modal<?= $evento["id_evento"] ?>'>Cadastrar ingressos</a>
         <div id="modal<?= $evento['id_evento']; ?>" class="modal">
             <div class="modal-content">
                 <h4>Cadastro de ingressos</h4>
                 <form action="cadastroingresso.php" method="post">
-                    <input type="hidden" name="id_ev" value="<?= $evento['id_evento']; ?>">
-                    <input type="hidden" name="id_in" value="<?= $evento['id_ingresso']; ?>">
+                    <input type="hidden" name="id_ev" value="<?= $id ?>">
                     <p>Descrição: <input type="text" name="desc" required></p>
                     <p>Valor: <input type="number" name="valor" required></p>
                     <p>Quantidade: <input type="number" name="qtd" required></p>
