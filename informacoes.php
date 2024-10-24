@@ -47,7 +47,7 @@ $evento = mysqli_fetch_assoc($result);
                 <form action="cadastroingresso.php" method="post">
                     <input type="hidden" name="id_ev" value="<?= $id ?>">
                     <p>Descrição: <input type="text" name="desc" required></p>
-                    <p>Valor: <input type="number" name="valor" required></p>
+                    <p>Valor: <input type="text" name="valor" required></p>
                     <p>Quantidade: <input type="number" name="qtd" required></p>
                     <div class="modal-footer">
                         <a href="#!" style="background: red;" class="modal-close waves-effect waves-red btn">Cancelar</a>
