@@ -13,7 +13,7 @@ $paginaCorrente = basename($_SERVER['SCRIPT_NAME']);
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li <?php if ($paginaCorrente == 'iniempresa.php') {
                         echo 'class="active"';
-                    } ?>> <a class="white-text" href="inicial.php">Home</a></li>
+                    } ?>> <a class="white-text" href="inicial.php">Tela inicial</a></li>
                 <li <?php if ($paginaCorrente == 'crudperfil/vizuperfil.php') {
                         echo 'class="active"';
                     } ?>> <a class="white-text" href="crudperfil/vizuperfil.php"> Vizualizar perfil </a></li>
