@@ -10,7 +10,9 @@ $sql = "SELECT e.*, i.* FROM eventos e
 $result = executarSQL($conexao, $sql);
 $evento = mysqli_fetch_assoc($result);
 
-$sql_user = "SELECT * FROM usuarios";
+session_start();
+
+$sql_user = "SELECT * FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
 $result1 = executarSQL($conexao, $sql_user);
 $usuario = mysqli_fetch_assoc($result1);
 
@@ -32,6 +34,7 @@ $usuario = mysqli_fetch_assoc($result1);
 </head>
 
 <?php include('headers.php'); ?>
+
 <body>
     <main class="container">
         <h1> <?= $evento['nome_evento']; ?> </h1> <br>
@@ -41,24 +44,44 @@ $usuario = mysqli_fetch_assoc($result1);
         <h5>Produtora</h5>
         <?= $evento['nome_empresa']; ?>
 
-        <h5>Ingresso</h5>
+        <h5>Ingressos</h5>
         <?php $result = executarSQL($conexao, $sql); ?>
         <?php while ($ingressos = mysqli_fetch_assoc($result)) { ?>
-            <?= $ingressos['descricao'] . "<br>"; ?>
-            <?= $ingressos['valor'] . "<br>"; ?>
-            <?= $ingressos['quantidade'] . "<br>"; ?> <br>
+            Número de série: <?= $ingressos['id_ingresso'] . "<br>"; ?>
+            Descrição: <?= $ingressos['descricao'] . "<br>"; ?>
+            Valor do ingresso: <?= $ingressos['valor'] . "<br>"; ?>
+            Quantidade de ingressos restantes: <?= $ingressos['quantidade'] . "<br>"; ?> <br>
 
             <?php if ($usuario['tipo_usuario'] == 2) { ?>
 
-                <a style="background: black; color: white;" class="waves-effect waves-light btn" href='compraringresso'>Comprar ingressos</a>
+                <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href='#modalIngressos'>Comprar ingressos</a>
+
+
+                <div id="modalIngressos" class="modal">
+                    <div class="modal-content">
+                        <h4>Comprar ingresso</h4>
+                        <form action="compraringresso.php" method="post">
+                            <input type="hidden" name="id_ev" value="<?= $id ?>">
+                            <p>Número do ingresso <input type="text" name="id_in" required>
+                            <p>Quantidade <input type="text" name="qtd" required>
+                            <div class="modal-footer">
+                                <a href="#!" style="background: red;" class="modal-close waves-effect waves-red btn">Cancelar</a>
+                                <button style="background: green;" type="submit" class="waves-effect waves-green btn">Comprar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
 
             <?php } ?>
         <?php } ?>
 
 
         <?php if ($usuario['tipo_usuario'] == 3) { ?>
-            <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href='#modal<?= $evento["id_evento"] ?>'>Cadastrar ingressos</a>
-            <div id="modal<?= $evento['id_evento']; ?>" class="modal">
+            <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href='#modalCadastroIngresso'>Cadastrar ingressos</a>
+
+
+            <div id="modalCadastroIngresso" class="modal">
                 <div class="modal-content">
                     <h4>Cadastro de ingressos</h4>
                     <form action="cadastroingresso.php" method="post">
@@ -74,6 +97,8 @@ $usuario = mysqli_fetch_assoc($result1);
                 </div>
             </div>
         <?php } ?>
+
+
     </main>
 </body>
 
