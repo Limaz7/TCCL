@@ -45,35 +45,35 @@ $usuario = mysqli_fetch_assoc($result1);
         <?= $evento['nome_empresa']; ?>
 
         <h5>Ingressos</h5>
+        <?php if ($usuario['tipo_usuario'] == 2) { ?>
+
+            <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href='#modalIngressos'>Comprar ingressos</a>
+
+
+            <div id="modalIngressos" class="modal">
+                <div class="modal-content">
+                    <h4>Comprar ingresso</h4>
+                    <form action="compraringresso.php" method="post">
+                        <input type="hidden" name="id_ev" value="<?= $id ?>">
+                        <p>Número do ingresso <input type="text" name="id_in" required>
+                        <p>Quantidade <input type="text" name="qtd" required>
+                        <div class="modal-footer">
+                            <a href="#!" style="background: red;" class="modal-close waves-effect waves-red btn">Cancelar</a>
+                            <button style="background: green;" type="submit" class="waves-effect waves-green btn">Comprar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+        <?php } ?>
         <?php $result = executarSQL($conexao, $sql); ?>
         <?php while ($ingressos = mysqli_fetch_assoc($result)) { ?>
-            Número de série: <?= $ingressos['id_ingresso'] . "<br>"; ?>
+            <br><br> Número de série: <?= $ingressos['id_ingresso'] . "<br>"; ?>
             Descrição: <?= $ingressos['descricao'] . "<br>"; ?>
             Valor do ingresso: <?= $ingressos['valor'] . "<br>"; ?>
             Quantidade de ingressos restantes: <?= $ingressos['quantidade'] . "<br>"; ?> <br>
 
-            <?php if ($usuario['tipo_usuario'] == 2) { ?>
-
-                <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href='#modalIngressos'>Comprar ingressos</a>
-
-
-                <div id="modalIngressos" class="modal">
-                    <div class="modal-content">
-                        <h4>Comprar ingresso</h4>
-                        <form action="compraringresso.php" method="post">
-                            <input type="hidden" name="id_ev" value="<?= $id ?>">
-                            <p>Número do ingresso <input type="text" name="id_in" required>
-                            <p>Quantidade <input type="text" name="qtd" required>
-                            <div class="modal-footer">
-                                <a href="#!" style="background: red;" class="modal-close waves-effect waves-red btn">Cancelar</a>
-                                <button style="background: green;" type="submit" class="waves-effect waves-green btn">Comprar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-
-            <?php } ?>
         <?php } ?>
 
 

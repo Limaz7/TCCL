@@ -17,7 +17,9 @@ $result = executarSQL($conexao, $sql);
 </head>
 <body>
     
-    <?php while($dados = mysqli_fetch_assoc($result)){ ?>
+<h1>Tela administrador</h1>
+
+<?php while($dados = mysqli_fetch_assoc($result)){ ?>
 
         <?= $dados['nome']; ?>
 

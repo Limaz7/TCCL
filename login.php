@@ -42,6 +42,12 @@ else{
             $_SESSION['user'][1] = $dados['nome'];
             header('location: inicial.php');
         }
+        if ($dados['tipo_usuario'] == 1 and $dados['cod_ativacao'] == 1) {
+            $_SESSION['user'][0] = $dados['id_usuario'];
+            $_SESSION['user'][1] = $dados['nome'];
+            $_SESSION['user'][2] = $dados['tipo_usuario'];
+            header('location: telasadmin/inicioadm.php');
+        }
     } else {
         echo "A senha está incorreta! Tente logar
             novamente. <br> <a href='index.php'>Voltar</a>";
