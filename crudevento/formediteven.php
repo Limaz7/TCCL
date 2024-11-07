@@ -6,7 +6,7 @@ $id = $_SESSION['evento'][0];
 include "../conexao.php";
 $conexao = conectar();
 
-$sql_all = "SELECT e.*, i.* FROM eventos e JOIN ingressos i ON e.id_evento = i.id_evento 
+$sql_all = "SELECT e.*, i.* FROM eventos e LEFT JOIN ingressos_cadastrados i ON e.id_evento = i.id_evento 
             WHERE e.id_evento = '$id'";
 
 $resultado = executarSQL($conexao, $sql_all);
