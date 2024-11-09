@@ -2,7 +2,7 @@
 
 session_start();
 
-if (!isset($_SESSION)) {
+if (!isset($_SESSION['user'][0])) {
     header('location: index.php');
 }
 
@@ -63,7 +63,7 @@ $dados = mysqli_fetch_assoc($result2);
                         <div class="card-content">
                             <p><?= $evento['descricao']; ?></p>
                             <p>Empresa: </p>
-                            <p><?= $evento['nome_empresa']; ?></p>
+                            <p><?= $evento['produtora']; ?></p>
                             <p>Data do evento: </p>
                             <p><?= $evento['data']; ?></p>
                         </div>

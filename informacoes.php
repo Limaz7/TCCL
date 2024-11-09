@@ -1,4 +1,12 @@
 <?php
+
+session_start();
+
+if (!isset($_SESSION)) {
+    header('location: index.php');
+}
+
+
 include('conexao.php');
 $conexao = conectar();
 
@@ -9,8 +17,6 @@ $sql = "SELECT e.*, i.* FROM eventos e
         WHERE e.id_evento= '$id' ";
 $result = executarSQL($conexao, $sql);
 $evento = mysqli_fetch_assoc($result);
-
-session_start();
 
 $sql_user = "SELECT * FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
 $result1 = executarSQL($conexao, $sql_user);
@@ -50,7 +56,7 @@ $usuario = mysqli_fetch_assoc($result1);
         <?= $evento['rua']; ?>, <?= $evento['cep']; ?> <br>
         <?= $evento['bairro']; ?> <br>
         <h5>Produtora</h5>
-        <?= $evento['nome_empresa']; ?>
+        <?= $evento['produtora']; ?>
 
         <h5>Ingressos</h5>
         <?php if ($usuario['tipo_usuario'] == 2) { ?>
@@ -129,6 +135,17 @@ $usuario = mysqli_fetch_assoc($result1);
 
         <a href="#"> UserTeste </a> 10/10 <br>
         Muito bom! <br><br>
+
+
+
+        <?php $result = executarSQL($conexao, $sql); ?>
+        <?php while ($ingressos = mysqli_fetch_assoc($result)) { ?>
+            <br><br> Número de série: <?= $ingressos['id_ingresso'] . "<br>"; ?>
+            Descrição: <?= $ingressos['descricao'] . "<br>"; ?>
+            Valor do ingresso: <?= $ingressos['valor'] . "<br>"; ?>
+            Quantidade de ingressos restantes: <?= $ingressos['quantidade'] . "<br>"; ?> <br>
+
+        <?php } ?>
 
 
     </main>
