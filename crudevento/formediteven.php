@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-$id = $_SESSION['evento'][0];
+$id = $_GET['id_evento'];
 
 include "../conexao.php";
 $conexao = conectar();
@@ -43,14 +43,12 @@ $dados = mysqli_fetch_assoc($resultado);
         <form method="post" action="editareven.php" enctype="multipart/form-data">
 
             <input type="hidden" value="<?= $dados['imagem']; ?>" name="antfoto" />
-            <input type="hidden" value="<?= $_SESSION['evento'][0]; ?>" name="id" />
+            <input type="hidden" value="<?= $id; ?>" name="id" />
             Nome: <input type="text" value="<?= $dados['nome_evento']; ?>" name="nome" /> <br>
             Descrição: <input type="text" value="<?= $dados['descricao']; ?>" name="desc" /><br>
-            <p>Preço do ingresso: <input type="text" value="<?= $dados['valor']; ?>" name="preco" /></p>
-            <p>Quantidade de ingressos: <input type="number" value="<?= $dados['quantidade']; ?>" name="qtd" /></p>
             Data: <input type="datetime-local" value="<?= $dados['data']; ?>" name="data" /> <br>
             CEP: <input type="number" value="<?= $dados['cep']; ?>" name="cep" /> <br>
-            Número do imóvel: <input type="number" value="<?= $dados['numero']; ?>" name="numImo" /> <br>
+            Número do imóvel: <input type="number" value="<?= $dados['numero_residencial']; ?>" name="numImo" /> <br>
             Rua: <input type="text" value="<?= $dados['rua']; ?>" name="rua" /> <br>
             Bairro: <input type="text" value="<?= $dados['bairro']; ?>" name="bairro" /> <br>
             Imagem: <input type="file" value="<?= $dados['imagem']; ?>" name="img" /> <br>

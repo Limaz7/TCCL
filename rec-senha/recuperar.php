@@ -34,7 +34,6 @@ try {
     $mail->Encoding = 'base64';
     $mail->setLanguage('br');
     //$mail->SMTPDebug = SMTP::DEBUG_OFF;  //tira as mensagens de erro
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER; //imprime as mensagens de erro
     $mail->isSMTP();                       //envia o email usando SMTP
     $mail->Host = 'smtp.gmail.com';        //Set the SMTP server to send through
     $mail->SMTPAuth = true;                //Enable SMTP authentication

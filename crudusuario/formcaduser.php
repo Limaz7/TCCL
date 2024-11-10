@@ -51,7 +51,7 @@
                 </div>
 
                 <div class="input-field col s10 offset-s1">
-                    <input id="senha" type="password" name="senha" class="validate" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}" required>
+                    <input id="senha" type="password" name="senha" class="validate" required>
                     <label for="senha">Senha</label>
                     <span class="helper-text" data-error="Campo com preenchimento obrigatório."></span>
                 </div>

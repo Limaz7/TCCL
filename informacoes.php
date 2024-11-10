@@ -44,7 +44,7 @@ $usuario = mysqli_fetch_assoc($result1);
 <body>
     <main class="container">
         <?php if ($usuario['tipo_usuario'] == 3 and $evento['id_usuario'] == $_SESSION['user'][0]) { ?>
-           <br> <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href="crudevento/formediteven?id_evento=<?= $id ?>">EDITAR EVENTO </a> <br> <br> 
+            <br> <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href="crudevento/formediteven?id_evento=<?= $id ?>">EDITAR EVENTO </a> <br> <br>
 
         <?php } ?>
         <?php if ($usuario['tipo_usuario'] == 3 and $evento['id_usuario'] == $_SESSION['user'][0]) { ?>
@@ -52,8 +52,9 @@ $usuario = mysqli_fetch_assoc($result1);
         <?php } ?>
 
         <h1> <?= $evento['nome_evento']; ?> </h1> <br>
+        <?= $evento['descricao']; ?>
         <h5>Local do evento</h5>
-        <?= $evento['rua']; ?>, <?= $evento['cep']; ?> <br>
+        <?= $evento['rua']; ?>, <?= $evento['numero_residencial']; ?> <br>
         <?= $evento['bairro']; ?> <br>
         <h5>Produtora</h5>
         <?= $evento['produtora']; ?>
@@ -78,28 +79,11 @@ $usuario = mysqli_fetch_assoc($result1);
                     </form>
                 </div>
             </div>
-
-
-        <?php } ?>
-        <?php $result = executarSQL($conexao, $sql); ?>
-        <?php while ($ingressos = mysqli_fetch_assoc($result)) { ?>
-
-
-            <?php if ($evento['id_ingresso']) { ?>
-                
-                <br> Número de série: <?= $ingressos['id_ingresso'] . "<br>"; ?>
-                Descrição: <?= $ingressos['descricao'] . "<br>"; ?>
-                Valor do ingresso: <?= $ingressos['valor'] . "<br>"; ?>
-                Quantidade de ingressos restantes: <?= $ingressos['quantidade'] . "<br>"; ?> <br>
-
-            <?php } ?>
-
-
         <?php } ?>
 
 
         <?php if ($usuario['tipo_usuario'] == 3 and $evento['id_usuario'] == $_SESSION['user'][0]) { ?>
-            <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href='#modalCadastroIngresso'>Cadastrar ingressos</a>
+            <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href='#modalCadastroIngresso'>Cadastrar ingressos</a> <br> 
 
 
             <div id="modalCadastroIngresso" class="modal">
@@ -119,6 +103,24 @@ $usuario = mysqli_fetch_assoc($result1);
             </div>
         <?php } ?>
 
+
+
+        <?php $result = executarSQL($conexao, $sql); ?>
+        <?php while ($ingressos = mysqli_fetch_assoc($result)) { ?>
+
+
+            <?php if ($evento['id_ingresso']) { ?>
+
+                <br> Número de série: <?= $ingressos['id_ingresso'] . "<br>"; ?>
+                Descrição: <?= $ingressos['descricao'] . "<br>"; ?>
+                Valor do ingresso: <?= $ingressos['valor'] . "<br>"; ?>
+                Quantidade de ingressos restantes: <?= $ingressos['quantidade'] . "<br>"; ?> <br>
+
+            <?php } ?>
+
+
+        <?php } ?>
+
         <h3> Avaliações </h3>
 
         <a href="#"> UserTeste </a> 10/10 <br>
@@ -135,17 +137,6 @@ $usuario = mysqli_fetch_assoc($result1);
 
         <a href="#"> UserTeste </a> 10/10 <br>
         Muito bom! <br><br>
-
-
-
-        <?php $result = executarSQL($conexao, $sql); ?>
-        <?php while ($ingressos = mysqli_fetch_assoc($result)) { ?>
-            <br><br> Número de série: <?= $ingressos['id_ingresso'] . "<br>"; ?>
-            Descrição: <?= $ingressos['descricao'] . "<br>"; ?>
-            Valor do ingresso: <?= $ingressos['valor'] . "<br>"; ?>
-            Quantidade de ingressos restantes: <?= $ingressos['quantidade'] . "<br>"; ?> <br>
-
-        <?php } ?>
 
 
     </main>

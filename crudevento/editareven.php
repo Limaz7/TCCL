@@ -15,8 +15,6 @@ $antfoto = $_POST['antfoto'];
 $id = $_POST["id"];
 $nomeEven = $_POST["nome"];
 $desc = $_POST["desc"];
-$preco = $_POST['preco'];
-$qtd = $_POST['qtd'];
 $data = $_POST["data"];
 $cep = $_POST["cep"];
 $rua = $_POST["rua"];
@@ -28,13 +26,12 @@ $extensao = strtolower(pathinfo($img['name'], PATHINFO_EXTENSION));
 
 if ($_FILES['img']['name'] == null) {
 
-    $sql = "UPDATE eventos e JOIN ingressos_cadastrados i ON e.id_evento = i.id_evento
-            SET e.nome_evento = '$nomeEven', e.descricao = '$desc', 
-            e.data = '$data', e.cep = '$cep', e.rua = '$rua', e.numero = '$numImo',
-            i.valor = '$preco', i.quantidade = '$qtd'
-            WHERE e.id_evento = '$id'";
+    $sql = "UPDATE eventos
+            SET nome_evento = '$nomeEven', descricao = '$desc', 
+            data = '$data', cep = '$cep', rua = '$rua', bairro='$bairro', numero_residencial = '$numImo'
+            WHERE id_evento = '$id'";
     executarSQL($conexao, $sql);
-    header('location: ../inicial.php');
+    header("location: ../informacoes?id_evento=$id");
     die();
 
 }
