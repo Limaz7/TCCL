@@ -2,7 +2,7 @@
 
 session_start();
 
-if (!isset($_SESSION)) {
+if (!isset($_SESSION['user'])) {
     header('location: index.php');
 }
 
@@ -112,7 +112,7 @@ $usuario = mysqli_fetch_assoc($result1);
             <?php if ($evento['id_ingresso']) { ?>
 
                 <br> Número de série: <?= $ingressos['id_ingresso'] . "<br>"; ?>
-                Descrição: <?= $ingressos['descricao'] . "<br>"; ?>
+                Descrição: <?= $ingressos['informacao'] . "<br>"; ?>
                 Valor do ingresso: <?= $ingressos['valor'] . "<br>"; ?>
                 Quantidade de ingressos restantes: <?= $ingressos['quantidade'] . "<br>"; ?> <br>
 

@@ -1,5 +1,6 @@
 <?php
 $paginaCorrente = basename($_SERVER['SCRIPT_NAME']);
+var_dump($paginaCorrente);
 //echo $pagina_corrente;
 ?>
 
@@ -11,15 +12,15 @@ $paginaCorrente = basename($_SERVER['SCRIPT_NAME']);
             <!--<a href="#" class="brand-logo"><img src="imagens/logo01.webp" height="55" width="60"></a>-->
 
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li <?php if ($paginaCorrente == 'iniempresa.php') {
-                        echo 'class="active"';
-                    } ?>> <a class="white-text" href="inicial.php">Tela inicial</a></li>
-                <li <?php if ($paginaCorrente == 'crudperfil/vizuperfil.php') {
-                        echo 'class="active"';
-                    } ?>> <a class="white-text" href="crudperfil/vizuperfil.php"> Vizualizar perfil </a></li>
-                <li <?php if ($paginaCorrente == 'sair.php') {
-                        echo 'class="active"';
-                    } ?>> <a class="white-text" href="index.php">Sair</a></li>
+                <?php if ($paginaCorrente == 'inicial.php') {
+                    echo "<li> <a class='white-text' href='inicial.php'>Tela inicial</a></li>";
+                    echo "<li> <a class='white-text' href='crudperfil/vizuperfil.php'> Seu perfil </a> </li>";
+                    echo "<li> <a class='white-text' href='logout.php'>Sair</a></li>";
+                    } ?>
+                <?php if ($paginaCorrente == 'vizuperfil.php') {
+                        echo "<li> <a class='white-text' href='../inicial.php'>Tela inicial</a></li>";
+                        echo "<li> <a class='white-text' href='logout.php'>Sair</a></li>";
+                    } ?>
             </ul>
         </div>
     </nav>
