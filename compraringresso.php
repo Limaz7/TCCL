@@ -17,7 +17,7 @@ $qtd = $_POST['qtd'];
 include('conexao.php');
 $conexao = conectar();
 
-$sql = "SELECT quantidade FROM ingressos_cadastrados WHERE id_ingresso= '$id_ingresso'";
+$sql = "SELECT count(quantidade) FROM ingressos_cadastrados WHERE id_ingresso= '$id_ingresso'";
 $res = executarSQL($conexao, $sql);
 $quant = mysqli_fetch_assoc($res);
 
@@ -62,6 +62,13 @@ if ($qtd > $quant['quantidade']) {
         // Informações específicadas pelo Google
         $mail->Host = 'smtp.gmail.com';
         $mail->Port = 587;
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
         // Define o remetente
         $mail->setFrom($config['email'], 'Não responda!');
         // Define o destinatário
@@ -77,7 +84,7 @@ if ($qtd > $quant['quantidade']) {
         $mail->addEmbeddedImage('imagens/6711658d195c6.png', 'imagem_cid');
         // Enviar
         $mail->send();
-        echo 'A mensagem foi enviada!';
+        echo "A mensagem foi enviada! Verifique seu email. <br><br> <a href='informacoes.php?id_evento=$id_evento'>Voltar</a>";
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }

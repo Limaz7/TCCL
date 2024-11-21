@@ -27,13 +27,21 @@ $dados = mysqli_fetch_assoc($result);
     <title>Perfil</title>
 </head>
 
-<?php include ("../headers.php"); ?>
+<?php include("../headers.php"); ?>
+
 <body>
+
+    <div style="" class="card-panel">
+        teste
+    </div>
+
     <div class="container">
-        <div style="margin-top: 20%;" class="card-panel">
+        <div style="margin-top: 10%;" class="card-panel">
             <h1> Meus dados </h1>
             <a href="formalterarsenha.php"> Alterar sua senha </a> <br><br>
-            <form action="editperf.php" method="post">
+            <form action="editperf.php" method="post" enctype="multipart/form-data">
+                <img src="../imagens/<?= $dados['img_perfil']; ?>" alt="Imagem de perfil" height="100px"> <br><br>
+                <input type="file" name="img_perfil" value="<?= $dados['img_perfil']; ?>"><br> <br>
                 <label for="nome">
                     Nome: <input type="text" name="nome" id="nome" value="<?= $dados['nome']; ?>">
                 </label> <br> <br>
@@ -46,5 +54,22 @@ $dados = mysqli_fetch_assoc($result);
         </div>
     </div>
 </body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.sidenav');
+        var instances = M.Sidenav.init(elems, options);
+    });
+
+    // Initialize collapsible (uncomment the lines below if you use the dropdown variation)
+    // var collapsibleElem = document.querySelector('.collapsible');
+    // var collapsibleInstance = M.Collapsible.init(collapsibleElem, options);
+
+    // Or with jQuery
+
+    $(document).ready(function() {
+        $('.sidenav').sidenav();
+    });
+</script>
 
 </html>
