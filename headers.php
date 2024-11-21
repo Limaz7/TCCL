@@ -1,6 +1,5 @@
 <?php
 $paginaCorrente = basename($_SERVER['SCRIPT_NAME']);
-var_dump($paginaCorrente);
 //echo $pagina_corrente;
 ?>
 
