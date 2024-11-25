@@ -1,9 +1,9 @@
 <?php
 
-include('../conexao.php');
+include("../conexao.php");
 $conexao = conectar();
 
-$sql = "SELECT * FROM usuarios";
+$sql = "SELECT * FROM eventos";
 $result = executarSQL($conexao, $sql);
 
 ?>
@@ -20,7 +20,7 @@ $result = executarSQL($conexao, $sql);
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>listareventos</title>
 </head>
 
 <style>
@@ -56,58 +56,49 @@ $result = executarSQL($conexao, $sql);
 
     <?php include("sidenav.php"); ?>
 
-
-
     <main class="container" style="margin-top: 100px; margin-left: 400px;">
-        <p><a href="../logout.php">Sair</a></p>
 
         <table style="text-align: center;">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Validação de entrada</th>
-                    <th>Tipo de usuário</th>
+                    <th>ID produtora</th>
+                    <th>Nome do evento</th>
+                    <th>Produtora</th>
+                    <th>Descrição</th>
+                    <th>Data</th>
+                    <th>CEP</th>
+                    <th>Rua</th>
+                    <th>Bairro</th>
+                    <th>Numero residencial</th>
+                    <th>Imagem do evento</th>
                     <th colspan="2">Opções</th>
                 </tr>
             </thead>
+
             <tbody>
-                <tr>
-                    <?php foreach ($result as $results) { ?>
-                        <?php if ($results['id_usuario'] > 1) { ?>
-                            <td><?= $results['id_usuario'] ?></td>
-                            <td><?= $results['nome'] ?></td>
-                            <td><?= $results['email'] ?></td>
-                            <td><?= $results['cod_ativacao'] ?></td>
-                            <td><?= $results['tipo_usuario'] ?> </td>
-                            <td><a href="formedituser?id_usuario=<?= $results['id_usuario']; ?>">Editar</a></td>
-                            <td><a href="excluiruser?id_usuario=<?= $results['id_usuario']; ?>">Excluir</a></td>
-                        <?php } ?>
-                </tr>
-            <?php } ?>
+                <?php foreach ($result as $results) { ?>
+                    <tr>
+                        <td><?= $results['id_evento'] ?></td>
+                        <td><?= $results['id_usuario'] ?></td>
+                        <td><?= $results['nome_evento'] ?></td>
+                        <td><?= $results['produtora'] ?></td>
+                        <td><?= $results['descricao'] ?></td>
+                        <td><?= $results['data'] ?></td>
+                        <td><?= $results['cep'] ?></td>
+                        <td><?= $results['rua'] ?></td>
+                        <td><?= $results['bairro'] ?></td>
+                        <td><?= $results['numero_residencial'] ?></td>
+                        <td><?= $results['imagem'] ?></td>
+                        <td><a href="">Editar</a></td>
+                        <td><a href="">Excluir</a></td>
+                    </tr>
+                <?php } ?>
             </tbody>
+
         </table>
-        <hr>
-        <p>Tipo de usuário:</p>
-        <p>2 - Participante</p>
-        <p>3 - Empresa</p>
 
     </main>
-
-
 </body>
-
-<!-- Import jQuery antes do materialize.min.js -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- Agora, importe o materialize.min.js -->
-<script type="text/javascript" src="../js/materialize.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-        $('.sidenav').sidenav();
-    });
-</script>
 
 </html>
