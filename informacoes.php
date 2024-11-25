@@ -68,7 +68,7 @@ $usuario = mysqli_fetch_assoc($result1);
             <div id="modalIngressos" class="modal">
                 <div class="modal-content">
                     <h4>Comprar ingresso</h4>
-                    <form action="compraringresso.php" method="post">
+                    <form action="Ingressos/compraringresso.php" method="post">
                         <input type="hidden" name="id_ev" value="<?= $id ?>">
                         <p>Número do ingresso <input type="text" name="id_in" required>
                         <p>Quantidade <input type="text" name="qtd" required>
@@ -89,7 +89,7 @@ $usuario = mysqli_fetch_assoc($result1);
             <div id="modalCadastroIngresso" class="modal">
                 <div class="modal-content">
                     <h4>Cadastro de ingressos</h4>
-                    <form action="cadastroingresso.php" method="post">
+                    <form action="Ingressos/cadastroingresso.php" method="post">
                         <input type="hidden" name="id_ev" value="<?= $id ?>">
                         <p>Descrição: <input type="text" name="desc" required></p>
                         <p>Valor: <input type="text" name="valor" required></p>

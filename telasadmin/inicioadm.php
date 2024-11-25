@@ -37,18 +37,6 @@ $result = executarSQL($conexao, $sql);
         color: black !important;
         /* Garantir que o texto seja branco */
     }
-
-    /* Linha de tabela clara (primeira, terceira, quinta, etc.) */
-    table tbody tr:nth-child(odd) {
-        background-color: #f9f9f9;
-        /* Cor de fundo clara */
-    }
-
-    /* Linha de tabela escura (segunda, quarta, sexta, etc.) */
-    table tbody tr:nth-child(even) {
-        background-color: #e0e0e0;
-        /* Cor de fundo mais escura */
-    }
 </style>
 
 
@@ -61,7 +49,7 @@ $result = executarSQL($conexao, $sql);
     <main class="container" style="margin-top: 100px; margin-left: 400px;">
         <p><a href="../logout.php">Sair</a></p>
 
-        <table style="text-align: center;">
+        <table class="striped" style="text-align: center;">
             <thead>
                 <tr>
                     <th>ID</th>

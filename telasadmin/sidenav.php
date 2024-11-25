@@ -11,7 +11,7 @@ $paginaCorrente = basename($_SERVER['SCRIPT_NAME']);
     <li <?php if ($paginaCorrente == 'listareventos.php') {
             echo 'class="active"';
         } ?>> <a class="white-text" href="listareventos.php">Eventos</a></li>
-    <li <?php if ($paginaCorrente == 'listaringressos.php') {
+    <li <?php if ($paginaCorrente == 'vizuIngressos.php') {
             echo 'class="active"';
-        } ?>><a class="white-text" href="listaringressos">Ingresso</a></li>
+        } ?>><a class="white-text" href="vizuIngressos.php">Ingresso</a></li>
 </ul>

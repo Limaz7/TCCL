@@ -3,7 +3,7 @@
 include("../conexao.php");
 $conexao = conectar();
 
-$sql = "SELECT * FROM eventos";
+$sql = "SELECT * FROM ingressos_cadastrados";
 $result = executarSQL($conexao, $sql);
 
 ?>
@@ -20,7 +20,10 @@ $result = executarSQL($conexao, $sql);
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>listareventos</title>
+    <title>Vizuingressos</title>
+
+    <?php include("sidenav.php") ?>
+
 </head>
 
 <style>
@@ -42,51 +45,34 @@ $result = executarSQL($conexao, $sql);
 
 <body>
 
-    <?php include("sidenav.php"); ?>
-
     <main class="container" style="margin-top: 100px; margin-left: 400px;">
-
         <table class="striped" style="text-align: center;">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>ID produtora</th>
-                    <th>Nome do evento</th>
-                    <th>Produtora</th>
-                    <th>Descrição</th>
-                    <th>Data</th>
-                    <th>CEP</th>
-                    <th>Rua</th>
-                    <th>Bairro</th>
-                    <th>Numero residencial</th>
-                    <th>Imagem do evento</th>
+                    <th>ID evento</th>
+                    <th>Descricão do ingresso</th>
+                    <th>Valor</th>
+                    <th>Quantidade</th>
                     <th colspan="2">Opções</th>
                 </tr>
             </thead>
-
             <tbody>
                 <?php foreach ($result as $results) { ?>
                     <tr>
+                        <td><?= $results['id_ingresso'] ?></td>
                         <td><?= $results['id_evento'] ?></td>
-                        <td><?= $results['id_usuario'] ?></td>
-                        <td><?= $results['nome_evento'] ?></td>
-                        <td><?= $results['produtora'] ?></td>
-                        <td><?= $results['descricao'] ?></td>
-                        <td><?= $results['data'] ?></td>
-                        <td><?= $results['cep'] ?></td>
-                        <td><?= $results['rua'] ?></td>
-                        <td><?= $results['bairro'] ?></td>
-                        <td><?= $results['numero_residencial'] ?></td>
-                        <td><?= $results['imagem'] ?></td>
-                        <td><a href="../crudEvento/formediteven?id_evento=<?= $results['id_evento']; ?>">Editar</a></td>
-                        <td><a href="../crudEvento/excluireven?id_evento=<?= $results['id_evento']; ?>">Excluir</a></td>
+                        <td><?= $results['informacao'] ?></td>
+                        <td><?= $results['valor'] ?></td>
+                        <td><?= $results['quantidade'] ?></td>
+                        <td><a href="editarIngresso.php?id_ingresso=<?= $results['id_ingresso']; ?>">Editar</a></td>
+                        <td><a href="excluirIngresso;php?id_ingresso=<?= $results['id_ingresso']; ?>">Excluir</a></td>
                     </tr>
                 <?php } ?>
             </tbody>
-
         </table>
-
     </main>
+
 </body>
 
 </html>
