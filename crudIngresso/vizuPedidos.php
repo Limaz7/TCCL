@@ -1,9 +1,10 @@
 <?php
 
-include("../conexao.php");
+include('../conexao.php');
 $conexao = conectar();
 
-$sql = "SELECT * FROM eventos";
+$sql = "SELECT * FROM ingressos_comprados ic INNER JOIN
+        usuarios u ON u.id_usuario = ic.id_usuario";
 $result = executarSQL($conexao, $sql);
 
 ?>
@@ -20,7 +21,7 @@ $result = executarSQL($conexao, $sql);
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>listareventos</title>
+    <title></title>
 </head>
 
 <style>
@@ -39,54 +40,41 @@ $result = executarSQL($conexao, $sql);
     }
 </style>
 
+<?php include('../Navs/sidenav.php'); ?>
 
 <body>
 
-    <?php include("../Navs/sidenav.php"); ?>
-
     <main class="container" style="margin-top: 100px; margin-left: 400px;">
-
         <table class="striped" style="text-align: center;">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Imagem do evento</th>
-                    <th>Nome do evento</th>
-                    <th>Produtora</th>
-                    <th>Descrição</th>
+                    <th>Token</th>
+                    <th>Usuário</th>
+                    <th>Quantidade</th>
                     <th>Data</th>
-                    <th>CEP</th>
-                    <th>Rua</th>
-                    <th>Bairro</th>
-                    <th>Numero residencial</th>
-                    <th colspan="2">Opções</th>
+                    <th>Confirmação de compra</th>
                 </tr>
             </thead>
-
             <tbody>
-                <?php foreach ($result as $results) : $arq = $results['imagem']; ?>
-
+                <?php foreach ($result as $results) { ?>
                     <tr>
-                        <td><?= $results['id_evento'] ?></td>
-                        <td><img src="../imagens/<?= $arq ?>" height="55"></td>
-                        <td><?= $results['nome_evento'] ?></td>
-                        <td><?= $results['produtora'] ?></td>
-                        <td><?= $results['descricao'] ?></td>
+                        <td><?= $results['id_ingresso'] ?></td>
+                        <td><?= $results['token'] ?></td>
+                        <td><?= $results['nome'] ?></td>
+                        <td><?= $results['quantidade'] ?></td>
                         <td><?= $results['data'] ?></td>
-                        <td><?= $results['cep'] ?></td>
-                        <td><?= $results['rua'] ?></td>
-                        <td><?= $results['bairro'] ?></td>
-                        <td><?= $results['numero_residencial'] ?></td>
-                        <td><a href="../crudEvento/formediteven?id_evento=<?= $results['id_evento']; ?>">Editar</a></td>
-                        <td><a href="../crudEvento/excluireven?id_evento=<?= $results['id_evento']; ?>">Excluir</a></td>
+                        <?php if($results['pago'] == 0) : ?>
+                            <td>Aguardando pagamento</td>
+                        <?php else: ?>
+                            <td>Pago</td>
+                        <?php endif; ?>
                     </tr>
-
-                <?php endforeach; ?>
+                <?php } ?>
             </tbody>
-
         </table>
-
     </main>
+
 </body>
 
 </html>

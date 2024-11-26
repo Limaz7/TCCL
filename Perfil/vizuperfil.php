@@ -27,13 +27,9 @@ $dados = mysqli_fetch_assoc($result);
     <title>Perfil</title>
 </head>
 
-<?php include("../headers.php"); ?>
+<?php include("../Navs/headers.php"); ?>
 
 <body>
-
-    <div style="" class="card-panel">
-        teste
-    </div>
 
     <div class="container">
         <div style="margin-top: 10%;" class="card-panel">
@@ -48,9 +44,8 @@ $dados = mysqli_fetch_assoc($result);
                 <label for="email">
                     Email: <input type="text" name="email" id="email" value="<?= $dados['email']; ?>">
                 </label> <br>
-                <p><a href="excluirperfil.php">Excluir seu perfil</a></p>
-                <a href="../inicial.php">Voltar</a> <br><br>
-                <input style="background: black; color: white;" class="waves-effect waves-light btn" type="submit" value="Enviar">
+                <input style="background: #1fce3f; color: white;" class="waves-effect waves-light btn" type="submit" value="Enviar">
+                <p><a style="background: #c41707; color: white;" class="waves-effect waves-light btn" href="excluirperfil.php">Excluir seu perfil</a></p>
         </div>
     </div>
 </body>

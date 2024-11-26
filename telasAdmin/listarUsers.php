@@ -42,12 +42,11 @@ $result = executarSQL($conexao, $sql);
 
 <body>
 
-    <?php include("sidenav.php"); ?>
+    <?php include("../Navs/sidenav.php"); ?>
 
 
 
     <main class="container" style="margin-top: 100px; margin-left: 400px;">
-        <p><a href="../logout.php">Sair</a></p>
 
         <table class="striped" style="text-align: center;">
             <thead>
@@ -62,18 +61,18 @@ $result = executarSQL($conexao, $sql);
             </thead>
             <tbody>
                 <tr>
-                    <?php foreach ($result as $results) { ?>
-                        <?php if ($results['id_usuario'] > 1) { ?>
+                    <?php foreach ($result as $results) : ?>
+                        <?php if ($results['id_usuario'] > 1) : ?>
                             <td><?= $results['id_usuario'] ?></td>
                             <td><?= $results['nome'] ?></td>
                             <td><?= $results['email'] ?></td>
                             <td><?= $results['cod_ativacao'] ?></td>
                             <td><?= $results['tipo_usuario'] ?> </td>
                             <td><a href="formedituser?id_usuario=<?= $results['id_usuario']; ?>">Editar</a></td>
-                            <td><a href="excluiruser?id_usuario=<?= $results['id_usuario']; ?>">Excluir</a></td>
-                        <?php } ?>
+                            <td><a href="../crudUsuario/excluiruser?id_usuario=<?= $results['id_usuario']; ?>">Excluir</a></td>
+                        <?php endif; ?>
                 </tr>
-            <?php } ?>
+            <?php endforeach; ?>
             </tbody>
         </table>
         <hr>

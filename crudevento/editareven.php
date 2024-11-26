@@ -56,7 +56,7 @@ if ($img['error'] == 0) {
         $sql = "UPDATE eventos SET imagem = '$novo_nome_ft' WHERE id_evento='$id'";
         executarSQL($conexao, $sql);
         unlink($pastaDestino . $antfoto);
-        header("location: ../iniempresa.php");
+        header("location: ../inicial.php");
     }
 }
 
@@ -64,5 +64,5 @@ if ($img['error'] == 0) {
 if ($conexao->error) {
     die("erro" . $conexao->error);
 } else {
-    header("location: ../iniempresa.php");
+    header("location: ../inicial.php");
 }

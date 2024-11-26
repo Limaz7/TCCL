@@ -35,7 +35,7 @@ $dados = mysqli_fetch_assoc($result2);
 
 <body>
 
-    <?php include_once "headers.php"; ?>
+    <?php include_once "Navs/headers.php"; ?>
 
 
     <main class="container">

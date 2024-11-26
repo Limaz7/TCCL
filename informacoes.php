@@ -39,7 +39,7 @@ $usuario = mysqli_fetch_assoc($result1);
     <title></title>
 </head>
 
-<?php include('headers.php'); ?>
+<?php include('Navs/headers.php'); ?>
 
 <body>
     <main class="container">

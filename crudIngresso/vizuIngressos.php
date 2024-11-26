@@ -3,7 +3,8 @@
 include("../conexao.php");
 $conexao = conectar();
 
-$sql = "SELECT * FROM ingressos_cadastrados";
+$sql = "SELECT * FROM ingressos_cadastrados ic INNER JOIN eventos e
+        ON e.id_evento = ic.id_evento";
 $result = executarSQL($conexao, $sql);
 
 ?>
@@ -22,7 +23,7 @@ $result = executarSQL($conexao, $sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vizuingressos</title>
 
-    <?php include("sidenav.php") ?>
+    <?php include("../Navs/sidenav.php") ?>
 
 </head>
 
@@ -50,7 +51,7 @@ $result = executarSQL($conexao, $sql);
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>ID evento</th>
+                    <th>Evento</th>
                     <th>Descricão do ingresso</th>
                     <th>Valor</th>
                     <th>Quantidade</th>
@@ -61,12 +62,12 @@ $result = executarSQL($conexao, $sql);
                 <?php foreach ($result as $results) { ?>
                     <tr>
                         <td><?= $results['id_ingresso'] ?></td>
-                        <td><?= $results['id_evento'] ?></td>
+                        <td><?= $results['nome_evento'] ?></td>
                         <td><?= $results['informacao'] ?></td>
                         <td><?= $results['valor'] ?></td>
                         <td><?= $results['quantidade'] ?></td>
-                        <td><a href="editarIngresso.php?id_ingresso=<?= $results['id_ingresso']; ?>">Editar</a></td>
-                        <td><a href="excluirIngresso;php?id_ingresso=<?= $results['id_ingresso']; ?>">Excluir</a></td>
+                        <td><a href="formEditIngresso?id_ingresso=<?= $results['id_ingresso']; ?>">Editar</a></td>
+                        <td><a href="excluirIngresso?id_ingresso=<?= $results['id_ingresso']; ?>">Excluir</a></td>
                     </tr>
                 <?php } ?>
             </tbody>
