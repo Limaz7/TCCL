@@ -58,9 +58,9 @@ $dados = mysqli_fetch_assoc($result2);
                     <div class="card">
                         <div class="card-image">
                             <img class="materialboxed" src="imagens/<?= $arq ?>" height="200">
-                            <span class="card-title" width="200px"><?= $evento['nome_evento']; ?></span>
                         </div>
                         <div class="card-content">
+                            <p><?= $evento['nome_evento']; ?></p>
                             <p><?= $evento['descricao']; ?></p>
                             <p>Empresa: </p>
                             <p><?= $evento['produtora']; ?></p>
