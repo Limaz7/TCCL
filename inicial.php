@@ -42,7 +42,7 @@ $dados = mysqli_fetch_assoc($result2);
 
         <h4>
             <?php if ($dados['tipo_usuario'] == 3) { ?>
-                <p><a href="crudevento/formcadeventos.php">Cadastrar eventos</a></p>
+                <p><a href="crudEvento/formcadeventos.php">Cadastrar eventos</a></p>
             <?php } ?>
         </h4>
 
@@ -60,8 +60,8 @@ $dados = mysqli_fetch_assoc($result2);
                             <img class="materialboxed" src="imagens/<?= $arq ?>" height="200">
                         </div>
                         <div class="card-content">
-                            <p><?= $evento['nome_evento']; ?></p>
-                            <p><?= $evento['descricao']; ?></p>
+                            <p style="text-align: center;"><b><?= $evento['nome_evento']; ?></b></p>
+                            <p style="text-align: justify"><?= $evento['descricao']; ?></p>
                             <p>Empresa: </p>
                             <p><?= $evento['produtora']; ?></p>
                             <p>Data do evento: </p>

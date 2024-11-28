@@ -29,7 +29,71 @@ $dados = mysqli_fetch_assoc($result);
 
 <?php include("../Navs/headers.php"); ?>
 
+<style>
+    .sidenav {
+        background-color: #f9f9f9;
+        /* Cor de fundo clara */
+        width: 250px;
+        /* Largura fixa */
+        height: auto;
+        /* Altura ajustada para ficar menor */
+        margin-top: 30vh;
+        /* Centralizando verticalmente na tela */
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        /* Sombra leve */
+        border-radius: 8px;
+        /* Cantos arredondados */
+        padding-bottom: 10px;
+        /* Espaço inferior */
+    }
+
+    .sidenav a {
+        color: #333;
+        /* Cor do texto */
+        font-weight: bold;
+        /* Negrito */
+        display: block;
+        /* Ocupando a largura total */
+        text-align: center;
+        /* Centralizar os links */
+    }
+
+    .sidenav li {
+        border-bottom: 1px solid #ddd;
+        /* Separação das opções */
+        padding: 10px 15px;
+    }
+
+    .sidenav a:hover {
+        background-color: #eee;
+        /* Cor de fundo ao passar o mouse */
+    }
+
+    .sidenav-fixed {
+        position: fixed;
+        top: 64px;
+        /* Ajuste conforme o header, se houver */
+        left: 0;
+        height: calc(100% - 64px);
+        /* Ajuste dinâmico para ocupar a tela */
+        overflow-y: auto;
+    }
+
+    .content {
+        margin-left: 260px;
+        /* Espaço para o conteúdo principal ao lado da sidenav */
+        padding: 20px;
+    }
+</style>
+
 <body>
+
+    <?php if ($dados['tipo_usuario'] == 3): ?>
+        <ul id="slide-out" class="sidenav sidenav-fixed">
+            <li><a href="">Meus dados</a></li>
+            <li><a href="">Eventos Cadastrados</a></li>
+        </ul>
+    <?php endif ?>
 
     <div class="container">
         <div style="margin-top: 10%;" class="card-panel">
@@ -42,7 +106,7 @@ $dados = mysqli_fetch_assoc($result);
                     Nome: <input type="text" name="nome" id="nome" value="<?= $dados['nome']; ?>">
                 </label> <br> <br>
                 <label for="email">
-                    Email: <input type="text" name="email" id="email" value="<?= $dados['email']; ?>">
+                    Email: <input type="text" name="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" value="<?= $dados['email']; ?>">
                 </label> <br>
                 <input style="background: #1fce3f; color: white;" class="waves-effect waves-light btn" type="submit" value="Enviar">
                 <p><a style="background: #c41707; color: white;" class="waves-effect waves-light btn" href="excluirperfil.php">Excluir seu perfil</a></p>

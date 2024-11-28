@@ -22,7 +22,7 @@ $paginaCorrente = basename($_SERVER['SCRIPT_NAME']);
     <li style="margin-top: auto; display: flex; justify-content: center; align-items: center;">
         <div>
             <a href="../logout.php" class="white-text">
-                <i class="material-icons" style="margin-top: 61vh;">power_settings_new</i>
+                <i class="material-icons" style="margin-top: 59vh;">power_settings_new</i>
             </a>
         </div>
     </li>

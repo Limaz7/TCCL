@@ -44,11 +44,11 @@ $usuario = mysqli_fetch_assoc($result1);
 <body>
     <main class="container">
         <?php if ($usuario['tipo_usuario'] == 3 and $evento['id_usuario'] == $_SESSION['user'][0]) { ?>
-            <br> <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href="crudevento/formediteven?id_evento=<?= $id ?>">EDITAR EVENTO </a> <br> <br>
+            <br> <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href="crudEvento/formediteven?id_evento=<?= $id ?>">EDITAR EVENTO </a> <br> <br>
 
         <?php } ?>
         <?php if ($usuario['tipo_usuario'] == 3 and $evento['id_usuario'] == $_SESSION['user'][0]) { ?>
-            <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href="crudevento/excluireven?id_evento=" <?= $id ?>>EXCLUIR EVENTO </a>
+            <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href="crudEvento/excluireven?id_evento=" <?= $id ?>>EXCLUIR EVENTO </a>
         <?php } ?>
 
         <h1> <?= $evento['nome_evento']; ?> </h1> <br>
