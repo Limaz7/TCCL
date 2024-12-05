@@ -6,7 +6,7 @@ session_regenerate_id(true);
 include_once "../conexao.php";
 $conexao = conectar();
 
-$sql = "SELECT * FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
+$sql = "SELECT * FROM eventos e INNER JOIN usuarios u  ON u.id_usuario = e.id_usuario WHERE u.id_usuario=" . $_SESSION['user'][0];
 $result = executarSQL($conexao, $sql);
 $dados = mysqli_fetch_assoc($result);
 ?>
@@ -35,15 +35,16 @@ $dados = mysqli_fetch_assoc($result);
         /* Cor de fundo clara */
         width: 250px;
         /* Largura fixa */
-        height: auto;
+        height: 400px;
         /* Altura ajustada para ficar menor */
-        margin-top: 30vh;
+        margin-left: 100px;
+        margin-top: 100px;
         /* Centralizando verticalmente na tela */
         box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
         /* Sombra leve */
         border-radius: 8px;
         /* Cantos arredondados */
-        padding-bottom: 10px;
+        padding-bottom: 0;
         /* Espaço inferior */
     }
 
@@ -59,9 +60,10 @@ $dados = mysqli_fetch_assoc($result);
     }
 
     .sidenav li {
-        border-bottom: 1px solid #ddd;
         /* Separação das opções */
-        padding: 10px 15px;
+        padding-right: 0;
+        margin-bottom: 0;
+        margin-top: 6px;
     }
 
     .sidenav a:hover {
@@ -71,10 +73,10 @@ $dados = mysqli_fetch_assoc($result);
 
     .sidenav-fixed {
         position: fixed;
-        top: 64px;
+        top: 200px;
         /* Ajuste conforme o header, se houver */
         left: 0;
-        height: calc(100% - 64px);
+        height: 160px;
         /* Ajuste dinâmico para ocupar a tela */
         overflow-y: auto;
     }
@@ -82,36 +84,62 @@ $dados = mysqli_fetch_assoc($result);
     .content {
         margin-left: 260px;
         /* Espaço para o conteúdo principal ao lado da sidenav */
-        padding: 20px;
     }
+
 </style>
 
 <body>
 
     <?php if ($dados['tipo_usuario'] == 3): ?>
-        <ul id="slide-out" class="sidenav sidenav-fixed">
-            <li><a href="vizuperfil.php">Meus dados</a></li>
+        <ul id="slide-out" class="sidenav sidenav-fixed" style="height: 130px;">
+            <li class="sim"><a href="vizuperfil.php">Meus dados</a><hr></li>
             <li><a href="vizueventoscad.php">Eventos Cadastrados</a></li>
         </ul>
     <?php endif ?>
 
-    <div class="container">
-        <div style="margin-top: 10%;" class="card-panel">
-            <h1> Meus dados </h1>
-            <a href="formalterarsenha.php"> Alterar sua senha </a> <br><br>
-            <form action="editperf.php" method="post" enctype="multipart/form-data">
-                <img src="../imagens/<?= $dados['img_perfil']; ?>" alt="Imagem de perfil" height="100px"> <br><br>
-                <input type="file" name="img_perfil" value="<?= $dados['img_perfil']; ?>"><br> <br>
-                <label for="nome">
-                    Nome: <input type="text" name="nome" id="nome" value="<?= $dados['nome']; ?>">
-                </label> <br> <br>
-                <label for="email">
-                    Email: <input type="text" name="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" value="<?= $dados['email']; ?>">
-                </label> <br>
-                <input style="background: #1fce3f; color: white;" class="waves-effect waves-light btn" type="submit" value="Enviar">
-                <p><a style="background: #c41707; color: white;" class="waves-effect waves-light btn" href="excluirperfil.php">Excluir seu perfil</a></p>
-        </div>
-    </div>
+    <main class="container" style="margin-top: 100px; margin-left: 400px;">
+
+        <table class="striped" style="text-align: center;">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Imagem do evento</th>
+                    <th>Nome do evento</th>
+                    <th>Produtora</th>
+                    <th>Descrição</th>
+                    <th>Data</th>
+                    <th>CEP</th>
+                    <th>Rua</th>
+                    <th>Bairro</th>
+                    <th>Numero residencial</th>
+                    <th colspan="2">Opções</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php foreach ($result as $results) : $arq = $results['imagem']; ?>
+
+                    <tr>
+                        <td><?= $results['id_evento'] ?></td>
+                        <td><img src="../imagens/<?= $arq ?>" height="55"></td>
+                        <td><?= $results['nome_evento'] ?></td>
+                        <td><?= $results['produtora'] ?></td>
+                        <td><?= $results['descricao'] ?></td>
+                        <td><?= $results['data'] ?></td>
+                        <td><?= $results['cep'] ?></td>
+                        <td><?= $results['rua'] ?></td>
+                        <td><?= $results['bairro'] ?></td>
+                        <td><?= $results['numero_residencial'] ?></td>
+                        <td><a href="../crudEvento/formediteven?id_evento=<?= $results['id_evento']; ?>">Editar</a></td>
+                        <td><a href="../crudEvento/excluireven?id_evento=<?= $results['id_evento']; ?>">Excluir</a></td>
+                    </tr>
+
+                <?php endforeach; ?>
+            </tbody>
+
+        </table>
+
+    </main>
 </body>
 
 <script>

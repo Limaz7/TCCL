@@ -14,7 +14,7 @@ $paginaCorrente = basename($_SERVER['SCRIPT_NAME']);
                 <?php if ($paginaCorrente != 'vizuperfil.php') {
                     echo "<li> <a class='white-text' href='inicial.php'>Tela inicial</a></li>";
                     echo "<li> <a class='white-text' href='Perfil/vizuperfil.php'> Seu perfil </a> </li>";
-                    echo "<li> <a class='white-text' href='../logout.php'>Sair</a></li>";
+                    echo "<li> <a class='white-text' href='logout.php'>Sair</a></li>";
                 } else {
                     echo "<li> <a class='white-text' href='../inicial.php'>Tela inicial</a></li>";
                     echo "<li> <a class='white-text' href='../logout.php'>Sair</a></li>";
