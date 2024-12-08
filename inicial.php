@@ -40,12 +40,6 @@ $dados = mysqli_fetch_assoc($result2);
 
     <main class="container">
 
-        <h4>
-            <?php if ($dados['tipo_usuario'] == 3) { ?>
-                <p><a href="crudEvento/formcadeventos.php">Cadastrar eventos</a></p>
-            <?php } ?>
-        </h4>
-
         <div class="row">
 
             <?php

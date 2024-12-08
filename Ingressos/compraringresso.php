@@ -17,7 +17,7 @@ $qtd = $_POST['qtd'];
 include('conexao.php');
 $conexao = conectar();
 
-$sql = "SELECT count(quantidade) FROM ingressos_cadastrados WHERE id_ingresso= '$id_ingresso'";
+$sql = "SELECT quantidade FROM ingressos_cadastrados WHERE id_ingresso= '$id_ingresso'";
 $res = executarSQL($conexao, $sql);
 $quant = mysqli_fetch_assoc($res);
 
