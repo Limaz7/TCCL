@@ -85,14 +85,15 @@ $dados = mysqli_fetch_assoc($result);
         margin-left: 260px;
         /* Espaço para o conteúdo principal ao lado da sidenav */
     }
-
 </style>
 
 <body>
 
     <?php if ($dados['tipo_usuario'] == 3): ?>
         <ul id="slide-out" class="sidenav sidenav-fixed" style="height: 130px;">
-            <li class="sim"><a href="vizuperfil.php">Meus dados</a><hr></li>
+            <li class="sim"><a href="vizuperfil.php">Meus dados</a>
+                <hr>
+            </li>
             <li><a href="vizueventoscad.php">Eventos Cadastrados</a></li>
         </ul>
     <?php endif ?>
