@@ -12,6 +12,7 @@ $paginaCorrente = basename($_SERVER['SCRIPT_NAME']);
             <!--<a href="#" class="brand-logo"><img src="imagens/logo01.webp" height="55" width="60"></a>-->
 
             <ul id="nav-mobile" class="right hide-on-med-and-down">
+            
                 <?php if ($paginaCorrente != 'vizuperfil.php') : ?>
                     <?php if ($paginaCorrente == 'inicial.php') : ?>
 
@@ -32,6 +33,7 @@ $paginaCorrente = basename($_SERVER['SCRIPT_NAME']);
                     <li> <a class='white-text' href='logout.php'>Sair</a></li>
                 <?php else: ?>
                     <li> <a class='white-text' href='../inicial.php'>Tela inicial</a></li>
+                    <li> <a class='white-text' href='vizuperfil.php'> Seu perfil </a> </li>
                     <li> <a class='white-text' href='../logout.php'>Sair</a></li>
                 <?php endif; ?>
             </ul>

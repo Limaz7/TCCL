@@ -92,6 +92,14 @@ $dados = mysqli_fetch_assoc($result);
         <ul id="slide-out" class="sidenav sidenav-fixed">
             <li><a href="vizuperfil.php">Meus dados</a></li>
             <li><a href="vizueventoscad.php">Eventos Cadastrados</a></li>
+            <li><a href="vizuIngressoCadastrados.php">Ingressos cadastrados</a></li>
+        </ul>
+    <?php endif ?>
+
+    <?php if ($dados['tipo_usuario'] == 2): ?>
+        <ul id="slide-out" class="sidenav sidenav-fixed">
+            <li><a href="vizuperfil.php">Meus dados</a></li>
+            <li><a href="vizuingressocomp.php">Ingressos comprados</a></li>
         </ul>
     <?php endif ?>
 
