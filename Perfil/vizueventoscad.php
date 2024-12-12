@@ -11,7 +11,7 @@ $result_eve = executarSQL($conexao, $sql_eve);
 
 $sql_user = "SELECT * FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
 $result1 = executarSQL($conexao, $sql_user);
-$dados_user = mysqli_fetch_assoc($result1); 
+$dados_user = mysqli_fetch_assoc($result1);
 ?>
 
 <!DOCTYPE html>
@@ -38,16 +38,15 @@ $dados_user = mysqli_fetch_assoc($result1);
         /* Cor de fundo clara */
         width: 250px;
         /* Largura fixa */
-        height: 400px;
+        height: auto;
         /* Altura ajustada para ficar menor */
-        margin-left: 100px;
-        margin-top: 100px;
+        margin-top: 30vh;
         /* Centralizando verticalmente na tela */
         box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
         /* Sombra leve */
         border-radius: 8px;
         /* Cantos arredondados */
-        padding-bottom: 0;
+        padding-bottom: 10px;
         /* Espaço inferior */
     }
 
@@ -63,10 +62,9 @@ $dados_user = mysqli_fetch_assoc($result1);
     }
 
     .sidenav li {
+        border-bottom: 1px solid #ddd;
         /* Separação das opções */
-        padding-right: 0;
-        margin-bottom: 0;
-        margin-top: 6px;
+        padding: 10px 15px;
     }
 
     .sidenav a:hover {
@@ -76,10 +74,10 @@ $dados_user = mysqli_fetch_assoc($result1);
 
     .sidenav-fixed {
         position: fixed;
-        top: 200px;
+        top: 64px;
         /* Ajuste conforme o header, se houver */
         left: 0;
-        height: 160px;
+        height: calc(100% - 64px);
         /* Ajuste dinâmico para ocupar a tela */
         overflow-y: auto;
     }
@@ -87,24 +85,22 @@ $dados_user = mysqli_fetch_assoc($result1);
     .content {
         margin-left: 260px;
         /* Espaço para o conteúdo principal ao lado da sidenav */
+        padding: 20px;
     }
 </style>
 
 <body>
 
-    <?php if ($dados_user['tipo_usuario'] == 3): ?>
-        <ul id="slide-out" class="sidenav sidenav-fixed" style="height: 130px;">
-            <li class="sim"><a href="vizuperfil.php">Meus dados</a>
-                <hr>
-            </li>
-            <li><a href="vizueventoscad.php">Eventos Cadastrados</a></li>
-        </ul>
-    <?php endif ?>
+    <ul id="slide-out" class="sidenav sidenav-fixed">
+        <li><a href="vizuperfil.php">Meus dados</a></li>
+        <li><a href="vizueventoscad.php">Eventos Cadastrados</a></li>
+        <li><a href="vizuIngressoCadastrados.php">Ingressos cadastrados</a></li>
+    </ul>
 
     <main class="container" style="margin-top: 100px; margin-left: 400px;">
 
         <table class="striped">
-            
+
             <thead>
                 <tr>
                     <th>ID</th>
