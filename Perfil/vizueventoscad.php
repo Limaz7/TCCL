@@ -6,9 +6,12 @@ session_regenerate_id(true);
 include_once "../conexao.php";
 $conexao = conectar();
 
-$sql = "SELECT * FROM eventos e INNER JOIN usuarios u  ON u.id_usuario = e.id_usuario WHERE u.id_usuario=" . $_SESSION['user'][0];
-$result = executarSQL($conexao, $sql);
-$dados = mysqli_fetch_assoc($result);
+$sql_eve = "SELECT * FROM eventos WHERE id_usuario=" . $_SESSION['user'][0];
+$result_eve = executarSQL($conexao, $sql_eve);
+
+$sql_user = "SELECT * FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
+$result1 = executarSQL($conexao, $sql_user);
+$dados_user = mysqli_fetch_assoc($result1); 
 ?>
 
 <!DOCTYPE html>
@@ -90,7 +93,7 @@ $dados = mysqli_fetch_assoc($result);
 
 <body>
 
-    <?php if ($dados['tipo_usuario'] == 3): ?>
+    <?php if ($dados_user['tipo_usuario'] == 3): ?>
         <ul id="slide-out" class="sidenav sidenav-fixed" style="height: 130px;">
             <li class="sim"><a href="vizuperfil.php">Meus dados</a><hr></li>
             <li><a href="vizueventoscad.php">Eventos Cadastrados</a></li>
@@ -99,7 +102,8 @@ $dados = mysqli_fetch_assoc($result);
 
     <main class="container" style="margin-top: 100px; margin-left: 400px;">
 
-        <table class="striped" style="text-align: center;">
+        <table class="striped">
+            
             <thead>
                 <tr>
                     <th>ID</th>
@@ -117,24 +121,24 @@ $dados = mysqli_fetch_assoc($result);
             </thead>
 
             <tbody>
-                <?php foreach ($result as $results) : $arq = $results['imagem']; ?>
+                <?php while ($dados2 = mysqli_fetch_assoc($result_eve)) : $arq = $dados2['imagem']; ?>
 
                     <tr>
-                        <td><?= $results['id_evento'] ?></td>
+                        <td><?= $dados2['id_evento'] ?></td>
                         <td><img src="../imagens/<?= $arq ?>" height="55"></td>
-                        <td><?= $results['nome_evento'] ?></td>
-                        <td><?= $results['produtora'] ?></td>
-                        <td><?= $results['descricao'] ?></td>
-                        <td><?= $results['data'] ?></td>
-                        <td><?= $results['cep'] ?></td>
-                        <td><?= $results['rua'] ?></td>
-                        <td><?= $results['bairro'] ?></td>
-                        <td><?= $results['numero_residencial'] ?></td>
-                        <td><a href="../crudEvento/formediteven?id_evento=<?= $results['id_evento']; ?>">Editar</a></td>
-                        <td><a href="../crudEvento/excluireven?id_evento=<?= $results['id_evento']; ?>">Excluir</a></td>
+                        <td><?= $dados2['nome_evento'] ?></td>
+                        <td><?= $dados2['produtora'] ?></td>
+                        <td><?= $dados2['descricao'] ?></td>
+                        <td><?= $dados2['data'] ?></td>
+                        <td><?= $dados2['cep'] ?></td>
+                        <td><?= $dados2['rua'] ?></td>
+                        <td><?= $dados2['bairro'] ?></td>
+                        <td><?= $dados2['numero_residencial'] ?></td>
+                        <td><a href="../crudEvento/formediteven?id_evento=<?= $dados2['id_evento']; ?>">Editar</a></td>
+                        <td><a href="../crudEvento/excluireven?id_evento=<?= $dados2['id_evento']; ?>">Excluir</a></td>
                     </tr>
 
-                <?php endforeach; ?>
+                <?php endwhile; ?>
             </tbody>
 
         </table>

@@ -2,10 +2,6 @@
 $paginaCorrente = basename($_SERVER['SCRIPT_NAME']);
 //echo $pagina_corrente;
 
-$sql = "SELECT * FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
-$result = executarSQL($conexao, $sql);
-$dados = mysqli_fetch_assoc($result);
-
 ?>
 
 
@@ -17,8 +13,19 @@ $dados = mysqli_fetch_assoc($result);
 
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <?php if ($paginaCorrente != 'vizuperfil.php') : ?>
-                    <?php if ($dados['tipo_usuario'] == 3) : ?>
-                    <li> <a style="background: white; color: black;" class="waves-effect waves-light btn modal-trigger" href='crudEvento/formcadeventos.php'>Cadastrar evento</a></li>
+                    <?php if ($paginaCorrente == 'inicial.php') : ?>
+
+
+                        <?php $sql = "SELECT * FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
+                        $result = executarSQL($conexao, $sql);
+                        $dados = mysqli_fetch_assoc($result);
+                        ?>
+
+
+                        <?php if ($dados['tipo_usuario'] == 3) : ?>
+                            <li> <a style="background: white; color: black;" class="waves-effect waves-light btn modal-trigger" href='crudEvento/formcadeventos.php'>Cadastrar evento</a></li>
+                        <?php endif; ?>
+
                     <?php endif; ?>
                     <li> <a class='white-text' href='inicial.php'>Tela inicial</a></li>
                     <li> <a class='white-text' href='Perfil/vizuperfil.php'> Seu perfil </a> </li>
