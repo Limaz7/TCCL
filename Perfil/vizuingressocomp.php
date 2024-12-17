@@ -5,8 +5,25 @@ session_start();
 include('../conexao.php');
 $conexao = conectar();
 
-$sql = "SELECT * FROM ingressos_comprados ic INNER JOIN
-        usuarios u ON u.id_usuario = ic.id_usuario";
+$sql = "SELECT  ic.id_ingresso, 
+                ic.token,
+                ic.id_usuario,
+                ic.quantidade,
+                ic.data,
+                ic.pago,
+                u.nome,
+                e.nome_evento
+        FROM 
+            ingressos_comprados ic 
+        INNER JOIN
+            usuarios u ON u.id_usuario = ic.id_usuario
+        INNER JOIN 
+            ingressos_cadastrados ia ON ia.id_ingresso = ic.id_ingresso
+        INNER JOIN 
+            eventos e ON ia.id_evento = e.id_evento
+        WHERE 
+            ic.id_usuario =" . $_SESSION['user'][0];
+
 $result = executarSQL($conexao, $sql);
 
 ?>
@@ -97,6 +114,7 @@ $result = executarSQL($conexao, $sql);
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Evento</th>
                     <th>Token</th>
                     <th>Usuário</th>
                     <th>Quantidade</th>
@@ -107,11 +125,12 @@ $result = executarSQL($conexao, $sql);
             <tbody>
                 <?php while ($results = mysqli_fetch_assoc($result)) : ?>
                     <tr>
-                        <td><?= $results['id_ingresso'] ?></td>
-                        <td><?= $results['token'] ?></td>
-                        <td><?= $results['nome'] ?></td>
-                        <td><?= $results['quantidade'] ?></td>
-                        <td><?= $results['data'] ?></td>
+                        <td><?= $results['id_ingresso'] ;?></td>
+                        <td><?= $results['nome_evento']; ?></td>
+                        <td><?= $results['token']; ?></td>
+                        <td><?= $results['nome']; ?></td>
+                        <td><?= $results['quantidade']; ?></td>
+                        <td><?= $results['data']; ?></td>
                         <?php if ($results['pago'] == 0) : ?>
                             <td>Aguardando pagamento</td>
                         <?php else: ?>

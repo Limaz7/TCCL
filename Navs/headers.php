@@ -27,12 +27,23 @@ $paginaCorrente = basename($_SERVER['SCRIPT_NAME']);
                     <li> <a class='white-text' href='Perfil/vizuperfil.php'> Seu perfil </a> </li>
                     <li> <a class='white-text' href='logout.php'>Sair</a></li>
 
-                <?php elseif ($paginaCorrente == 'vizuperfil.php') : ?>
+                <?php else: ?>
 
-                    <li> <a class='white-text' href='../inicial.php'>Tela inicial</a></li>
-                    <li> <a class='white-text' href='../logout.php'>Sair</a></li>
+                    <?php if ($paginaCorrente == 'informacoes.php'): ?>
+
+                        <li> <a class='white-text' href='inicial.php'>Tela inicial</a></li>
+                        <li> <a class='white-text' href='Perfil/vizuperfil.php'> Seu perfil </a> </li>
+                        <li> <a class='white-text' href='logout.php'>Sair</a></li>
+
+                    <?php else: ?>
+
+                        <li> <a class='white-text' href='../inicial.php'>Tela inicial</a></li>
+                        <li> <a class='white-text' href='../logout.php'>Sair</a></li>
+
+                    <?php endif; ?>
 
                 <?php endif; ?>
+
             </ul>
         </div>
     </nav>
