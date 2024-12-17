@@ -3,9 +3,9 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'rec-senha/PHPMailer/src/Exception.php';
-require 'rec-senha/PHPMailer/src/PHPMailer.php';
-require 'rec-senha/PHPMailer/src/SMTP.php';
+require '../rec-senha/PHPMailer/src/Exception.php';
+require '../rec-senha/PHPMailer/src/PHPMailer.php';
+require '../rec-senha/PHPMailer/src/SMTP.php';
 
 session_start();
 
@@ -14,7 +14,7 @@ $id_user = $_SESSION['user'][0];
 $id_ingresso = $_POST['id_in'];
 $qtd = $_POST['qtd'];
 
-include('conexao.php');
+include('../conexao.php');
 $conexao = conectar();
 
 $sql = "SELECT quantidade FROM ingressos_cadastrados WHERE id_ingresso= '$id_ingresso'";
@@ -44,7 +44,7 @@ if ($qtd > $quant['quantidade']) {
         die();
     }
 
-    include "config.php";
+    include "../config.php";
 
     // Instância da classe
     $mail = new PHPMailer(true);
@@ -81,10 +81,10 @@ if ($qtd > $quant['quantidade']) {
         <img src="cid:imagem_cid">'; //Pega a imagem do CID
 
         //Pega a imagem e colocar um ID nela
-        $mail->addEmbeddedImage('imagens/6711658d195c6.png', 'imagem_cid');
+        $mail->addEmbeddedImage('../imagens/6711658d195c6.png', 'imagem_cid');
         // Enviar
         $mail->send();
-        echo "A mensagem foi enviada! Verifique seu email. <br><br> <a href='informacoes.php?id_evento=$id_evento'>Voltar</a>";
+        echo "A mensagem foi enviada! Verifique seu email. <br><br> <a href='../informacoes.php?id_evento=$id_evento'>Voltar</a>";
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }

@@ -106,7 +106,7 @@ $result = executarSQL($conexao, $sql);
 
     <ul id="slide-out" class="sidenav sidenav-fixed">
         <li><a href="vizuperfil.php">Meus dados</a></li>
-        <li><a href="vizuingressocomp.php">Ingressos comprados</a></li>
+        <li><a href="vizuingressocomp.php">Histórico de compras</a></li>
     </ul>
 
     <main class="container" style="margin-top: 100px; margin-left: 400px;">
