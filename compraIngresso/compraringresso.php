@@ -9,10 +9,10 @@ require '../rec-senha/PHPMailer/src/SMTP.php';
 
 session_start();
 
-$id_evento = $_POST['id_ev'];
-$id_user = $_SESSION['user'][0];
-$id_ingresso = $_POST['id_in'];
-$qtd = $_POST['qtd'];
+$id_evento = $_POST['id_evento'];
+$id_user = $_POST['id_usuario'];
+$id_ingresso = $_POST['id_ingresso'];
+$qtd = $_POST['quantidade'];
 
 include('../conexao.php');
 $conexao = conectar();
