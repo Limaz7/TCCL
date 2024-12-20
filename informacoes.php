@@ -22,8 +22,6 @@
     $result1 = executarSQL($conexao, $sql_user);
     $usuario = mysqli_fetch_assoc($result1);
 
-    $valores_ingressos = []; // Array para armazenar os valores
-
     ?>
     <!DOCTYPE html>
     <html lang="pt-br">
@@ -79,39 +77,26 @@
                 </div>
             <?php } ?>
 
-
-            <h2>Valor dos ingressos: <span id="valor-total">R$ 0,00</span></h2>
-
             <?php $result = executarSQL($conexao, $sql); ?>
-            <?php $i = 0;
-            while ($ingressos = mysqli_fetch_assoc($result)) : ?>
+            <?php while ($ingressos = mysqli_fetch_assoc($result)) : ?>
 
+                <?php if ($evento['id_ingresso']) : ?>
 
-                <?php if ($evento['id_ingresso']) { ?>
-
-
-                    <?php $valores_ingressos[] = $ingressos['valor']; ?> <!-- Adiciona o valor ao array -->
-
-                    <div class="ingresso">
-                        <h5><?= $ingressos['informacao'] ?></h5>
-                        <p>1º Lote Unissex OPEN BAR R$ <?= number_format($ingressos['valor'], 2, ',', '.'); ?></p>
-                        <div class="quantidade">
-                            <button type="button" class="decremento" onclick="alterarQuantidade(-1, <?= $i; ?>)">-</button>
-                            <span id="qtd-<?= $i; ?>" data-id-ingresso="<?= $ingressos['id_ingresso']; ?>">0</span>
-                            <button type="button" class="incremento" onclick="alterarQuantidade(1, <?= $i; ?>)">+</button>
+                    <form action="compraIngresso/compraringresso.php" method="post">
+                        <div class="ingresso">
+                            <h5><?= $ingressos['informacao'] ?></h5>
+                            <p>Valor: R$ <?= number_format($ingressos['valor'], 2, ',', '.'); ?></p>
+                            <input type="text" name="id_ingresso" value="<?= $ingressos['id_ingresso']; ?>">
+                            <input type="text" name="id_evento" value="<?= $ingressos['id_evento']; ?>">
                         </div>
-                        <input type="text" name="id_ingresso" value="<?= $ingressos['id_ingresso']; ?>">
-                    </div>
+
+                        <input type="submit" value="Enviar">
+                    </form>
 
 
+                <?php endif; ?>
 
-
-                <?php } ?>
-
-            <?php $i++;
-            endwhile; ?>
-
-            <button type="button" onclick="enviarQuantidadeParaServidor(<?= $id ?>)">Enviar</button>
+            <?php endwhile; ?>
 
 
 
@@ -126,52 +111,6 @@
             $('.materialboxed').materialbox(); // Inicializando o materialbox
             $('.modal').modal(); // Inicializando os modais
         });
-    </script>
-
-
-    <!-- Passando o array PHP para o JavaScript -->
-    <script>
-        // Passando o array PHP para o JavaScript
-        const precos = <?php echo json_encode($valores_ingressos); ?>;
-        console.log(precos);
-
-        function alterarQuantidade(valor, id) {
-            const quantidadeElement = document.getElementById(`qtd-${id}`);
-            let quantidadeAtual = parseInt(quantidadeElement.innerText);
-
-            // Atualizar quantidade
-            quantidadeAtual += valor;
-            if (quantidadeAtual < 0) quantidadeAtual = 0;
-            quantidadeElement.innerText = quantidadeAtual;
-
-            // Atualizar o valor total
-            atualizarValorTotal();
-
-        }
-
-        function atualizarValorTotal() {
-            let total = 0;
-            for (let i = 0; i < precos.length; i++) {
-                const quantidade = parseInt(document.getElementById(`qtd-${i}`).innerText);
-                total += quantidade * precos[i];
-            }
-            document.getElementById('valor-total').innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
-        }
-
-        function cadastrar(id_ingresso, id_evento, quantidade) {
-            fetch('compraIngresso/compraringresso.php', {
-                method: 'POST',
-                body: JSON.stringify({
-                    id_ingresso: id_ingresso,
-                    id_evento: id_evento,
-                    quantidade: quantidade
-                }),
-                headers: {
-                    'Content-Type': "application/json; charset=UTF-8"
-                }
-            });
-        }
-
     </script>
 
     </html>
