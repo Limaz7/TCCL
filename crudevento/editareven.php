@@ -31,9 +31,12 @@ if ($_FILES['img']['name'] == null) {
             data = '$data', cep = '$cep', rua = '$rua', bairro='$bairro', numero_residencial = '$numImo'
             WHERE id_evento = '$id'";
     executarSQL($conexao, $sql);
-    header("location: ../informacoes?id_evento=$id");
-    die();
 
+    $_SESSION['mensagem'][0] = 'Evento editado com sucesso!';
+    $_SESSION['mensagem'][1] = '#558b2f light-green darken-3';
+
+    header("location: ../Perfil/VizuEventosCad?id_evento=$id");
+    die();
 }
 
 
@@ -56,13 +59,16 @@ if ($img['error'] == 0) {
         $sql = "UPDATE eventos SET imagem = '$novo_nome_ft' WHERE id_evento='$id'";
         executarSQL($conexao, $sql);
         unlink($pastaDestino . $antfoto);
-        header("location: ../inicial.php");
+
+        $_SESSION['mensagem'][0] = 'Evento editado com sucesso!';
+        $_SESSION['mensagem'][1] = '#558b2f light-green darken-3';
+
+        header("location: ../Perfil/vizuEventodCad.php");
+        die();
     }
 }
 
 
 if ($conexao->error) {
     die("erro" . $conexao->error);
-} else {
-    header("location: ../inicial.php");
 }

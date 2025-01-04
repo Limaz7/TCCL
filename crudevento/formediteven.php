@@ -1,13 +1,17 @@
 <?php
 
 session_start();
+
+if (!isset($_SESSION['user'])) {
+    header('location: index.php');
+}
+
 $id = $_GET['id_evento'];
 
 include "../conexao.php";
 $conexao = conectar();
 
-$sql_all = "SELECT e.*, i.* FROM eventos e LEFT JOIN ingressos_cadastrados i ON e.id_evento = i.id_evento 
-            WHERE e.id_evento = '$id'";
+$sql_all = "SELECT * FROM eventos WHERE id_evento = '$id'";
 
 $resultado = executarSQL($conexao, $sql_all);
 

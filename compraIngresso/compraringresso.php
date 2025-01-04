@@ -1,18 +1,18 @@
 <?php
 
-use PHPMailer\PHPMailer\PHPMailer;
+/* use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require '../rec-senha/PHPMailer/src/Exception.php';
 require '../rec-senha/PHPMailer/src/PHPMailer.php';
-require '../rec-senha/PHPMailer/src/SMTP.php';
+require '../rec-senha/PHPMailer/src/SMTP.php'; */
 
 session_start();
 
 $id_evento = $_POST['id_evento'];
 $id_user = $_POST['id_usuario'];
 $id_ingresso = $_POST['id_ingresso'];
-$qtd = $_POST['quantidade'];
+$qtd = $_POST['qtd'];
 
 include('../conexao.php');
 $conexao = conectar();
@@ -24,8 +24,7 @@ $quant = mysqli_fetch_assoc($res);
 $token = bin2hex(random_bytes(50));
 
 if ($qtd > $quant['quantidade']) {
-    echo "Não existe essa quantidade de ingressos<br>";
-    echo "<a href='informacoes?id_evento=$id_evento'>Voltar</a>";
+    header ("location: ../informacoes?id_evento=$id_evento&maior=1");
 } else {
 
     $nova_qtd = $quant['quantidade'] - $qtd;
@@ -44,7 +43,7 @@ if ($qtd > $quant['quantidade']) {
         die();
     }
 
-    include "../config.php";
+    /* include "../config.php";
 
     // Instância da classe
     $mail = new PHPMailer(true);
@@ -87,15 +86,17 @@ if ($qtd > $quant['quantidade']) {
         echo "A mensagem foi enviada! Verifique seu email. <br><br> <a href='../informacoes.php?id_evento=$id_evento'>Voltar</a>";
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-    }
+    } */
 
     date_default_timezone_set('America/Sao_Paulo');
     $data = new DateTime('now');
     $agora = $data->format('Y-m-d H:i:s');
 
     $sql2 = "INSERT INTO ingressos_comprados
-            (id_ingresso, token, id_usuario, quantidade, data, pago) 
+            (id_ingresso, ticket, id_usuario, quantidade, data, pago) 
             VALUES ('$id_ingresso', '$token', '$id_user', '$qtd', 
             '$agora', 0)";
     executarSQL($conexao, $sql2);
+
+    header("location: ../informacoes?id_evento=$id_evento&sucesso=1");
 }

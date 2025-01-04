@@ -12,7 +12,9 @@ $sql = "UPDATE ingressos_cadastrados SET informacao='$info', valor='$valor',
         quantidade='$quant' WHERE id_ingresso='$id'";
 executarSQL($conexao, $sql);
 
-header('location: vizuIngressos.php');
+session_start();
 
+$_SESSION['mensagem'][0] = 'Ingresso editado com sucesso!';
+$_SESSION['mensagem'][1] = '#558b2f light-green darken-3';
 
-?>
+header('location: ../Perfil/vizuIngressosCad.php');

@@ -23,6 +23,7 @@
     $usuario = mysqli_fetch_assoc($result1);
 
     ?>
+
     <!DOCTYPE html>
     <html lang="pt-br">
 
@@ -80,24 +81,41 @@
             <?php $result = executarSQL($conexao, $sql); ?>
             <?php while ($ingressos = mysqli_fetch_assoc($result)) : ?>
 
+
                 <?php if ($evento['id_ingresso']) : ?>
 
-                    <form action="compraIngresso/compraringresso.php" method="post">
-                        <div class="ingresso">
-                            <h5><?= $ingressos['informacao'] ?></h5>
-                            <p>Valor: R$ <?= number_format($ingressos['valor'], 2, ',', '.'); ?></p>
-                            <input type="text" name="id_ingresso" value="<?= $ingressos['id_ingresso']; ?>">
-                            <input type="text" name="id_evento" value="<?= $ingressos['id_evento']; ?>">
-                        </div>
 
-                        <input type="submit" value="Enviar">
-                    </form>
+                    <div class="card-panel #f5f5f5 grey lighten-4" style="max-width: 400px;">
+                        <h5><?= $ingressos['informacao'] ?></h5>
+                        <p>Valor: R$ <?= number_format($ingressos['valor'], 2, ',', '.'); ?></p>
+                        <p>Quantidade restante: <?= $ingressos['quantidade']; ?></p>
+                        <input type="hidden" name="id_ingresso" value="<?= $ingressos['id_ingresso']; ?>">
+                        <input type="hidden" name="id_evento" value="<?= $ingressos['id_evento']; ?>">
+                        <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href='#modalComprarIngresso'>Selecionar ingresso</a>
+                    </div>
 
 
                 <?php endif; ?>
 
-            <?php endwhile; ?>
+                <div id="modalComprarIngresso" class="modal">
+                    <div class="modal-content">
+                        <h4>Compre seu ingresso</h4>
+                        <form action="compraIngresso/compraringresso.php" method="post">
+                            <input type="hidden" name="id_evento" value="<?= $ingressos['id_evento']; ?>">
+                            <input type="hidden" name="id_ingresso" value="<?= $ingressos['id_ingresso']; ?>">
+                            <input type="hidden" name="id_usuario" value="<?= $_SESSION['user'][0]; ?>">
 
+                            <p>Quantidade: <input type="number" name="qtd" required></p>
+                            <div class="modal-footer">
+                                <a href="#!" style="background: red;" class="modal-close waves-effect waves-red btn">Cancelar</a>
+                                <button style="background: green;" type="submit" class="waves-effect waves-green btn">Comprar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+            <?php endwhile; ?>
 
 
         </main>
@@ -106,6 +124,23 @@
     <!--JavaScript at end of body for optimized loading-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/materialize.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            <?php if (isset($_GET['sucesso']) && $_GET['sucesso'] == 1): ?>
+                M.toast({
+                    html: 'Compra realizada com sucesso!',
+                    classes: 'green'
+                });
+            <?php elseif ($_GET['maior'] == 1): ?>
+                M.toast({
+                    html: 'Não existe essa quantidade de ingressos',
+                    classes: 'red'
+                });
+            <?php endif; ?>
+        });
+    </script>
+
     <script>
         $(document).ready(function() {
             $('.materialboxed').materialbox(); // Inicializando o materialbox

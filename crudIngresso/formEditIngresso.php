@@ -1,5 +1,11 @@
 <?php
 
+session_start();
+
+if (!isset($_SESSION['user'])) {
+    header('location: index.php');
+}
+
 include_once "../conexao.php";
 $conexao = conectar();
 

@@ -1,7 +1,10 @@
 <?php
 
 session_start();
-session_regenerate_id(true);
+
+if (!isset($_SESSION['user'])) {
+    header('location: index.php');
+}
 
 include_once "../conexao.php";
 $conexao = conectar();
@@ -92,9 +95,9 @@ $dados_user = mysqli_fetch_assoc($result1);
 <body>
 
     <ul id="slide-out" class="sidenav sidenav-fixed">
-        <li><a href="vizuperfil.php">Meus dados</a></li>
-        <li><a href="vizueventoscad.php">Eventos Cadastrados</a></li>
-        <li><a href="vizuIngressoCadastrados.php">Ingressos cadastrados</a></li>
+        <li><a href="vizuPerfil.php">Meus dados</a></li>
+        <li><a href="vizuEventosCad.php">Eventos Cadastrados</a></li>
+        <li><a href="vizuIngressosCad.php">Ingressos cadastrados</a></li>
     </ul>
 
     <main class="container" style="margin-top: 100px; margin-left: 400px;">
@@ -143,21 +146,33 @@ $dados_user = mysqli_fetch_assoc($result1);
     </main>
 </body>
 
+<!--JavaScript at end of body for optimized loading-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../js/materialize.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.materialboxed').materialbox(); // Inicializando o materialbox
+        $('.sidenav').sidenav(); // Iniciando o sidenav
+    });
+</script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.sidenav');
         var instances = M.Sidenav.init(elems, options);
     });
-
-    // Initialize collapsible (uncomment the lines below if you use the dropdown variation)
-    // var collapsibleElem = document.querySelector('.collapsible');
-    // var collapsibleInstance = M.Collapsible.init(collapsibleElem, options);
-
-    // Or with jQuery
-
-    $(document).ready(function() {
-        $('.sidenav').sidenav();
-    });
 </script>
+
+<?php
+
+include("../functionMensagens.php");
+
+if (isset($_SESSION['mensagem'])):
+    exibirMensagem($_SESSION['mensagem'][0], $_SESSION['mensagem'][1]);
+    unset($_SESSION['mensagem']);
+endif;
+
+?>
 
 </html>

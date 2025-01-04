@@ -24,7 +24,7 @@ $paginaCorrente = basename($_SERVER['SCRIPT_NAME']);
                         <li> <a style="background: white; color: black;" class="waves-effect waves-light btn modal-trigger" href='crudEvento/formcadeventos.php'>Cadastrar evento</a></li>
                     <?php endif; ?>
                     <li> <a class='white-text' href='inicial.php'>Tela inicial</a></li>
-                    <li> <a class='white-text' href='Perfil/vizuperfil.php'> Seu perfil </a> </li>
+                    <li> <a class='white-text' href='Perfil/vizuPerfil.php'> Seu perfil </a> </li>
                     <li> <a class='white-text' href='logout.php'>Sair</a></li>
 
                 <?php else: ?>
@@ -32,7 +32,7 @@ $paginaCorrente = basename($_SERVER['SCRIPT_NAME']);
                     <?php if ($paginaCorrente == 'informacoes.php'): ?>
 
                         <li> <a class='white-text' href='inicial.php'>Tela inicial</a></li>
-                        <li> <a class='white-text' href='Perfil/vizuperfil.php'> Seu perfil </a> </li>
+                        <li> <a class='white-text' href='Perfil/vizuPerfil.php'> Seu perfil </a> </li>
                         <li> <a class='white-text' href='logout.php'>Sair</a></li>
 
                     <?php else: ?>

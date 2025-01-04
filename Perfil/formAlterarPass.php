@@ -1,3 +1,13 @@
+<?php
+
+session_start();
+
+if (!isset($_SESSION['user'])) {
+    header('location: index.php');
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -8,7 +18,7 @@
 </head>
 <body>
     <h3> Alterar sua senha </h3>
-    <form action="altersenha.php" method="post">
+    <form action="alterarSenha.php" method="post">
         <label for="senhaAt">
             Senha atual: <input type="text" name="senhaAtual" id="senhaAt">
         </label> <br><br>

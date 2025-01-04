@@ -2,11 +2,15 @@
 
 session_start();
 
+if (!isset($_SESSION['user'])) {
+    header('location: index.php');
+}
+
 include('../conexao.php');
 $conexao = conectar();
 
 $sql = "SELECT  ic.id_ingresso, 
-                ic.token,
+                ic.ticket,
                 ic.id_usuario,
                 ic.quantidade,
                 ic.data,
@@ -115,7 +119,7 @@ $result = executarSQL($conexao, $sql);
                 <tr>
                     <th>ID</th>
                     <th>Evento</th>
-                    <th>Token</th>
+                    <th>Ticket</th>
                     <th>Usuário</th>
                     <th>Quantidade</th>
                     <th>Data</th>
@@ -127,7 +131,7 @@ $result = executarSQL($conexao, $sql);
                     <tr>
                         <td><?= $results['id_ingresso'] ;?></td>
                         <td><?= $results['nome_evento']; ?></td>
-                        <td><?= $results['token']; ?></td>
+                        <td><?= $results['ticket']; ?></td>
                         <td><?= $results['nome']; ?></td>
                         <td><?= $results['quantidade']; ?></td>
                         <td><?= $results['data']; ?></td>

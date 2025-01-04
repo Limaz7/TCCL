@@ -3,6 +3,10 @@
 session_start();
 session_regenerate_id(true);
 
+if (!isset($_SESSION['user'])) {
+    header('location: index.php');
+}
+
 include_once "../conexao.php";
 $conexao = conectar();
 
@@ -90,16 +94,16 @@ $dados = mysqli_fetch_assoc($result);
 
     <?php if ($dados['tipo_usuario'] == 3): ?>
         <ul id="slide-out" class="sidenav sidenav-fixed">
-            <li><a href="vizuperfil.php">Meus dados</a></li>
-            <li><a href="vizueventoscad.php">Eventos Cadastrados</a></li>
-            <li><a href="vizuIngressoCadastrados.php">Ingressos cadastrados</a></li>
+            <li><a href="vizuPerfil.php">Meus dados</a></li>
+            <li><a href="vizuEventosCad.php">Eventos Cadastrados</a></li>
+            <li><a href="vizuIngressosCad.php">Ingressos cadastrados</a></li>
         </ul>
     <?php endif ?>
 
     <?php if ($dados['tipo_usuario'] == 2): ?>
         <ul id="slide-out" class="sidenav sidenav-fixed">
-            <li><a href="vizuperfil.php">Meus dados</a></li>
-            <li><a href="vizuingressocomp.php">Histórico de compras</a></li>
+            <li><a href="vizuPerfil.php">Meus dados</a></li>
+            <li><a href="vizuIngressosBuy.php">Histórico de compras</a></li>
         </ul>
     <?php endif ?>
 
@@ -107,9 +111,8 @@ $dados = mysqli_fetch_assoc($result);
         <div style="margin-top: 10%;" class="card-panel">
             <h1> Meus dados </h1>
             <a href="formalterarsenha.php"> Alterar sua senha </a> <br><br>
-            <form action="editperf.php" method="post" enctype="multipart/form-data">
+            <form action="editPerfil.php" method="post" enctype="multipart/form-data">
                 <img src="../imagens/<?= $dados['img_perfil']; ?>" alt="Imagem de perfil" height="100px"> <br><br>
-                <input type="file" name="img_perfil" value="<?= $dados['img_perfil']; ?>"><br> <br>
                 <label for="nome">
                     Nome: <input type="text" name="nome" id="nome" value="<?= $dados['nome']; ?>">
                 </label> <br> <br>
@@ -117,7 +120,7 @@ $dados = mysqli_fetch_assoc($result);
                     Email: <input type="text" name="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" value="<?= $dados['email']; ?>">
                 </label> <br>
                 <input style="background: #1fce3f; color: white;" class="waves-effect waves-light btn" type="submit" value="Enviar">
-                <p><a style="background: #c41707; color: white;" class="waves-effect waves-light btn" href="excluirperfil.php">Excluir seu perfil</a></p>
+                <p><a style="background: #c41707; color: white;" class="waves-effect waves-light btn" href="excluirPerfil.php">Excluir seu perfil</a></p>
         </div>
     </div>
 </body>

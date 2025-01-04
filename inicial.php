@@ -79,12 +79,24 @@ $dados = mysqli_fetch_assoc($result2);
     <!--JavaScript at end of body for optimized loading-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/materialize.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('.materialboxed').materialbox(); // Inicializando o materialbox
             $('.modal').modal(); // Inicializando os modais
         });
     </script>
+
+    <?php
+
+    include("functionMensagens.php");
+
+    if (isset($_SESSION['mensagem'])):
+        exibirMensagem($_SESSION['mensagem'][0], $_SESSION['mensagem'][1]);
+        unset($_SESSION['mensagem']);
+    endif;
+
+    ?>
 
 
 </body>
