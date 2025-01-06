@@ -11,6 +11,7 @@
     $conexao = conectar();
 
     $id = $_GET['id_evento'];
+    $_SESSION['event'][0] = $id;
 
     $sql = "SELECT e.*, i.* FROM eventos e 
             LEFT JOIN ingressos_cadastrados i ON e.id_evento= i.id_evento
@@ -21,6 +22,13 @@
     $sql_user = "SELECT * FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
     $result1 = executarSQL($conexao, $sql_user);
     $usuario = mysqli_fetch_assoc($result1);
+
+    $session = $_SESSION['cart'];
+    $carrinho = "SELECT COUNT(*) as total FROM ingressos_comprados WHERE cart_status = 1 AND cart_session='$session'";
+    $carrinho = executarSQL($conexao, $carrinho);
+    $row = mysqli_fetch_assoc($carrinho);
+    $count = $row['total'];
+
 
     ?>
 
@@ -35,7 +43,7 @@
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
         <!-- <link rel="stylesheet" href="compraIngresso/style.css"> -->
-
+        <link type="text/css" rel="stylesheet" href="carrinho/css/cart.css" />
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title></title>
@@ -44,6 +52,12 @@
     <?php include('Navs/headers.php'); ?>
 
     <body>
+        <div class="result"></div>
+
+        <article class="container_top">
+            <p class="container_top_paragraph" id="counter"><a href="carrinho/cart.php?id_evento=<?= $id ?>"><span class="fa fa-shopping-cart"></span><span class="qtd"><?= $count ?></span></a></p>
+        </article>
+
         <main class="container">
 
             <h1> <?= $evento['nome_evento']; ?> </h1> <br>
@@ -78,32 +92,37 @@
                 </div>
             <?php } ?>
 
+
+
             <?php $result = executarSQL($conexao, $sql); ?>
             <?php while ($ingressos = mysqli_fetch_assoc($result)) : ?>
 
 
-                <?php if ($evento['id_ingresso']) : ?>
+                <?php if ($ingressos['id_ingresso']) : ?>
 
 
                     <div class="card-panel #f5f5f5 grey lighten-4" style="max-width: 400px;">
-                        <h5><?= $ingressos['informacao'] ?></h5>
-                        <p>Valor: R$ <?= number_format($ingressos['valor'], 2, ',', '.'); ?></p>
-                        <p>Quantidade restante: <?= $ingressos['quantidade']; ?></p>
+                        <h5><?= $ingressos['nome_ingresso'] ?></h5>
+                        <p><?= $ingressos['desc_ingresso']; ?></p>
+                        <p>
+                        <h4> R$ <?= number_format($ingressos['valor'], 2, ',', '.'); ?></h4>
+                        </p>
                         <input type="hidden" name="id_ingresso" value="<?= $ingressos['id_ingresso']; ?>">
                         <input type="hidden" name="id_evento" value="<?= $ingressos['id_evento']; ?>">
-                        <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href='#modalComprarIngresso'>Selecionar ingresso</a>
+                        <a style="background: black; color: white;" class="waves-effect waves-light btn buy"
+                            data-value="<?= $ingressos['nome_ingresso']; ?>" data-id="<?= $ingressos['id_ingresso']; ?>">Adicionar ao carrinho</a>
                     </div>
 
 
                 <?php endif; ?>
 
-                <div id="modalComprarIngresso" class="modal">
+                <!-- <div id="modalComprarIngresso" class="modal">
                     <div class="modal-content">
                         <h4>Compre seu ingresso</h4>
                         <form action="compraIngresso/compraringresso.php" method="post">
-                            <input type="hidden" name="id_evento" value="<?= $ingressos['id_evento']; ?>">
-                            <input type="hidden" name="id_ingresso" value="<?= $ingressos['id_ingresso']; ?>">
-                            <input type="hidden" name="id_usuario" value="<?= $_SESSION['user'][0]; ?>">
+                            <input type="hidden" name="id_evento" value="">
+                            <input type="hidden" name="id_ingresso" value="">
+                            <input type="hidden" name="id_usuario" value="">
 
                             <p>Quantidade: <input type="number" name="qtd" required></p>
                             <div class="modal-footer">
@@ -112,7 +131,7 @@
                             </div>
                         </form>
                     </div>
-                </div>
+                </div> -->
 
 
             <?php endwhile; ?>
@@ -121,25 +140,12 @@
         </main>
     </body>
 
+    <script src="carrinho/js/jquery.js"></script>
+    <script src="carrinho/js/cart.js"></script>
+
     <!--JavaScript at end of body for optimized loading-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/materialize.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            <?php if (isset($_GET['sucesso']) && $_GET['sucesso'] == 1): ?>
-                M.toast({
-                    html: 'Compra realizada com sucesso!',
-                    classes: 'green'
-                });
-            <?php elseif ($_GET['maior'] == 1): ?>
-                M.toast({
-                    html: 'Não existe essa quantidade de ingressos',
-                    classes: 'red'
-                });
-            <?php endif; ?>
-        });
-    </script>
 
     <script>
         $(document).ready(function() {

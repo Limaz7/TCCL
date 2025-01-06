@@ -6,6 +6,10 @@ if (!isset($_SESSION['user'])) {
     header('location: index.php');
 }
 
+if(isset($_SESSION['event'])){
+    unset($_SESSION['event']);
+}
+
 include_once "conexao.php";
 $conexao = conectar();
 
