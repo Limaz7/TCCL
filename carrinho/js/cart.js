@@ -2,11 +2,13 @@ $(document).ready(function () {
 
     // Atualiza o contador do menu ao clicar em um botão específico
     $(document).on('click', '.buy', function () {
-        $('#counter').load("informacoes.php #counter");
+        var idEvento = $(this).data('id'); // Captura o id do ingresso do botão clicado
+        $('#counter').load("informacoes.php?id_evento=" + idEvento + " #counter");
     });
 
+
     // Atualiza o conteúdo do carrinho ao clicar em um botão específico
-    $(document).on('click', '.plus, .minus', function () {
+    $(document).on('click', '.plus, .minus, .delete', function () {
         $('#cart').load("cart.php #loader");
     });
 
@@ -14,8 +16,7 @@ $(document).ready(function () {
     $('body').on('click', '.buy', function (l) {
         l.preventDefault();
 
-        var form = $(this).data('value');
-        var idIngresso = $(this).data('id');
+        var form = { product: $(this).data('value') };
         var url = "carrinho/ajax/cart/buy.php";
 
         $.ajax({
@@ -23,29 +24,11 @@ $(document).ready(function () {
             type: 'POST',
             data: form,
             dataType: 'JSON',
-
-            success: function (data, textStatus, jqXHR) {
-                if (data['status'] == 'success') {
-                    $('.result').text('');
-                    $('.result').prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class"status-message"><p><span class="fa fa-check-circle">' + data['message'] + '</span></p></div></div></div>');
-                } else {
-                    $('.result').prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class"status-message"><p><span class="fa fa-info-exclamation-triangle">' + data['message'] + '</span></p></div></div></div>');
-                } if (data['status'] == 'info') {
-                    $('.result').prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class"status-message"><p><span class="fa fa-info-circle">' + data['message'] + '</span></p></div></div></div>');
-                } if (data['status'] == 'warning') {
-                    $('.result').prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class"status-message"><p><span class="fa fa-times-circle">' + data['message'] + '</span></p></div></div></div>');
+            success: function (response) {
+                if (response.message) {
+                    M.toast({ html: response.message, classes: response.status === 'success' ? 'light-green darken-3' : 'red' });
                 }
-
-                setTimeout(function () {
-                    $('#status-container').hide();
-
-                    if (data['redirect'] != '') {
-                        window.location.href = data['redirect'];
-                    }
-                }, 3000);
-
-            }
-
+            },
         });
     });
 
@@ -61,29 +44,6 @@ $(document).ready(function () {
             type: 'POST',
             data: form,
             dataType: 'JSON',
-
-            success: function (data, textStatus, jqXHR) {
-                if (data['status'] == 'success') {
-                    $('.result').text('');
-                    $('.result').prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class"status-message"><p><span class="fa fa-check-circle">' + data['message'] + '</span></p></div></div></div>');
-                } else {
-                    $('.result').prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class"status-message"><p><span class="fa fa-info-exclamation-triangle">' + data['message'] + '</span></p></div></div></div>');
-                } if (data['status'] == 'info') {
-                    $('.result').prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class"status-message"><p><span class="fa fa-check-info-circle">' + data['message'] + '</span></p></div></div></div>');
-                } if (data['status'] == 'warning') {
-                    $('.result').prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class"status-message"><p><span class="fa fa-times-circle">' + data['message'] + '</span></p></div></div></div>');
-                }
-
-                setTimeout(function () {
-                    $('#status-container').hide();
-
-                    if (data['redirect'] != '') {
-                        window.location.href = data['redirect'];
-                    }
-                }, 3000);
-
-            }
-
         });
     });
 
@@ -100,29 +60,6 @@ $(document).ready(function () {
             type: 'POST',
             data: form,
             dataType: 'JSON',
-
-            success: function (data, textStatus, jqXHR) {
-                if (data['status'] == 'success') {
-                    $('.result').text('');
-                    $('.result').prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class"status-message"><p><span class="fa fa-check-circle">' + data['message'] + '</span></p></div></div></div>');
-                } else {
-                    $('.result').prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class"status-message"><p><span class="fa fa-info-exclamation-triangle">' + data['message'] + '</span></p></div></div></div>');
-                } if (data['status'] == 'info') {
-                    $('.result').prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class"status-message"><p><span class="fa fa-check-info-circle">' + data['message'] + '</span></p></div></div></div>');
-                } if (data['status'] == 'warning') {
-                    $('.result').prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class"status-message"><p><span class="fa fa-times-circle">' + data['message'] + '</span></p></div></div></div>');
-                }
-
-                setTimeout(function () {
-                    $('#status-container').hide();
-
-                    if (data['redirect'] != '') {
-                        window.location.href = data['redirect'];
-                    }
-                }, 3000);
-
-            }
-
         });
     });
 
@@ -139,29 +76,6 @@ $(document).ready(function () {
             type: 'POST',
             data: form,
             dataType: 'JSON',
-
-            success: function (data, textStatus, jqXHR) {
-                if (data['status'] == 'success') {
-                    $('.result').text('');
-                    $('.result').prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class"status-message"><p><span class="fa fa-check-circle">' + data['message'] + '</span></p></div></div></div>');
-                } else {
-                    $('.result').prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class"status-message"><p><span class="fa fa-info-exclamation-triangle">' + data['message'] + '</span></p></div></div></div>');
-                } if (data['status'] == 'info') {
-                    $('.result').prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class"status-message"><p><span class="fa fa-check-info-circle">' + data['message'] + '</span></p></div></div></div>');
-                } if (data['status'] == 'warning') {
-                    $('.result').prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class"status-message"><p><span class="fa fa-times-circle">' + data['message'] + '</span></p></div></div></div>');
-                }
-
-                setTimeout(function () {
-                    $('#status-container').hide();
-
-                    if (data['redirect'] != '') {
-                        window.location.href = data['redirect'];
-                    }
-                }, 3000);
-
-            }
-
         });
     });
 });

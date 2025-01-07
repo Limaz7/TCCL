@@ -17,7 +17,11 @@
     <body>
         <div class="result"></div>
         <article class="container_top">
-            <p class="container_top_paragraph"><a href="../informacoes?id_evento=<?= $_SESSION['event'][0] ?>"><span class="fa fa-caret-square-left"></span> VOLTAR A LOJA</a></p>
+            <p class="container_top_paragraph"><a href="../inicial.php"><span class="fa fa-caret-square-left"></span> VOLTAR A LOJA</a></p>
+        </article>
+
+        <article class="container_top">
+            <p class="container_top_paragraph"><a href="../compraIngresso.php"><span class="fa fa-caret-square-right"></span> VOLTAR A LOJA</a></p>
         </article>
 
       

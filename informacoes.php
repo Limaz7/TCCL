@@ -6,28 +6,24 @@
         header('location: index.php');
     }
 
+    if (isset($_SESSION['event'])) {
+        unset($_SESSION['event']);
+    }
 
     include('conexao.php');
     $conexao = conectar();
 
     $id = $_GET['id_evento'];
-    $_SESSION['event'][0] = $id;
 
     $sql = "SELECT e.*, i.* FROM eventos e 
             LEFT JOIN ingressos_cadastrados i ON e.id_evento= i.id_evento
-            WHERE e.id_evento= '$id' ";
+            WHERE e.id_evento= '$id'";
     $result = executarSQL($conexao, $sql);
     $evento = mysqli_fetch_assoc($result);
 
     $sql_user = "SELECT * FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
     $result1 = executarSQL($conexao, $sql_user);
     $usuario = mysqli_fetch_assoc($result1);
-
-    $session = $_SESSION['cart'];
-    $carrinho = "SELECT COUNT(*) as total FROM ingressos_comprados WHERE cart_status = 1 AND cart_session='$session'";
-    $carrinho = executarSQL($conexao, $carrinho);
-    $row = mysqli_fetch_assoc($carrinho);
-    $count = $row['total'];
 
 
     ?>
@@ -53,10 +49,6 @@
 
     <body>
         <div class="result"></div>
-
-        <article class="container_top">
-            <p class="container_top_paragraph" id="counter"><a href="carrinho/cart.php?id_evento=<?= $id ?>"><span class="fa fa-shopping-cart"></span><span class="qtd"><?= $count ?></span></a></p>
-        </article>
 
         <main class="container">
 
@@ -110,7 +102,7 @@
                         <input type="hidden" name="id_ingresso" value="<?= $ingressos['id_ingresso']; ?>">
                         <input type="hidden" name="id_evento" value="<?= $ingressos['id_evento']; ?>">
                         <a style="background: black; color: white;" class="waves-effect waves-light btn buy"
-                            data-value="<?= $ingressos['nome_ingresso']; ?>" data-id="<?= $ingressos['id_ingresso']; ?>">Adicionar ao carrinho</a>
+                            data-value="<?= $ingressos['nome_ingresso']; ?>" data-id="<?= $ingressos['id_evento']; ?>">Adicionar ao carrinho</a>
                     </div>
 
 
@@ -146,6 +138,15 @@
     <!--JavaScript at end of body for optimized loading-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/materialize.min.js"></script>
+
+    <?php
+    include("functionMensagens.php");
+
+    if (isset($_SESSION['mensagem'])) {
+        exibirMensagem($_SESSION['mensagem'][0], $_SESSION['mensagem'][1]);
+        unset($_SESSION['mensagem']);
+    }
+    ?>
 
     <script>
         $(document).ready(function() {

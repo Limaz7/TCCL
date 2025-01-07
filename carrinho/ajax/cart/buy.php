@@ -10,7 +10,7 @@ $postFilters = array_map("strip_tags", $post);
 
 foreach ($postFilters as $index => $value) {
     //Tirou os traços e tranformou em vazio... Transformou as letras maiusculas em minusculas
-    $product = str_replace('_', ' ', $index);
+    $product = str_replace('_', ' ', $index);var_dump($index);
 
     usleep(50000);
 
@@ -74,11 +74,10 @@ foreach ($postFilters as $index => $value) {
         executarSQL($conexao, $stock);
 
         if ($Create) {
-            $message = [
-                'message' => "O produto {$product} foi adicionado ao carrinho",
-                'status' => 'success',
-                'redirect' => ''
-            ];
+            $_SESSION['mensagem'][0] = "OO produto {$product} foi adicionado ao carrinho";
+            $_SESSION['mensagem'][1] = "#558b2f light-green darken-3";
+            echo json_encode(['message' => $_SESSION['mensagem'][0], 'status' => 'success']);
+            die();
         } else {
             $message = [
                 'message' => 'Não foi possivel adicionar o produto ao carrinho',
@@ -102,11 +101,9 @@ foreach ($postFilters as $index => $value) {
         executarSQL($conexao, $stock);
 
         if ($update) {
-            $message = [
-                'message' => "O produto {$product} foi atualizado ao carrinho",
-                'status' => 'success',
-                'redirect' => ''
-            ];
+            $_SESSION['mensagem'][0] = "O produto {$product} foi atualizado ao carrinho";
+            $_SESSION['mensagem'][1] = "#558b2f light-green darken-3";
+            die();
         } else {
             $message = [
                 'message' => 'Não foi possivel atualizar o produto ao carrinho',

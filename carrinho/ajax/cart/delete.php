@@ -10,7 +10,6 @@ $postFilters = array_map("strip_tags", $post);
 
 foreach ($postFilters as $index => $value) {
 }
-var_dump($index, $value);
 usleep(50000);
 
 if (!$_SESSION['cart'] || empty($_SESSION['cart'])) {
