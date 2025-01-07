@@ -9,9 +9,9 @@ if (!isset($_SESSION['user'])) {
     header('location: index.php');
 }
 
-$sql = "SELECT * FROM ingressos_cadastrados ic INNER JOIN eventos e
+$ingressos = "SELECT * FROM ingressos_cadastrados ic INNER JOIN eventos e
         ON e.id_evento = ic.id_evento WHERE e.id_usuario=" . $_SESSION['user'][0];
-$result = executarSQL($conexao, $sql);
+$result_ingressos = executarSQL($conexao, $ingressos);
 
 ?>
 
@@ -114,13 +114,13 @@ $result = executarSQL($conexao, $sql);
                 </tr>
             </thead>
             <tbody>
-                <?php while ($results = mysqli_fetch_assoc($result)) : ?>
+                <?php while ($results = mysqli_fetch_assoc($result_ingressos)) : ?>
                     <tr>
                         <td><?= $results['id_ingresso'] ?></td>
                         <td><?= $results['nome_evento'] ?></td>
-                        <td><?= $results['informacao'] ?></td>
+                        <td><?= $results['desc_ingresso'] ?></td>
                         <td><?= $results['valor'] ?></td>
-                        <td><?= $results['quantidade'] ?></td>
+                        <td><?= $results['estoque'] ?></td>
                         <td><a href="../crudIngresso/formEditIngresso?id_ingresso=<?= $results['id_ingresso']; ?>">Editar</a></td>
                         <td><a class="waves-effect waves-light modal-trigger" href="#modalConfirma">Excluir</a></td>
                     </tr>

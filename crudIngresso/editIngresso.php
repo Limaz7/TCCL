@@ -8,8 +8,8 @@ $valor = $_POST['valor'];
 $quant = $_POST['quant'];
 $id = $_POST['id'];
 
-$sql = "UPDATE ingressos_cadastrados SET informacao='$info', valor='$valor',
-        quantidade='$quant' WHERE id_ingresso='$id'";
+$sql = "UPDATE ingressos_cadastrados SET desc_ingresso='$info', valor='$valor',
+        estoque='$quant' WHERE id_ingresso='$id'";
 executarSQL($conexao, $sql);
 
 session_start();

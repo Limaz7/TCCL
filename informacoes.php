@@ -145,6 +145,8 @@
     if (isset($_SESSION['mensagem'])) {
         exibirMensagem($_SESSION['mensagem'][0], $_SESSION['mensagem'][1]);
         unset($_SESSION['mensagem']);
+
+        var_dump($_SESSION['mensagem']);
     }
     ?>
 

@@ -2,12 +2,6 @@
 $paginaCorrente = basename($_SERVER['SCRIPT_NAME']);
 //echo $pagina_corrente;
 
-$session = $_SESSION['cart'];
-$carrinho = "SELECT COUNT(*) as total FROM ingressos_comprados WHERE cart_status = 1 AND cart_session='$session'";
-$carrinho = executarSQL($conexao, $carrinho);
-$row = mysqli_fetch_assoc($carrinho);
-$count = $row['total'];
-
 ?>
 
 
@@ -21,26 +15,46 @@ $count = $row['total'];
 
                 <?php if ($paginaCorrente == 'inicial.php') : ?>
 
-                    <?php $sql = "SELECT * FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
-                    $result = executarSQL($conexao, $sql);
-                    $dados = mysqli_fetch_assoc($result);
-
-                    ?>
-
                     <?php if ($dados['tipo_usuario'] == 3) : ?>
                         <li> <a style="background: white; color: black;" class="waves-effect waves-light btn modal-trigger" href='crudEvento/formcadeventos.php'>Cadastrar evento</a></li>
                     <?php endif; ?>
-                    <li id="counter"><a href="carrinho/cart.php"><i class="material-icons qtd" style="color: white;">shopping_cart</i></a></li>
+                    <?php if ($dados['tipo_usuario'] == 2) :
+
+                        $session = $_SESSION['cart'];
+                        $carrinho = "SELECT COUNT(*) as total FROM ingressos_comprados WHERE cart_status = 1 AND cart_session='$session'";
+                        $carrinho = executarSQL($conexao, $carrinho);
+                        $row = mysqli_fetch_assoc($carrinho);
+                        $count = $row['total'];
+
+                    ?>
+
+                        <li id="counter"><a href="carrinho/cart.php"><i class="material-icons qtd" style="color: white;">shopping_cart</i></a></li>
+                    <?php endif; ?>
                     <li> <a class='white-text' href='inicial.php'>Tela inicial</a></li>
                     <li> <a class='white-text' href='Perfil/vizuPerfil.php'> Seu perfil </a> </li>
                     <li> <a class='white-text' href='logout.php'>Sair</a></li>
 
                 <?php else: ?>
 
-                    <?php if ($paginaCorrente == 'informacoes.php'): ?>
-                        <li id="counter">
-                            <a href="carrinho/cart.php"><i class="material-icons" style="color: white;">shopping_cart</i></a>
-                        </li>
+                    <?php if ($paginaCorrente == 'informacoes.php'): 
+                        
+                        $sql_usuario = "SELECT * FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
+                            $result_usuario = executarSQL($conexao, $sql_usuario);
+                            $dados = mysqli_fetch_assoc($result_usuario);
+                            
+                            ?>
+                        <?php if ($dados['tipo_usuario'] == 2) :
+
+                            $session = $_SESSION['cart'];
+                            $carrinho = "SELECT COUNT(*) as total FROM ingressos_comprados WHERE cart_status = 1 AND cart_session='$session'";
+                            $carrinho = executarSQL($conexao, $carrinho);
+                            $row = mysqli_fetch_assoc($carrinho);
+                            $count = $row['total'];
+
+                        ?>
+
+                            <li id="counter"><a href="carrinho/cart.php"><i class="material-icons qtd" style="color: white;">shopping_cart</i></a></li>
+                        <?php endif; ?>
                         <li> <a class='white-text' href='inicial.php'>Tela inicial</a></li>
                         <li> <a class='white-text' href='Perfil/vizuPerfil.php'> Seu perfil </a> </li>
                         <li> <a class='white-text' href='logout.php'>Sair</a></li>

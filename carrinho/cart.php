@@ -21,7 +21,7 @@
         </article>
 
         <article class="container_top">
-            <p class="container_top_paragraph"><a href="../compraIngresso.php"><span class="fa fa-caret-square-right"></span> VOLTAR A LOJA</a></p>
+            <p class="container_top_paragraph"><a href="#">COMPRAR</a></p>
         </article>
 
       
