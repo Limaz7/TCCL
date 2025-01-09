@@ -2,6 +2,10 @@
 $paginaCorrente = basename($_SERVER['SCRIPT_NAME']);
 //echo $pagina_corrente;
 
+if (empty($_SESSION['cart']) || !$_SESSION['cart']) {
+    $_SESSION['cart'] = rand(100000, 1000000000);
+}
+
 ?>
 
 
@@ -20,7 +24,6 @@ $paginaCorrente = basename($_SERVER['SCRIPT_NAME']);
                     <?php endif; ?>
                     <?php if ($dados['tipo_usuario'] == 2) :
 
-                        $_SESSION['cart'] = null;
                         $session = $_SESSION['cart'];
                         $carrinho = "SELECT COUNT(*) as total FROM ingressos_comprados WHERE cart_status = 1 AND cart_session='$session'";
                         $carrinho = executarSQL($conexao, $carrinho);
@@ -37,14 +40,15 @@ $paginaCorrente = basename($_SERVER['SCRIPT_NAME']);
 
                 <?php else: ?>
 
-                    <?php if ($paginaCorrente == 'informacoes.php'): 
-                        
+                    <?php if ($paginaCorrente == 'informacoes.php'):
+
                         $sql_usuario = "SELECT * FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
-                            $result_usuario = executarSQL($conexao, $sql_usuario);
-                            $dados = mysqli_fetch_assoc($result_usuario);
-                            
-                            ?>
+                        $result_usuario = executarSQL($conexao, $sql_usuario);
+                        $dados = mysqli_fetch_assoc($result_usuario);
+
+                    ?>
                         <?php if ($dados['tipo_usuario'] == 2) :
+
 
                             $session = $_SESSION['cart'];
                             $carrinho = "SELECT COUNT(*) as total FROM ingressos_comprados WHERE cart_status = 1 AND cart_session='$session'";

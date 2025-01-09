@@ -11,4 +11,7 @@ $id = $_POST['id'];
 $sql = "UPDATE usuarios SET nome='$nome', email='$email', cod_ativacao='$cod_atv' WHERE id_usuario='$id'";
 executarSQL($conexao, $sql);
 
-header('location: inicioadm.php');
+$_SESSION['mensagem'][0] = "Perfil editado com sucesso!";
+$_SESSION['mensagem'][1] = "#558b2f light-green darken-3";
+
+header('location: ../telasAdmin/listarUsers.php');

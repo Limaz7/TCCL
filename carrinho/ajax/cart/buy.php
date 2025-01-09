@@ -9,14 +9,10 @@ $post = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $postFilters = array_map("strip_tags", $post);
 
 foreach ($postFilters as $index => $value) {
-    //Tirou os traços e tranformou em vazio... Transformou as letras maiusculas em minusculas
+    //Tirou os traços e tranformou em vazio.
     $product = str_replace('_', ' ', $value);
 
     usleep(50000);
-
-    if (empty($_SESSION['cart']) || !$_SESSION['cart']) {
-        $_SESSION['cart'] = rand(100000, 1000000000);
-    }
 
     $Product = "SELECT i.*, e.*
     FROM ingressos_cadastrados i INNER JOIN eventos e ON i.id_evento = e.id_evento WHERE nome_ingresso = '$product' AND status = 1";

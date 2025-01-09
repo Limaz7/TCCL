@@ -99,6 +99,18 @@ $result = executarSQL($conexao, $sql);
 <!-- Agora, importe o materialize.min.js -->
 <script type="text/javascript" src="../js/materialize.min.js"></script>
 
+<?php 
+
+include('../functionMensagens.php');
+
+if(isset($_SESSION['mensagem'])){
+    exibirMensagem($_SESSION['mensagem'][0], $_SESSION['mensagem'][1]);
+    unset($_SESSION['mensagem']);
+    die();
+}
+
+?>
+
 <script>
     $(document).ready(function() {
         $('.sidenav').sidenav();

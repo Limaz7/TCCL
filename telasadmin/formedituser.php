@@ -23,7 +23,7 @@ $dados = mysqli_fetch_assoc($result);
 
 <body>
     <h1>Editar usuario </h1>
-    <form action="editusers.php" method="post">
+    <form action="../crudUsuario/editUsers.php" method="post">
         <input type="hidden" name="id" value="<?= $id ?>">
         Nome: <input type="text" name="nome" value="<?= $dados['nome'] ?>"> <br><br>
         Email: <input type="text" name="email" value="<?= $dados['email'] ?>"> <br></br>
