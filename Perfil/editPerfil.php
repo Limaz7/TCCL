@@ -4,7 +4,6 @@ include_once "../conexao.php";
 $conexao = conectar();
 
 session_start();
-session_regenerate_id(true);
 
 $antfoto = $_POST['img_perfil'];
 
@@ -14,10 +13,13 @@ $email = $_POST['email'];
 $img = $_FILES['img_perfil'];
 
 
-$sql = "UPDATE usuarios SET nome='$nome', email='$email'
+$update_user = "UPDATE usuarios SET nome='$nome', email='$email'
         WHERE id_usuario=" . $_SESSION['user'][0];
-executarSQL($conexao, $sql);
+$exec_update = executarSQL($conexao, $update_user);
 
+
+//Trocar a foto de perfil
+/*
 if (
         $extensao != "jpg" && $extensao != "png"
         && $extensao != "gif" && $extensao != "jfif"
@@ -39,6 +41,16 @@ if ($img['error'] == 0) {
                 unlink($pastaDestino . $antfoto);
                 header("location: ../inicial.php");
         }
-}
+} */
 
-header('location: vizuperfil.php');
+if($exec_update){
+        $_SESSION['mensagem'][0] = "Perfil atualizado com sucesso!";
+        $_SESSION['mensagem'][1] = "light-green darken-3";
+        header('location: vizuperfil.php');
+        die();
+} else {
+        $_SESSION['mensagem'][0] = "Não foi possivel atualizar o perfil!";
+        $_SESSION['mensagem'][1] = "#c62828 red darken-3";
+        header('location: vizuperfil.php');
+        die();
+}

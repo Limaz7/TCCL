@@ -60,8 +60,6 @@
             <h5>Produtora</h5>
             <?= $evento['produtora']; ?>
 
-            <h5>Ingressos</h5>
-
 
             <?php if ($usuario['tipo_usuario'] == 3 and $evento['id_usuario'] == $_SESSION['user'][0]) { ?>
                 <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href='#modalCadastroIngresso'>Cadastrar ingressos</a> <br>
@@ -90,7 +88,7 @@
             <?php while ($ingressos = mysqli_fetch_assoc($result)) : ?>
 
 
-                <?php if ($ingressos['id_ingresso']) : ?>
+                <?php if ($ingressos['id_evento']) : ?>
 
 
                     <div class="card-panel #f5f5f5 grey lighten-4" style="max-width: 400px;">
@@ -106,7 +104,9 @@
                     </div>
 
 
-                <?php endif; ?>
+                <?php else:
+                    echo "<style>h4{color: red;}</style><h4>Nenhum ingresso cadastrado</h4>";
+                endif; ?>
 
                 <!-- <div id="modalComprarIngresso" class="modal">
                     <div class="modal-content">
@@ -139,16 +139,14 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/materialize.min.js"></script>
 
-    <?php
-    include("functionMensagens.php");
-
-    if (isset($_SESSION['mensagem'])) {
-        exibirMensagem($_SESSION['mensagem'][0], $_SESSION['mensagem'][1]);
-        unset($_SESSION['mensagem']);
-
-        var_dump($_SESSION['mensagem']);
-    }
-    ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            M.toast({
+                html: <?php echo json_encode($mensagem); ?>,
+                classes: '<?php echo $cor; ?>'
+            });
+        });
+    </script>
 
     <script>
         $(document).ready(function() {

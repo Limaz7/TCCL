@@ -125,6 +125,21 @@ $dados = mysqli_fetch_assoc($result);
     </div>
 </body>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../js/materialize.min.js"></script>
+
+<?php
+
+include('../functionMensagens.php');
+
+if (isset($_SESSION['mensagem'])) {
+    exibirMensagem($_SESSION['mensagem'][0], $_SESSION['mensagem'][1]);
+    unset($_SESSION['mensagem']);
+    die();
+}
+
+?>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.sidenav');

@@ -1,5 +1,13 @@
 <?php
 
+session_start();
+
+if($_SESSION['user'][2] == 3 || $_SESSION['user'][2] == 2){
+    session_destroy();
+    header('location: ../index.php');
+    die();
+}
+
 include('../conexao.php');
 $conexao = conectar();
 

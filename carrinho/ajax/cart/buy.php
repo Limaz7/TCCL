@@ -63,20 +63,27 @@ foreach ($postFilters as $index => $value) {
 
         $token = bin2hex(random_bytes(10));
 
+        date_default_timezone_set('America/Sao_Paulo');
+        $data = new DateTime('now');
+        $agora = $data->format('Y-m-d H:i:s');
+
         $Create = "INSERT INTO ingressos_comprados (id_ingresso, id_usuario, ticket,
-        quantidade, cart_valor, cart_total, cart_status, cart_session)
+        quantidade, cart_valor, cart_total, cart_status, cart_session, data)
         VALUES ('$product_id', '" . $_SESSION['user'][0] . "', '$token', 1,
-        '$product_price', '$product_price', 1, '" . $_SESSION['cart'] . "')";
-        executarSQL($conexao, $Create);
+        '$product_price', '$product_price', 1, '" . $_SESSION['cart'] . "', '$agora')";
+        $createResult = executarSQL($conexao, $Create);
 
         //Update no estoque desse produto
         $stock = "UPDATE ingressos_cadastrados SET estoque = $stock WHERE id_ingresso = '$product_id'";
         executarSQL($conexao, $stock);
 
-        if ($Create) {
-            $_SESSION['mensagem'][0] = "O produto {$product} foi adicionado ao carrinho";
-            $_SESSION['mensagem'][1] = "#558b2f light-green darken-3";
-            echo json_encode(['message' => $_SESSION['mensagem'][0], 'status' => 'success']);
+        if ($createResult) {
+            $message = [
+                'message' => 'O produto ' . $product . ' foi adicionado ao carrinho',
+                'status' => 'success',
+                'redirect' => ''
+            ];
+            echo json_encode($message);
             die();
         } else {
             $message = [
@@ -84,26 +91,35 @@ foreach ($postFilters as $index => $value) {
                 'status' => 'error',
                 'redirect' => ''
             ];
+            echo json_encode($message);
+            die();
         }
     } else {
+
+        date_default_timezone_set('America/Sao_Paulo');
+        $data = new DateTime('now');
+        $agora = $data->format('Y-m-d H:i:s');
+        
         $cart_quantity = strip_tags($Sh['quantidade'] + 1);
         $cart_id = strip_tags($Sh['cart_id']);
         $value = number_format($product_price * $cart_quantity, 2, '.', '');
         $stock = $product_stock - 1;
-        var_dump($_SESSION['cart'], $product_id, $cart_id);
 
-        $update = "UPDATE ingressos_comprados SET quantidade = '$cart_quantity', estoque = '$stock', cart_valor = '$product_price', cart_total = '$value'
+        $update = "UPDATE ingressos_comprados SET data = '$agora', quantidade = '$cart_quantity', estoque = '$stock', cart_valor = '$product_price', cart_total = '$value'
         WHERE cart_id = '$cart_id' AND id_ingresso = '$product_id' AND cart_session = " . $_SESSION['cart'];
-        executarSQL($conexao, $update);
+        $updateResult = executarSQL($conexao, $update);
 
         //Update no estoque desse produto
         $stock = "UPDATE ingressos_cadastrados SET estoque = $stock WHERE id_ingresso = '$product_id'";
         executarSQL($conexao, $stock);
 
-        if ($update) {
-            $_SESSION['mensagem'][0] = "O produto {$product} foi atualizado ao carrinho";
-            $_SESSION['mensagem'][1] = "#558b2f light-green darken-3";
-            echo json_encode(['message' => $_SESSION['mensagem'][0], 'status' => 'success']);
+        if ($updateResult) {
+            $message = [
+                'message' => 'O produto ' . $product . ' foi atualizado no carrinho',
+                'status' => 'success',
+                'redirect' => ''
+            ];
+            echo json_encode($message);
             die();
         } else {
             $message = [
@@ -111,6 +127,8 @@ foreach ($postFilters as $index => $value) {
                 'status' => 'error',
                 'redirect' => ''
             ];
+            echo json_encode($message) .
+                die();
         }
     }
 

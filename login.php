@@ -26,7 +26,7 @@ else{
         if ($dados['tipo_usuario'] == 3 and $dados['cod_ativacao'] == 1) {
             $_SESSION['user'][0] = $dados['id_usuario'];
             $_SESSION['user'][1] = $dados['nome'];
-            $_SESSION['user'][3] = $dados['tipo_usuario'];
+            $_SESSION['user'][2] = $dados['tipo_usuario'];
             header("location: inicial.php");
         } elseif ($dados['cod_ativacao'] == 2) {
             echo "Olá {$dados['nome']} você precisa estar aceito para entrar
@@ -41,7 +41,7 @@ else{
 
             $_SESSION['user'][0] = $dados['id_usuario'];
             $_SESSION['user'][1] = $dados['nome'];
-            $_SESSION['user'][3] = $dados['tipo_usuario'];
+            $_SESSION['user'][2] = $dados['tipo_usuario'];
             header('location: inicial.php');
         }
         if ($dados['tipo_usuario'] == 1 and $dados['cod_ativacao'] == 1) {

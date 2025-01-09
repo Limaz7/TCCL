@@ -26,7 +26,7 @@ $(document).ready(function () {
             dataType: 'JSON',
             success: function (response) {
                 if (response.message) {
-                    M.toast({ html: response.message, classes: response.status === 'success' ? 'light-green darken-3' : 'red' });
+                    M.toast({ html: response.message, classes: response.status === 'success' ? 'light-green darken-3' : '#c62828 red darken-3' });
                 }
             },
         });

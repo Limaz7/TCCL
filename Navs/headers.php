@@ -20,6 +20,7 @@ $paginaCorrente = basename($_SERVER['SCRIPT_NAME']);
                     <?php endif; ?>
                     <?php if ($dados['tipo_usuario'] == 2) :
 
+                        $_SESSION['cart'] = null;
                         $session = $_SESSION['cart'];
                         $carrinho = "SELECT COUNT(*) as total FROM ingressos_comprados WHERE cart_status = 1 AND cart_session='$session'";
                         $carrinho = executarSQL($conexao, $carrinho);

@@ -69,9 +69,9 @@ $result = executarSQL($conexao, $sql);
                     <tr>
                         <td><?= $results['id_ingresso'] ?></td>
                         <td><?= $results['nome_evento'] ?></td>
-                        <td><?= $results['informacao'] ?></td>
+                        <td><?= $results['desc_ingresso'] ?></td>
                         <td><?= $results['valor'] ?></td>
-                        <td><?= $results['quantidade'] ?></td>
+                        <td><?= $results['estoque'] ?></td>
                         <td><a href="formEditIngresso?id_ingresso=<?= $results['id_ingresso']; ?>">Editar</a></td>
                         <td><a href="excluirIngresso?id_ingresso=<?= $results['id_ingresso']; ?>">Excluir</a></td>
                     </tr>

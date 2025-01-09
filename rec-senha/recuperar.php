@@ -63,7 +63,7 @@ try {
     $mail->Body = 'Olá!<br>
         Você solicitou a recuperação da sua conta no nosso sistema.
         Para isso, clique no link abaixo para realizar a troca de senha:<br>
-        <a href="http://localhost/tccl/rec-senha/nova_senha.php?email=' . $usuario['email'] .
+        <a href="http://' . $_SERVER['SERVER_NAME'] . '"/tccl/rec-senha/nova_senha.php?email=' . $usuario['email'] .
         '&token=' . $token . 
         '">Clique aqui para recuperar o acesso à sua conta!</a><br>
         <br>
