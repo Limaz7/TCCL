@@ -97,7 +97,7 @@ $result_ingressos = executarSQL($conexao, $ingressos);
 
     <ul id="slide-out" class="sidenav sidenav-fixed">
         <li><a href="vizuPerfil.php">Meus dados</a></li>
-        <li><a href="vizuEventosCad.php">Eventos Cadastrados</a></li>
+        <li><a href="vizuEventosCad.php">Eventos cadastrados</a></li>
         <li><a href="vizuIngressosCad.php">Ingressos cadastrados</a></li>
     </ul>
 

@@ -82,4 +82,25 @@ $result = executarSQL($conexao, $sql);
 
 </body>
 
+<!-- Import jQuery antes do materialize.min.js -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Agora, importe o materialize.min.js -->
+<script type="text/javascript" src="../js/materialize.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.sidenav').sidenav();
+    });
+
+    <?php if (isset($_SESSION['mensagem'])): ?>
+        M.toast({
+            html: '<?= $_SESSION['mensagem'][0] ?>',
+            classes: '<?= $_SESSION['mensagem'][1] ?>'
+        });
+
+    <?php unset($_SESSION['mensagem']);
+    endif; ?>
+</script>
+
 </html>

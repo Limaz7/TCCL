@@ -36,7 +36,7 @@ foreach ($postFilters as $index => $value) {
 
     if ($product_stock == 0) {
         $message = [
-            'message' => 'Ops! Produto sem estoque',
+            'message' => 'Ops! Produto sem estoque.',
             'status' => 'error',
             'redirect' => ''
         ];
@@ -75,7 +75,7 @@ foreach ($postFilters as $index => $value) {
 
         if ($createResult) {
             $message = [
-                'message' => 'O produto ' . $product . ' foi adicionado ao carrinho',
+                'message' => 'O produto ' . $product . ' foi adicionado ao carrinho.',
                 'status' => 'success',
                 'redirect' => ''
             ];
@@ -83,7 +83,7 @@ foreach ($postFilters as $index => $value) {
             die();
         } else {
             $message = [
-                'message' => 'Não foi possivel adicionar o produto ao carrinho',
+                'message' => 'Não foi possivel adicionar o produto ao carrinho.',
                 'status' => 'error',
                 'redirect' => ''
             ];
@@ -111,7 +111,7 @@ foreach ($postFilters as $index => $value) {
 
         if ($updateResult) {
             $message = [
-                'message' => 'O produto ' . $product . ' foi atualizado no carrinho',
+                'message' => 'O produto ' . $product . ' foi atualizado no carrinho.',
                 'status' => 'success',
                 'redirect' => ''
             ];
@@ -119,7 +119,7 @@ foreach ($postFilters as $index => $value) {
             die();
         } else {
             $message = [
-                'message' => 'Não foi possivel atualizar o produto ao carrinho',
+                'message' => 'Não foi possivel atualizar o produto ao carrinho.',
                 'status' => 'error',
                 'redirect' => ''
             ];

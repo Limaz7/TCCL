@@ -62,7 +62,7 @@
 
 
             <?php if ($usuario['tipo_usuario'] == 3 and $evento['id_usuario'] == $_SESSION['user'][0]) { ?>
-                <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href='#modalCadastroIngresso'>Cadastrar ingressos</a> <br>
+                <p><a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href='#modalCadastroIngresso'>Cadastrar ingressos</a> <br></p>
 
 
                 <div id="modalCadastroIngresso" class="modal">
@@ -88,25 +88,27 @@
             <?php while ($ingressos = mysqli_fetch_assoc($result)) : ?>
 
 
-                <?php if ($ingressos['id_evento']) : ?>
+                <?php if ($usuario['tipo_usuario'] == 2) : ?>
+                    <?php if ($ingressos['id_evento']) : ?>
 
 
-                    <div class="card-panel #f5f5f5 grey lighten-4" style="max-width: 400px;">
-                        <h5><?= $ingressos['nome_ingresso'] ?></h5>
-                        <p><?= $ingressos['desc_ingresso']; ?></p>
-                        <p>
-                        <h4> R$ <?= number_format($ingressos['valor'], 2, ',', '.'); ?></h4>
-                        </p>
-                        <input type="hidden" name="id_ingresso" value="<?= $ingressos['id_ingresso']; ?>">
-                        <input type="hidden" name="id_evento" value="<?= $ingressos['id_evento']; ?>">
-                        <a style="background: black; color: white;" class="waves-effect waves-light btn buy"
-                            data-value="<?= $ingressos['nome_ingresso']; ?>" data-id="<?= $ingressos['id_evento']; ?>">Adicionar ao carrinho</a>
-                    </div>
+                        <div class="card-panel #f5f5f5 grey lighten-4" style="max-width: 400px;">
+                            <h5><?= $ingressos['nome_ingresso'] ?></h5>
+                            <p><?= $ingressos['desc_ingresso']; ?></p>
+                            <p>
+                            <h4> R$ <?= number_format($ingressos['valor'], 2, ',', '.'); ?></h4>
+                            </p>
+                            <input type="hidden" name="id_ingresso" value="<?= $ingressos['id_ingresso']; ?>">
+                            <input type="hidden" name="id_evento" value="<?= $ingressos['id_evento']; ?>">
+                            <a style="background: black; color: white;" class="waves-effect waves-light btn buy"
+                                data-value="<?= $ingressos['nome_ingresso']; ?>" data-id="<?= $ingressos['id_evento']; ?>">Adicionar ao carrinho</a>
+                        </div>
 
 
-                <?php else:
-                    echo "<style>h4{color: red;}</style><h4>Nenhum ingresso cadastrado</h4>";
-                endif; ?>
+                    <?php else:
+                        echo "<style>h4{color: red;}</style><h4>Nenhum ingresso cadastrado</h4>";
+                    endif; ?>
+                <?php endif; ?>
 
                 <!-- <div id="modalComprarIngresso" class="modal">
                     <div class="modal-content">

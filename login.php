@@ -29,9 +29,13 @@ else{
             $_SESSION['user'][2] = $dados['tipo_usuario'];
             header("location: inicial.php");
         } elseif ($dados['cod_ativacao'] == 2) {
+
+
             echo "Olá {$dados['nome']} você precisa estar aceito para entrar
             no sistema! Sua solicitação está em análise.<br>";
             echo "<a href='index.php'>Voltar</a>";
+
+            
         } elseif ($dados['cod_ativacao'] == 3) {
             echo "Olá {$dados['nome']} Você não pode entrar no sistema,
             sua solicitação foi negada<br>";

@@ -2,7 +2,7 @@
 
 session_start();
 
-if($_SESSION['user'][2] == 3 || $_SESSION['user'][2] == 2){
+if ($_SESSION['user'][2] == 3 || $_SESSION['user'][2] == 2) {
     session_destroy();
     header('location: ../index.php');
     die();
@@ -99,22 +99,18 @@ $result = executarSQL($conexao, $sql);
 <!-- Agora, importe o materialize.min.js -->
 <script type="text/javascript" src="../js/materialize.min.js"></script>
 
-<?php 
-
-include('../functionMensagens.php');
-
-if(isset($_SESSION['mensagem'])){
-    exibirMensagem($_SESSION['mensagem'][0], $_SESSION['mensagem'][1]);
-    unset($_SESSION['mensagem']);
-    die();
-}
-
-?>
-
 <script>
     $(document).ready(function() {
         $('.sidenav').sidenav();
     });
+
+    <?php if (isset($_SESSION['mensagem'])): ?>
+        M.toast({
+            html: '<?= $_SESSION['mensagem'][0] ?>',
+            classes: '<?= $_SESSION['mensagem'][1] ?>'
+        });
+        
+    <?php unset($_SESSION['mensagem']);  endif; ?>
 </script>
 
 </html>

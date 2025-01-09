@@ -45,7 +45,7 @@ if ($img['error'] == 0) {
 
 if($exec_update){
         $_SESSION['mensagem'][0] = "Perfil atualizado com sucesso!";
-        $_SESSION['mensagem'][1] = "light-green darken-3";
+        $_SESSION['mensagem'][1] = "#558b2f light-green darken-3";
         header('location: vizuperfil.php');
         die();
 } else {

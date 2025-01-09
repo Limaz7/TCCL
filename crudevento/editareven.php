@@ -30,13 +30,23 @@ if ($_FILES['img']['name'] == null) {
             SET nome_evento = '$nomeEven', descricao = '$desc', 
             data = '$data', cep = '$cep', rua = '$rua', bairro='$bairro', numero_residencial = '$numImo'
             WHERE id_evento = '$id'";
-    executarSQL($conexao, $sql);
+    $resultEditEven = executarSQL($conexao, $sql);
 
-    $_SESSION['mensagem'][0] = 'Evento editado com sucesso!';
-    $_SESSION['mensagem'][1] = '#558b2f light-green darken-3';
+    if ($resultEditEven) {
+        $_SESSION['mensagem'][0] = 'Evento editado com sucesso!';
+        $_SESSION['mensagem'][1] = '#558b2f light-green darken-3';
+    } else {
+        $_SESSION['mensagem'][0] = "Não foi possivel editar o evento.";
+        $_SESSION['mensagem'][1] = "#c62828 red darken-3";
+    }
 
-    header("location: ../Perfil/VizuEventosCad?id_evento=$id");
-    die();
+    if ($_SESSION['user'][2] == 3) {
+        header("location: ../Perfil/VizuEventosCad?id_evento=$id");
+        exit();
+    } elseif ($_SESSION['user'][2] == 1) {
+        header("location: ../telasAdmin/listareventos.php");
+        exit();
+    }
 }
 
 
@@ -57,14 +67,24 @@ if ($img['error'] == 0) {
 
     if ($trocar_img) {
         $sql = "UPDATE eventos SET imagem = '$novo_nome_ft' WHERE id_evento='$id'";
-        executarSQL($conexao, $sql);
+        $resultEditEven = executarSQL($conexao, $sql);
         unlink($pastaDestino . $antfoto);
 
-        $_SESSION['mensagem'][0] = 'Evento editado com sucesso!';
-        $_SESSION['mensagem'][1] = '#558b2f light-green darken-3';
+        if ($resultEditEven) {
+            $_SESSION['mensagem'][0] = 'Evento editado com sucesso!';
+            $_SESSION['mensagem'][1] = '#558b2f light-green darken-3';
+        } else {
+            $_SESSION['mensagem'][0] = "Não foi possivel editar o evento.";
+            $_SESSION['mensagem'][1] = "#c62828 red darken-3";
+        }
 
-        header("location: ../Perfil/vizuEventodCad.php");
-        die();
+        if ($_SESSION['user'][2] == 3) {
+            header("location: ../Perfil/VizuEventosCad?id_evento=$id");
+            exit();
+        } elseif ($_SESSION['user'][2] == 1) {
+            header("location: ../telasAdmin/listareventos.php");
+            exit();
+        }
     }
 }
 

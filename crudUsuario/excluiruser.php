@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 include_once "../conexao.php";
 $conexao = conectar();
 
@@ -17,12 +19,18 @@ $dados = mysqli_fetch_assoc($result);
 if ($dados['tipo_usuario'] == 2) {
 
     $delete_inc = "DELETE FROM ingressos_comprados WHERE id_usuario='$id'";
-    executarSQL($conexao, $delete_inc);
+    $result_DelInc = executarSQL($conexao, $delete_inc);
 
     $delete_user = "DELETE FROM usuarios WHERE id_usuario='$id'";
-    executarSQL($conexao, $delete_user);
+    $result_DelUser = executarSQL($conexao, $delete_user);
 
-    header('location: ../telasAdmin/listarUsers.php');
+    if ($result_DelInc && $result_DelUser) {
+        $_SESSION['mensagem'][0] = "Usuário excluido com sucesso!";
+        $_SESSION['mensagem'][1] = "light-green darken-3";
+    } else {
+        $_SESSION['mensagem'][0] = "Não foi possivel excluir o usuario!";
+        $_SESSION['mensagem'][1] = "#c62828 red darken-3";
+    }
 
 } elseif ($dados['tipo_usuario'] == 3) {
 
@@ -37,5 +45,15 @@ if ($dados['tipo_usuario'] == 2) {
     $delete_user = "DELETE FROM usuarios WHERE id_usuario='$id'";
     executarSQL($conexao, $delete_user);
 
-    header('location: ../telasAdmin/listarUsers.php');
+    if ($result_DelInc && $result_DelUser) {
+        $_SESSION['mensagem'][0] = "Usuário excluido com sucesso!";
+        $_SESSION['mensagem'][1] = "#558b2f light-green darken-3";
+    } else {
+        $_SESSION['mensagem'][0] = "Não foi possivel excluir o usuario!";
+        $_SESSION['mensagem'][1] = "#c62828 red darken-3";
+    }
+
 }
+
+header('location: ../telasAdmin/listarUsers.php');
+exit();
