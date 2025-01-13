@@ -6,18 +6,18 @@ $conexao = conectar();
 $id = $_GET['id_ingresso'];
 
 $sql_inBuy = "DELETE FROM ingressos_comprados WHERE id_ingresso='$id'";
-executarSQL($conexao, $sql_inBuy);
+$deleteInBuy = executarSQL($conexao, $sql_inBuy);
 
 $sql = "DELETE FROM ingressos_cadastrados WHERE id_ingresso='$id'";
-executarSQL($conexao, $sql);
+$deleteinCad = executarSQL($conexao, $sql);
 
 session_start();
 
-if ($resultEditIng) {
+if ($deleteInBuy && $deleteinCad) {
     $_SESSION['mensagem'][0] = 'Ingresso excluido com sucesso!';
     $_SESSION['mensagem'][1] = '#558b2f light-green darken-3';
 } else {
-    $_SESSION['mensagem'][0] = "Não foi possivel  o ingresso.";
+    $_SESSION['mensagem'][0] = "Não foi possivel excluir o ingresso.";
     $_SESSION['mensagem'][1] = "#c62828 red darken-3";
 }
 

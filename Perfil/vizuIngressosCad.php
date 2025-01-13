@@ -101,6 +101,7 @@ $result_ingressos = executarSQL($conexao, $ingressos);
                     <th>Descricão do ingresso</th>
                     <th>Valor</th>
                     <th>Quantidade</th>
+                    <th>Status</th>
                     <th colspan="2">Opções</th>
                 </tr>
             </thead>
@@ -112,15 +113,27 @@ $result_ingressos = executarSQL($conexao, $ingressos);
                         <td><?= $results['desc_ingresso'] ?></td>
                         <td><?= $results['valor'] ?></td>
                         <td><?= $results['estoque'] ?></td>
-                        <td><a href="../crudIngresso/formEditIngresso?id_ingresso=<?= $results['id_ingresso']; ?>"><i class="material-icons">create</i></a></td>
-                        <td><a href=""><i class="material-icons">toc</i></a></td>
-                        <td><a class="waves-effect waves-light modal-trigger" href="#modalConfirma"><i class="material-icons">delete</i></a></td>
+
+                        <?php if ($results['status'] == 0): ?>
+                            <td style="color: red;">Inativo</td>
+                        <?php else: ?>
+                            <td style="color: green;">Ativo</td>
+                            <?php endif; ?>
+
+                            <td><a href="../crudIngresso/formEditIngresso?id_ingresso=<?= $results['id_ingresso']; ?>"><i class="material-icons">create</i></a></td>
+
+                        <?php if ($results['status'] == 0): ?>
+                            <td><a href="ativarIngresso?id_ingresso=<?= $results['id_ingresso'] ?>"><i class="material-icons">check</i></a></td>
+                        <?php else: ?>
+                            <td><a href="ativarIngresso?id_ingresso=<?= $results['id_ingresso'] ?>"><i class="material-icons">clear</i></a></td>
+                        <?php endif; ?>
+                        <td><a class="waves-effect waves-light modal-trigger" href="#modalConfirma<?= $results['id_ingresso']; ?>"><i class="material-icons">delete</i></a></td>
                     </tr>
 
 
 
                     <!-- Modal -->
-                    <div id="modalConfirma" class="modal">
+                    <div id="modalConfirma<?= $results['id_ingresso']; ?>" class="modal">
                         <div class="modal-content">
                             <h4>Confirmar exclusão</h4>
                             <p>Você tem certeza que deseja excluir esse ingresso? Qualquer pessoa que possuir esse ingresso, irá perder ele.</p>
@@ -151,15 +164,15 @@ $result_ingressos = executarSQL($conexao, $ingressos);
     });
 </script>
 
-<?php
+<script>
+    <?php if (isset($_SESSION['mensagem'])): ?>
+        M.toast({
+            html: '<?= $_SESSION['mensagem'][0] ?>',
+            classes: '<?= $_SESSION['mensagem'][1] ?>'
+        });
 
-include("../functionMensagens.php");
-
-if (isset($_SESSION['mensagem'])):
-    exibirMensagem($_SESSION['mensagem'][0], $_SESSION['mensagem'][1]);
-    unset($_SESSION['mensagem']);
-endif;
-
-?>
+    <?php unset($_SESSION['mensagem']);
+    endif; ?>
+</script>
 
 </html>

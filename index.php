@@ -21,6 +21,10 @@
         top: 30%;
         right: 40%;
     }
+
+    .card-panel button{
+        width: 100%;
+    }
 </style>
 
 <body>
