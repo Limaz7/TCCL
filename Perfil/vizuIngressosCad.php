@@ -112,8 +112,9 @@ $result_ingressos = executarSQL($conexao, $ingressos);
                         <td><?= $results['desc_ingresso'] ?></td>
                         <td><?= $results['valor'] ?></td>
                         <td><?= $results['estoque'] ?></td>
-                        <td><a href="../crudIngresso/formEditIngresso?id_ingresso=<?= $results['id_ingresso']; ?>">Editar</a></td>
-                        <td><a class="waves-effect waves-light modal-trigger" href="#modalConfirma">Excluir</a></td>
+                        <td><a href="../crudIngresso/formEditIngresso?id_ingresso=<?= $results['id_ingresso']; ?>"><i class="material-icons">create</i></a></td>
+                        <td><a href=""><i class="material-icons">toc</i></a></td>
+                        <td><a class="waves-effect waves-light modal-trigger" href="#modalConfirma"><i class="material-icons">delete</i></a></td>
                     </tr>
 
 

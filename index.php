@@ -19,7 +19,7 @@
         padding: 20px;
         border-radius: 8px;
         top: 30%;
-        right: 700px;
+        right: 40%;
     }
 </style>
 

@@ -25,7 +25,7 @@
 
     <section class="container_cart">
         <div class="cart_img">
-            <a href="index.php" title="Produto:"><img src="../imagens/<?= strip_tags($Show['imagem']);?>" title="Produto: " alt="Produto: "></a>
+            <a href="../inicial.php" title="Produto:"><img src="../imagens/<?= strip_tags($Show['imagem']);?>" title="Produto: " alt="Produto: "></a>
         </div>
 
         <div class="cart_title">
