@@ -6,7 +6,7 @@ if (!isset($_SESSION['user'])) {
     header('location: index.php');
 }
 
-if(isset($_SESSION['event'])){
+if (isset($_SESSION['event'])) {
     unset($_SESSION['event']);
 }
 
@@ -36,6 +36,29 @@ $dados = mysqli_fetch_assoc($result2);
 
     <title>Inicio</title>
 </head>
+
+<style>
+    .container .row .card {
+        box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+        overflow: hidden;
+        border-radius: 10px;
+    }
+
+    .card-image img {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .card-image {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        overflow: hidden;
+    }
+
+    .card-action a{
+        width: 100%;
+    }
+</style>
 
 <body>
 

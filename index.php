@@ -11,11 +11,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
+<style>
+
+    .card-panel {
+        position: fixed;
+        background-color: rgb(238, 238, 238);
+        padding: 20px;
+        border-radius: 8px;
+        top: 30%;
+        right: 700px;
+    }
+</style>
+
 <body>
 
     <div class="container">
         <form action="login.php" method="post">
-            <h2 class="center-align"> Bem-vindo! Faça o login.</h2>
 
             <div class="card-panel">
 
@@ -37,7 +48,7 @@
 
                 <div class="col s12">
                     <p class="center-align">
-                        <button class="btn waves-effect waves-light black lighten-3" type="submit" name="action">Logar
+                        <button class="btn waves-effect waves-light black lighten-3" type="submit" name="action">Logar</button>
                     </p>
                 </div>
 

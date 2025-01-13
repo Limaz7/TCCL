@@ -29,6 +29,23 @@ $dados = mysqli_fetch_assoc($result);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
+<style>
+    .btn-enviar {
+        width: 100%;
+        background-color: black;
+    }
+
+    .btn-enviar:hover {
+        background-color: #eeeeee;
+        color: black
+    }
+
+    .card-panel {
+        padding: 20px;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+    }
+</style>
+
 <body>
 
     <!--JavaScript at end of body for optimized loading-->
@@ -38,24 +55,50 @@ $dados = mysqli_fetch_assoc($result);
 <body>
 
     <div class="container">
-        <h1> Cadastrar eventos </h1>
 
-        <form method="post" action="cadastroeven.php" enctype="multipart/form-data">
+        <div class="card-panel">
+            <div class="row">
+                <form method="post" class="col s12" action="cadastroeven.php" enctype="multipart/form-data">
+                    <div class="row">
+                        <input type="hidden" name="nomeEmp" value="<?php echo $_SESSION['user'][1]; ?>">
 
+                        <div class="input-field col s12">
+                            <p>Nome do evento: <input type="text" name="nomeEven" required></p>
+                        </div>
 
-            <input type="hidden" name="nomeEmp" value="<?php echo $_SESSION['user'][1]; ?>">
-            <p>Nome do evento: <input type="text" name="nomeEven" required></p>
-            <p>Descrição: <textarea type="text" name="desc" required></textarea></p>
-            <p>CEP: <input type="number" name="cep" required></p>
-            <p>Rua: <input type="text" name="rua" required></p>
-            <p>Número do imóvel: <input type="number" name="numImo" required></p>
-            <p>Bairro: <input type="text" name="bairro" required></p>
-            <p>Data: <input type="datetime-local" name="data" required></p>
-            <p>Imagem <input type="file" name="arquivo">
-            <p><input type="submit" value="Enviar"></p>
+                        <div class="input-field col s12">
+                            <p>Descrição: <textarea type="text" name="desc" required></textarea></p>
 
+                            <div class="input-field col s12">
+                                <p>CEP: <input type="number" name="cep" required></p>
+                            </div>
 
-        </form>
+                            <div class="input-field col s12">
+                                <p>Rua: <input type="text" name="rua" required></p>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <p>Número do imóvel: <input type="number" name="numImo" required></p>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <p>Bairro: <input type="text" name="bairro" required></p>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <p>Data: <input class="btn-datetime" type="datetime-local" name="data" required></p>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <p>Imagem <input type="file" class="btn" name="arquivo"></p>
+                            </div>
+
+                            <p><input class="waves-effect waves-light btn-enviar btn" type="submit" value="Enviar"></p>
+                        </div>
+                </form>
+            </div>
+        </div>
+
     </div>
 </body>
 

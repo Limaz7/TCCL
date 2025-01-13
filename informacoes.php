@@ -68,8 +68,9 @@
                 <div id="modalCadastroIngresso" class="modal">
                     <div class="modal-content">
                         <h4>Cadastro de ingressos</h4>
-                        <form action="Ingressos/cadastroingresso.php" method="post">
+                        <form action="crudIngresso/cadastroingresso.php" method="post">
                             <input type="hidden" name="id_ev" value="<?= $id ?>">
+                            <p>Nome do ingresso: <input type="text" name="nome" required></p>
                             <p>Descrição: <input type="text" name="desc" required></p>
                             <p>Valor: <input type="text" name="valor" required></p>
                             <p>Quantidade: <input type="number" name="qtd" required></p>
@@ -148,6 +149,17 @@
                 classes: '<?php echo $cor; ?>'
             });
         });
+    </script>
+
+    <script>
+        <?php if (isset($_SESSION['mensagem'])): ?>
+            M.toast({
+                html: '<?= $_SESSION['mensagem'][0] ?>',
+                classes: '<?= $_SESSION['mensagem'][1] ?>'
+            });
+
+        <?php unset($_SESSION['mensagem']);
+        endif; ?>
     </script>
 
     <script>

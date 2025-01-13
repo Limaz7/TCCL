@@ -66,7 +66,7 @@ $result = executarSQL($conexao, $sql);
                 <?php foreach ($result as $results) { ?>
                     <tr>
                         <td><?= $results['id_ingresso'] ?></td>
-                        <td><?= $results['token'] ?></td>
+                        <td><?= $results['ticket'] ?></td>
                         <td><?= $results['nome'] ?></td>
                         <td><?= $results['quantidade'] ?></td>
                         <td><?= $results['data'] ?></td>

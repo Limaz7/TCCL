@@ -36,71 +36,63 @@ $dados_user = mysqli_fetch_assoc($result1);
 <?php include("../Navs/headers.php"); ?>
 
 <style>
-    .sidenav {
-        background-color: #f9f9f9;
-        /* Cor de fundo clara */
-        width: 250px;
-        /* Largura fixa */
-        height: auto;
-        /* Altura ajustada para ficar menor */
-        margin-top: 30vh;
-        /* Centralizando verticalmente na tela */
+    .container {
+        display: flex;
+        /* Usa flexbox para alinhar os itens lado a lado */
+        align-items: flex-start;
+    }
+
+    .side {
+        background-color: rgb(240, 240, 240);
+        width: 200px;
+        /* Ajuste a largura conforme necessário */
+        padding: 10px;
+        /* Substitui a margin-top para espaçamento interno */
         box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        /* Sombra leve */
         border-radius: 8px;
-        /* Cantos arredondados */
-        padding-bottom: 10px;
-        /* Espaço inferior */
+        height: auto;
+        /* Permite ajustar à altura do conteúdo */
+        position: relative;
+        /* Use fixed para uma posição persistente se necessário */
+        top: 0;
+        /* Remove margens desnecessárias */
+        margin-right: 20px;
+        /* Espaço entre o side e o card */
+        margin-top: 15.7%;
+        max-height: 190px;
     }
 
-    .sidenav a {
-        color: #333;
-        /* Cor do texto */
-        font-weight: bold;
-        /* Negrito */
+    .side a {
         display: block;
-        /* Ocupando a largura total */
-        text-align: center;
-        /* Centralizar os links */
+        /* Links na sidebar ficam um abaixo do outro */
+        padding: 10px 0;
+        color: #333;
+        text-decoration: none;
     }
 
-    .sidenav li {
-        border-bottom: 1px solid #ddd;
-        /* Separação das opções */
-        padding: 10px 15px;
+    .side a:hover {
+        background-color: #ddd;
     }
 
-    .sidenav a:hover {
-        background-color: #eee;
-        /* Cor de fundo ao passar o mouse */
-    }
-
-    .sidenav-fixed {
-        position: fixed;
-        top: 64px;
-        /* Ajuste conforme o header, se houver */
-        left: 0;
-        height: calc(100% - 64px);
-        /* Ajuste dinâmico para ocupar a tela */
-        overflow-y: auto;
-    }
-
-    .content {
-        margin-left: 260px;
-        /* Espaço para o conteúdo principal ao lado da sidenav */
-        padding: 20px;
+    .striped {
+        flex-grow: 1;
+        /* Expande o card-panel para ocupar o espaço restante */
+        margin-top: 10%;
+        width: 10%;
     }
 </style>
 
 <body>
 
-    <ul id="slide-out" class="sidenav sidenav-fixed">
-        <li><a href="vizuPerfil.php">Meus dados</a></li>
-        <li><a href="vizuEventosCad.php">Eventos cadastrados</a></li>
-        <li><a href="vizuIngressosCad.php">Ingressos cadastrados</a></li>
-    </ul>
 
-    <main class="container" style="margin-top: 100px; margin-left: 400px;">
+    <main class="container" style="margin-top: 50px;">
+
+        <div class="side">
+            <a href="vizuPerfil.php">Meus dados</a>
+            <a href="vizuEventosCad.php">Eventos cadastrados</a>
+            <a href="vizuIngressosCad.php">Ingressos cadastrados</a>
+            <a href="pedidos.php">Pedidos</a>
+        </div>
 
         <table class="striped">
 
