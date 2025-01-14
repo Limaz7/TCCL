@@ -76,6 +76,10 @@ $result_ingressos = executarSQL($conexao, $ingressos);
         margin-top: 10%;
         width: 10%;
     }
+
+    .container .striped tbody tr td i{
+        color: black;
+    }
 </style>
 
 <?php include('../Navs/headers.php') ?>
@@ -118,9 +122,9 @@ $result_ingressos = executarSQL($conexao, $ingressos);
                             <td style="color: red;">Inativo</td>
                         <?php else: ?>
                             <td style="color: green;">Ativo</td>
-                            <?php endif; ?>
+                        <?php endif; ?>
 
-                            <td><a href="../crudIngresso/formEditIngresso?id_ingresso=<?= $results['id_ingresso']; ?>"><i class="material-icons">create</i></a></td>
+                        <td><a href="../crudIngresso/formEditIngresso?id_ingresso=<?= $results['id_ingresso']; ?>"><i class="material-icons">create</i></a></td>
 
                         <?php if ($results['status'] == 0): ?>
                             <td><a href="ativarIngresso?id_ingresso=<?= $results['id_ingresso'] ?>"><i class="material-icons">check</i></a></td>

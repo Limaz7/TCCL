@@ -10,6 +10,8 @@ include('../conexao.php');
 $conexao = conectar();
 
 $sql = "SELECT  ic.id_ingresso, 
+                ic.cart_id,
+                ic.cart_session,
                 ic.ticket,
                 ic.id_usuario,
                 ic.quantidade,
@@ -48,59 +50,59 @@ $result = executarSQL($conexao, $sql);
 </head>
 
 <style>
-    .sidenav {
-        background-color: #f9f9f9;
-        /* Cor de fundo clara */
-        width: 250px;
-        /* Largura fixa */
-        height: auto;
-        /* Altura ajustada para ficar menor */
-        margin-top: 30vh;
-        /* Centralizando verticalmente na tela */
+    .container {
+        display: flex;
+        /* Usa flexbox para alinhar os itens lado a lado */
+        flex-wrap: wrap;
+        /* Permite que os itens ocupem múltiplas linhas em telas menores */
+    }
+
+    .side {
+        background-color: rgb(240, 240, 240);
+        width: 200px;
+        /* Ajuste a largura conforme necessário */
+        padding: 10px;
+        /* Substitui a margin-top para espaçamento interno */
         box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        /* Sombra leve */
         border-radius: 8px;
-        /* Cantos arredondados */
-        padding-bottom: 10px;
-        /* Espaço inferior */
+        height: auto;
+        /* Permite ajustar à altura do conteúdo */
+        position: relative;
+        /* Use fixed para uma posição persistente se necessário */
+        top: 0;
+        /* Remove margens desnecessárias */
+        margin-right: 20px;
+        /* Espaço entre o side e o card */
+        margin-top: 15.80%;
+        max-height: 190px;
     }
 
-    .sidenav a {
-        color: #333;
-        /* Cor do texto */
-        font-weight: bold;
-        /* Negrito */
+    .side a {
         display: block;
-        /* Ocupando a largura total */
-        text-align: center;
-        /* Centralizar os links */
+        /* Links na sidebar ficam um abaixo do outro */
+        padding: 10px 0;
+        color: #333;
+        text-decoration: none;
     }
 
-    .sidenav li {
-        border-bottom: 1px solid #ddd;
-        /* Separação das opções */
-        padding: 10px 15px;
+    .side a:hover {
+        background-color: #ddd;
     }
 
-    .sidenav a:hover {
-        background-color: #eee;
-        /* Cor de fundo ao passar o mouse */
+    .striped {
+        flex-grow: 1;
+        /* Expande o card-panel para ocupar o espaço restante */
+        margin-top: 10%;
+        width: 10%;
     }
 
-    .sidenav-fixed {
-        position: fixed;
-        top: 64px;
-        /* Ajuste conforme o header, se houver */
-        left: 0;
-        height: calc(100% - 64px);
-        /* Ajuste dinâmico para ocupar a tela */
-        overflow-y: auto;
+    .card-panel {
+        flex-grow: 1;
+        /* Expande o card-panel para ocupar o espaço restante */
     }
 
-    .content {
-        margin-left: 260px;
-        /* Espaço para o conteúdo principal ao lado da sidenav */
-        padding: 20px;
+    .container .striped tbody i {
+        color: black;
     }
 </style>
 
@@ -108,13 +110,15 @@ $result = executarSQL($conexao, $sql);
 
 <body>
 
-    <ul id="slide-out" class="sidenav sidenav-fixed">
-        <li><a href="vizuperfil.php">Meus dados</a></li>
-        <li><a href="vizuIngressosBuy.php">Histórico de compras</a></li>
-    </ul>
 
-    <main class="container" style="margin-top: 100px; margin-left: 400px;">
-        <table class="striped" style="text-align: center;">
+    <main class="container" style="margin-top: 50px;">
+
+        <div class="side">
+            <a href="vizuperfil.php">Meus dados</a>
+            <a href="vizuIngressosBuy.php">Histórico de compras</a>
+        </div>
+
+        <table class="striped">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -124,12 +128,13 @@ $result = executarSQL($conexao, $sql);
                     <th>Quantidade</th>
                     <th>Data</th>
                     <th>Confirmação de compra</th>
+                    <th>Cancelar</th>
                 </tr>
             </thead>
             <tbody>
                 <?php while ($results = mysqli_fetch_assoc($result)) : ?>
                     <tr>
-                        <td><?= $results['id_ingresso'] ;?></td>
+                        <td><?= $results['id_ingresso']; ?></td>
                         <td><?= $results['nome_evento']; ?></td>
                         <td><?= $results['ticket']; ?></td>
                         <td><?= $results['nome']; ?></td>
@@ -137,8 +142,10 @@ $result = executarSQL($conexao, $sql);
                         <td><?= $results['data']; ?></td>
                         <?php if ($results['pago'] == 0) : ?>
                             <td>Aguardando pagamento</td>
+                            <td><a href="../carrinho/ajax/cart/delete?cart_id=<?= $results['cart_id']; ?>&cart_session=<?= $results['cart_session']; ?>"><i class="material-icons">delete</i></a></td>
                         <?php else: ?>
                             <td>Pago</td>
+                            <td><i class="material-icons">check</i></td>
                         <?php endif; ?>
                     </tr>
                 <?php endwhile; ?>
@@ -147,5 +154,18 @@ $result = executarSQL($conexao, $sql);
     </main>
 
 </body>
+
+<script src="../js/materialize.min.js"></script>
+
+<script>
+    <?php if (isset($_SESSION['mensagem'])): ?>
+        M.toast({
+            html: '<?= $_SESSION['mensagem'][0] ?>',
+            classes: '<?= $_SESSION['mensagem'][1] ?>'
+        });
+
+    <?php unset($_SESSION['mensagem']);
+    endif; ?>
+</script>
 
 </html>

@@ -80,6 +80,9 @@ $dados_user = mysqli_fetch_assoc($result1);
         margin-top: 10%;
         width: 10%;
     }
+    .container .striped tbody tr td i{
+        color: black;
+    }
 </style>
 
 <body>

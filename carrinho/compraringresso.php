@@ -9,27 +9,29 @@ require '../rec-senha/PHPMailer/src/SMTP.php'; */
 
 session_start();
 
-$id_evento = $_POST['id_evento'];
-$id_user = $_POST['id_usuario'];
+var_dump($_POST);
+
+$id_user = $_SESSION['user'][0];
 $id_ingresso = $_POST['id_ingresso'];
-$qtd = $_POST['qtd'];
+$qtd = $_POST['quantidade'];
+$cartId = $_POST['cart_id'];
 
 include('../conexao.php');
 $conexao = conectar();
 
-$sql = "SELECT quantidade FROM ingressos_cadastrados WHERE id_ingresso= '$id_ingresso'";
+$sql = "SELECT estoque FROM ingressos_cadastrados WHERE id_ingresso= '$id_ingresso'";
 $res = executarSQL($conexao, $sql);
 $quant = mysqli_fetch_assoc($res);
 
 $token = bin2hex(random_bytes(50));
 
-if ($qtd > $quant['quantidade']) {
-    header ("location: ../informacoes?id_evento=$id_evento&maior=1");
+if ($qtd > $quant['estoque']) {
+    header ("location: ../inicial.php");
 } else {
 
-    $nova_qtd = $quant['quantidade'] - $qtd;
+    $nova_qtd = $quant['estoque'] - $qtd;
 
-    $sql = "UPDATE ingressos_cadastrados SET quantidade='$nova_qtd' WHERE id_ingresso=$id_ingresso";
+    $sql = "UPDATE ingressos_cadastrados SET estoque='$nova_qtd' WHERE id_ingresso=$id_ingresso";
     executarSQL($conexao, $sql);
 
     $sql = "SELECT * FROM usuarios WHERE id_usuario='$id_user'";
@@ -39,7 +41,7 @@ if ($qtd > $quant['quantidade']) {
     if ($usuario == null) {
         echo "Email não cadastrado! Faça o cadastro e 
           em seguida realize o login.";
-        echo "<a href='informacoes?id_evento=$id_evento'>Voltar</a>";
+        echo "<a href='../inicial.php>Voltar</a>";
         die();
     }
 
@@ -92,11 +94,10 @@ if ($qtd > $quant['quantidade']) {
     $data = new DateTime('now');
     $agora = $data->format('Y-m-d H:i:s');
 
-    $sql2 = "INSERT INTO ingressos_comprados
-            (id_ingresso, ticket, id_usuario, quantidade, data, pago) 
-            VALUES ('$id_ingresso', '$token', '$id_user', '$qtd', 
-            '$agora', 0)";
+    $sql2 = "UPDATE ingressos_comprados SET
+            pago=1, data='$agora'
+            WHERE cart_id='$cartId'";
     executarSQL($conexao, $sql2);
 
-    header("location: ../informacoes?id_evento=$id_evento&sucesso=1");
+    header("location: ../inicial.php");
 }

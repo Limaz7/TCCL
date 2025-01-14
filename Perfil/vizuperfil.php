@@ -93,14 +93,14 @@ $dados = mysqli_fetch_assoc($result);
                 <a href="vizuIngressosCad.php">Ingressos cadastrados</a>
                 <a href="pedidos.php">Pedidos</a>
             </div>
-        <?php endif ?>
+        <?php endif; ?>
 
         <?php if ($dados['tipo_usuario'] == 2): ?>
-            <div class="sidenav">
-                <li><a href="vizuPerfil.php">Meus dados</a></li>
-                <li><a href="vizuIngressosBuy.php">Histórico de compras</a></li>
+            <div class="side">
+                <a href="vizuPerfil.php">Meus dados</a>
+                <a href="vizuIngressosBuy.php">Histórico de compras</a>
             </div>
-        <?php endif ?>
+        <?php endif; ?>
 
 
         <div style="margin-top: 10%;" class="card-panel">
