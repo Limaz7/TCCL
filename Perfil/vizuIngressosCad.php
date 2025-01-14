@@ -124,14 +124,14 @@ $result_ingressos = executarSQL($conexao, $ingressos);
                             <td style="color: green;">Ativo</td>
                         <?php endif; ?>
 
-                        <td><a href="../crudIngresso/formEditIngresso?id_ingresso=<?= $results['id_ingresso']; ?>"><i class="material-icons">create</i></a></td>
+                        <td><a href="../crudIngresso/formEditIngresso?id_ingresso=<?= $results['id_ingresso']; ?>"><i class="material-icons" style="color: #1565c0;">create</i></a></td>
 
                         <?php if ($results['status'] == 0): ?>
-                            <td><a href="ativarIngresso?id_ingresso=<?= $results['id_ingresso'] ?>"><i class="material-icons">check</i></a></td>
+                            <td><a href="ativarIngresso?id_ingresso=<?= $results['id_ingresso'] ?>"><i class="material-icons" style="color: #4caf50;">check</i></a></td>
                         <?php else: ?>
                             <td><a href="ativarIngresso?id_ingresso=<?= $results['id_ingresso'] ?>"><i class="material-icons">clear</i></a></td>
                         <?php endif; ?>
-                        <td><a class="waves-effect waves-light modal-trigger" href="#modalConfirma<?= $results['id_ingresso']; ?>"><i class="material-icons">delete</i></a></td>
+                        <td><a class="waves-effect waves-light modal-trigger" href="#modalConfirma<?= $results['id_ingresso']; ?>"><i class="material-icons" style="color: #c62828;">delete</i></a></td>
                     </tr>
 
 

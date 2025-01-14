@@ -66,7 +66,9 @@ $result = executarSQL($conexao, $sql);
             </thead>
 
             <tbody>
-                <?php foreach ($result as $results) : $arq = $results['imagem']; ?>
+                <?php if ($result): 
+                foreach ($result as $results) :
+                    $arq = $results['imagem']; ?>
 
                     <tr>
                         <td><?= $results['id_evento'] ?></td>
@@ -82,8 +84,10 @@ $result = executarSQL($conexao, $sql);
                         <td><a href="../crudEvento/formediteven?id_evento=<?= $results['id_evento']; ?>">Editar</a></td>
                         <td><a href="../crudEvento/excluireven?id_evento=<?= $results['id_evento']; ?>">Excluir</a></td>
                     </tr>
-
                 <?php endforeach; ?>
+                <?php else: ?>
+                    <td>Nenhum evento cadastrado</td>
+                <?php endif; ?>
             </tbody>
 
         </table>

@@ -1,9 +1,11 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
-   <!--Import Google Icon Font-->
-   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection" />
 
@@ -71,5 +73,16 @@
 
 <!--JavaScript at end of body for optimized loading-->
 <script type="text/javascript" src="../js/materialize.min.js"></script>
+
+<script>
+    <?php if (isset($_SESSION['mensagem'])): ?>
+        M.toast({
+            html: '<?= $_SESSION['mensagem'][0] ?>',
+            classes: '<?= $_SESSION['mensagem'][1] ?>'
+        });
+
+    <?php unset($_SESSION['mensagem']);
+    endif; ?>
+</script>
 
 </html>

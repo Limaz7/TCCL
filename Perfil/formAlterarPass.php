@@ -18,7 +18,7 @@ if (!isset($_SESSION['user'])) {
 </head>
 <body>
     <h3> Alterar sua senha </h3>
-    <form action="alterarSenha.php" method="post">
+    <form action="alterarPass.php" method="post">
         <label for="senhaAt">
             Senha atual: <input type="text" name="senhaAtual" id="senhaAt">
         </label> <br><br>

@@ -74,7 +74,7 @@ $dados = mysqli_fetch_assoc($result);
     }
 
     .card-panel {
-        flex-grow: 1;   
+        flex-grow: 1;
         /* Expande o card-panel para ocupar o espaço restante */
     }
 </style>
@@ -105,7 +105,7 @@ $dados = mysqli_fetch_assoc($result);
 
         <div style="margin-top: 10%;" class="card-panel">
             <h1> Meus dados </h1>
-            <a href="formalterarsenha.php"> Alterar sua senha </a> <br><br>
+            <a href="formAlterarPass.php"> Alterar sua senha </a> <br><br>
             <form action="editPerfil.php" method="post" enctype="multipart/form-data">
                 <img src="../imagens/<?= $dados['img_perfil']; ?>" alt="Imagem de perfil" height="100px"> <br><br>
                 <label for="nome">
@@ -123,18 +123,6 @@ $dados = mysqli_fetch_assoc($result);
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="../js/materialize.min.js"></script>
 
-<?php
-
-include('../functionMensagens.php');
-
-if (isset($_SESSION['mensagem'])) {
-    exibirMensagem($_SESSION['mensagem'][0], $_SESSION['mensagem'][1]);
-    unset($_SESSION['mensagem']);
-    die();
-}
-
-?>
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.sidenav');
@@ -150,6 +138,15 @@ if (isset($_SESSION['mensagem'])) {
     $(document).ready(function() {
         $('.sidenav').sidenav();
     });
+
+    <?php if (isset($_SESSION['mensagem'])): ?>
+        M.toast({
+            html: '<?= $_SESSION['mensagem'][0] ?>',
+            classes: '<?= $_SESSION['mensagem'][1] ?>'
+        });
+
+    <?php unset($_SESSION['mensagem']);
+    endif; ?>
 </script>
 
 </html>

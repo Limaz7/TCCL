@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -12,7 +14,6 @@
 </head>
 
 <style>
-
     .card-panel {
         position: fixed;
         background-color: rgb(238, 238, 238);
@@ -22,7 +23,7 @@
         right: 40%;
     }
 
-    .card-panel button{
+    .card-panel button {
         width: 100%;
     }
 </style>
@@ -66,5 +67,16 @@
 
 <!--JavaScript at end of body for optimized loading-->
 <script type="text/javascript" src="js/materialize.min.js"></script>
+
+<script>
+    <?php if (isset($_SESSION['mensagem'])): ?>
+        M.toast({
+            html: '<?= $_SESSION['mensagem'][0] ?>',
+            classes: '<?= $_SESSION['mensagem'][1] ?>'
+        });
+
+    <?php unset($_SESSION['mensagem']);
+    endif; ?>
+</script>
 
 </html>

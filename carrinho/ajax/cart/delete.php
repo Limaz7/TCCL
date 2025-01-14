@@ -4,7 +4,7 @@ session_start();
 require '../../../conexao.php';
 $conexao = conectar();
 
-if (INPUT_POST) {
+if ($_POST) {
     $post = filter_input_array(INPUT_POST, FILTER_DEFAULT);
     $postFilters = array_map("strip_tags", $post);
 
@@ -65,7 +65,7 @@ if (INPUT_POST) {
     }
 
     echo json_encode($message);
-} elseif (INPUT_GET) {
+} elseif ($_GET) {
 
     $session = $_GET['cart_session'];
     $cartId = $_GET['cart_id'];

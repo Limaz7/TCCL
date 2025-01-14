@@ -80,9 +80,7 @@ $dados_user = mysqli_fetch_assoc($result1);
         margin-top: 10%;
         width: 10%;
     }
-    .container .striped tbody tr td i{
-        color: black;
-    }
+
 </style>
 
 <body>
@@ -129,8 +127,8 @@ $dados_user = mysqli_fetch_assoc($result1);
                         <td><?= $dados2['rua'] ?></td>
                         <td><?= $dados2['bairro'] ?></td>
                         <td><?= $dados2['numero_residencial'] ?></td>
-                        <td><a href="../crudEvento/formediteven?id_evento=<?= $dados2['id_evento']; ?>"><i class="material-icons">create</i></a></td>
-                        <td><a href="../crudEvento/excluireven?id_evento=<?= $dados2['id_evento']; ?>"><i class="material-icons">delete</i></a></td>
+                        <td><a href="../crudEvento/formediteven?id_evento=<?= $dados2['id_evento']; ?>"><i class="material-icons" style="color: #1565c0;">create</i></a></td>
+                        <td><a href="../crudEvento/excluireven?id_evento=<?= $dados2['id_evento']; ?>"><i class="material-icons" style="color: #c62828;">delete</i></a></td>
                     </tr>
 
                 <?php endwhile; ?>

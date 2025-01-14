@@ -142,10 +142,10 @@ $result = executarSQL($conexao, $sql);
                         <td><?= $results['data']; ?></td>
                         <?php if ($results['pago'] == 0) : ?>
                             <td>Aguardando pagamento</td>
-                            <td><a href="../carrinho/ajax/cart/delete?cart_id=<?= $results['cart_id']; ?>&cart_session=<?= $results['cart_session']; ?>"><i class="material-icons">delete</i></a></td>
+                            <td><a href="../carrinho/ajax/cart/delete?cart_id=<?= $results['cart_id']; ?>&cart_session=<?= $results['cart_session']; ?>"><i class="material-icons" style="color: #c62828;">delete</i></a></td>
                         <?php else: ?>
                             <td>Pago</td>
-                            <td><i class="material-icons">check</i></td>
+                            <td><i class="material-icons" style="color: #4caf50;">check</i></td>
                         <?php endif; ?>
                     </tr>
                 <?php endwhile; ?>

@@ -1,6 +1,6 @@
 <?php
 
-include ("../conexao.php");
+include("../conexao.php");
 $conexao = conectar();
 
 $nome = $_POST['nome'];
@@ -9,9 +9,18 @@ $cod_atv = $_POST['cod_atv'];
 $id = $_POST['id'];
 
 $sql = "UPDATE usuarios SET nome='$nome', email='$email', cod_ativacao='$cod_atv' WHERE id_usuario='$id'";
-executarSQL($conexao, $sql);
+$resultUpdate = executarSQL($conexao, $sql);
 
-$_SESSION['mensagem'][0] = "Perfil editado com sucesso!";
-$_SESSION['mensagem'][1] = "#558b2f light-green darken-3";
+if ($resultUpdate) {
+    $_SESSION['mensagem'] = [
+        0 => 'Perfil editado com sucesso!',
+        1 => '#558b2f light-green darken-3'
+    ];
+} else {
+    $_SESSION['mensagem'] = [
+        0 => 'Não foi possível editar o perfil.',
+        1 => '#c62828 red darken-3'
+    ];
+}
 
 header('location: ../telasAdmin/listarUsers.php');
