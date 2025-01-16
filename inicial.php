@@ -20,6 +20,10 @@ $sql2 = "SELECT * FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
 $result2 = executarSQL($conexao, $sql2);
 $dados = mysqli_fetch_assoc($result2);
 
+date_default_timezone_set('America/Sao_Paulo');
+$data = new DateTime('now');
+$agora = $data->format('Y-m-d H:i:s');
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -89,7 +93,11 @@ $dados = mysqli_fetch_assoc($result2);
                             <p><?= $evento['data']; ?></p>
                         </div>
                         <div class="card-action">
+                        <?php if($agora > $evento['data']): ?>
+                            <a class="btn disabled">Mais informações</a>
+                            <?php else: ?>
                             <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href='informacoes?id_evento=<?= $evento["id_evento"] ?>'>Mais informações</a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

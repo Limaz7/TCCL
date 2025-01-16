@@ -105,7 +105,6 @@ $result_ingressos = executarSQL($conexao, $ingressos);
                     <th>Descricão do ingresso</th>
                     <th>Valor</th>
                     <th>Quantidade</th>
-                    <th>Status</th>
                     <th colspan="2">Opções</th>
                 </tr>
             </thead>
@@ -118,19 +117,8 @@ $result_ingressos = executarSQL($conexao, $ingressos);
                         <td><?= $results['valor'] ?></td>
                         <td><?= $results['estoque'] ?></td>
 
-                        <?php if ($results['status'] == 0): ?>
-                            <td style="color: red;">Inativo</td>
-                        <?php else: ?>
-                            <td style="color: green;">Ativo</td>
-                        <?php endif; ?>
+                        <td><a href="../crudIngresso/formEditIngresso?id_ingresso=<?= $results['id_ingresso']; ?>"><i class="material-icons" style="color: green;">create</i></a></td>
 
-                        <td><a href="../crudIngresso/formEditIngresso?id_ingresso=<?= $results['id_ingresso']; ?>"><i class="material-icons" style="color: #1565c0;">create</i></a></td>
-
-                        <?php if ($results['status'] == 0): ?>
-                            <td><a href="ativarIngresso?id_ingresso=<?= $results['id_ingresso'] ?>"><i class="material-icons" style="color: #4caf50;">check</i></a></td>
-                        <?php else: ?>
-                            <td><a href="ativarIngresso?id_ingresso=<?= $results['id_ingresso'] ?>"><i class="material-icons">clear</i></a></td>
-                        <?php endif; ?>
                         <td><a class="waves-effect waves-light modal-trigger" href="#modalConfirma<?= $results['id_ingresso']; ?>"><i class="material-icons" style="color: #c62828;">delete</i></a></td>
                     </tr>
 

@@ -45,21 +45,39 @@
         <title></title>
     </head>
 
+    <style>
+        .text-inic {
+            margin: 0;
+            background-color: green;
+            height: 15vw;
+        }
+        h1{
+            position: absolute;
+            margin: 0;
+            left: 16.8%;
+            top: 20%;
+            color: white;
+        }
+    </style>
+
     <?php include('Navs/headers.php'); ?>
 
     <body>
         <div class="result"></div>
 
+
+
+        <div class="text-inic">
+            <h1> <?= $evento['nome_evento']; ?> </h1>
+        </div><br>
+        <h5>Local do evento</h5>
+        <span><?= $evento['rua']; ?>, <?= $evento['numero_residencial']; ?></span> <br>
+        <span><?= $evento['descricao']; ?></span>
+        <span><?= $evento['bairro']; ?></span> <br>
+        <span>Produtora</span> <br>
+        <span><?= $evento['produtora']; ?></span>
+
         <main class="container">
-
-            <h1> <?= $evento['nome_evento']; ?> </h1> <br>
-            <?= $evento['descricao']; ?>
-            <h5>Local do evento</h5>
-            <?= $evento['rua']; ?>, <?= $evento['numero_residencial']; ?> <br>
-            <?= $evento['bairro']; ?> <br>
-            <h5>Produtora</h5>
-            <?= $evento['produtora']; ?>
-
 
             <?php if ($usuario['tipo_usuario'] == 3 and $evento['id_usuario'] == $_SESSION['user'][0]) { ?>
                 <p><a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href='#modalCadastroIngresso'>Cadastrar ingressos</a> <br></p>
@@ -93,18 +111,19 @@
                     <?php if ($ingressos['id_evento']) : ?>
 
 
-                        <div class="card-panel #f5f5f5 grey lighten-4" style="max-width: 400px;">
-                            <h5><?= $ingressos['nome_ingresso'] ?></h5>
-                            <p><?= $ingressos['desc_ingresso']; ?></p>
-                            <p>
-                            <h4> R$ <?= number_format($ingressos['valor'], 2, ',', '.'); ?></h4>
-                            </p>
-                            <input type="hidden" name="id_ingresso" value="<?= $ingressos['id_ingresso']; ?>">
-                            <input type="hidden" name="id_evento" value="<?= $ingressos['id_evento']; ?>">
-                            <a style="background: black; color: white;" class="waves-effect waves-light btn buy"
-                                data-value="<?= $ingressos['nome_ingresso']; ?>" data-id="<?= $ingressos['id_evento']; ?>">Adicionar ao carrinho</a>
-                        </div>
-
+                        <?php if ($ingressos['status'] == 1): ?>
+                            <div class="card-panel #f5f5f5 grey lighten-4" style="max-width: 400px;">
+                                <h5><?= $ingressos['nome_ingresso'] ?></h5>
+                                <p><?= $ingressos['desc_ingresso']; ?></p>
+                                <p>
+                                <h4> R$ <?= number_format($ingressos['valor'], 2, ',', '.'); ?></h4>
+                                </p>
+                                <input type="hidden" name="id_ingresso" value="<?= $ingressos['id_ingresso']; ?>">
+                                <input type="hidden" name="id_evento" value="<?= $ingressos['id_evento']; ?>">
+                                <a style="background: black; color: white;" class="waves-effect waves-light btn buy"
+                                    data-value="<?= $ingressos['nome_ingresso']; ?>" data-id="<?= $ingressos['id_evento']; ?>">Adicionar ao carrinho</a>
+                            </div>
+                        <?php endif; ?>
 
                     <?php else:
                         echo "<style>h4{color: red;}</style><h4>Nenhum ingresso cadastrado</h4>";
