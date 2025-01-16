@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 14-Jan-2025 às 20:00
+-- Tempo de geração: 16-Jan-2025 às 20:04
 -- Versão do servidor: 8.0.31
 -- versão do PHP: 8.0.26
 
@@ -42,14 +42,15 @@ CREATE TABLE IF NOT EXISTS `eventos` (
   `imagem` varchar(255) NOT NULL,
   PRIMARY KEY (`id_evento`),
   KEY `fk_id_usuario_1` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `eventos`
 --
 
 INSERT INTO `eventos` (`id_evento`, `id_usuario`, `nome_evento`, `produtora`, `descricao`, `data`, `cep`, `rua`, `bairro`, `numero_residencial`, `imagem`) VALUES
-(67, 9, 'fbfdg', 'Ana Paula', 'bfdgf', '2025-01-08 15:16:00', 78567, 'gfhfghdf', 'hfhdfd', 5674, '6786a9eb4c5c1.png');
+(67, 9, 'Show rock', 'Ana Paula', 'O melhor show de rock do país', '2025-01-08 15:16:00', 78567, 'Presidente Vargas', 'aaa', 1122, '67895bf64ec99.jpg'),
+(68, 9, 'Show sertanejo', 'Ana Paula', 'LUAN PEREIRA NA SUA CIDADE!!!!!', '2025-01-22 20:24:00', 22338753, 'Venancio aires', 'Centro', 2233, '67895c8b11542.jpg');
 
 -- --------------------------------------------------------
 
@@ -65,7 +66,6 @@ CREATE TABLE IF NOT EXISTS `ingressos_cadastrados` (
   `desc_ingresso` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `valor` decimal(10,2) NOT NULL,
   `estoque` int NOT NULL,
-  `status` int NOT NULL,
   PRIMARY KEY (`id_ingresso`),
   KEY `fk_id_evento` (`id_evento`)
 ) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -74,10 +74,10 @@ CREATE TABLE IF NOT EXISTS `ingressos_cadastrados` (
 -- Extraindo dados da tabela `ingressos_cadastrados`
 --
 
-INSERT INTO `ingressos_cadastrados` (`id_ingresso`, `id_evento`, `nome_ingresso`, `desc_ingresso`, `valor`, `estoque`, `status`) VALUES
-(52, 67, 'Ingresso10', 'Lorem', '10.99', 10, 1),
-(53, 67, 'rgds', 'htfh', '99.00', 10, 1),
-(54, 67, 'Ingresso VIP', 'Bebida liberada', '100.00', 84, 1);
+INSERT INTO `ingressos_cadastrados` (`id_ingresso`, `id_evento`, `nome_ingresso`, `desc_ingresso`, `valor`, `estoque`) VALUES
+(52, 67, 'Ingresso10', 'Lorem', '10.99', 10),
+(53, 67, 'rgds', 'htfh', '99.00', 10),
+(54, 67, 'Ingresso VIP', 'Bebida liberada', '100.00', 84);
 
 -- --------------------------------------------------------
 
