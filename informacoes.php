@@ -52,9 +52,9 @@
         }
 
         .div-text-inic {
-            background: linear-gradient(to right, rgb(0, 0, 0) 20%, #263238 100%);
+            background: linear-gradient(to right, rgb(0, 0, 0) 20%, #212121 100%);
             width: 100%;
-            height: 15vw;
+            height: 12vw;
             background-color: green;
             font-family: 'MinhaFonte';
         }
@@ -64,7 +64,7 @@
             margin-inline-start: 17%;
             color: white;
             font-size: 6vw;
-            top: 40%;
+            top: 25%;
         }
 
         @media only screen and (min-width: 601px) {
@@ -128,7 +128,6 @@
         <main class="container">
 
             <?php if ($usuario['tipo_usuario'] == 3 and $evento['id_usuario'] == $_SESSION['user'][0]) { ?>
-                <p><a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href='#modalCadastroIngresso'>Cadastrar ingressos</a> <br></p>
 
 
                 <div id="modalCadastroIngresso" class="modal">

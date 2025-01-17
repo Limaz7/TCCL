@@ -80,7 +80,6 @@ $dados_user = mysqli_fetch_assoc($result1);
         margin-top: 10%;
         width: 10%;
     }
-
 </style>
 
 <body>
@@ -127,9 +126,20 @@ $dados_user = mysqli_fetch_assoc($result1);
                         <td><?= $dados2['rua'] ?></td>
                         <td><?= $dados2['bairro'] ?></td>
                         <td><?= $dados2['numero_residencial'] ?></td>
-                        <td><a href="../crudEvento/formediteven?id_evento=<?= $dados2['id_evento']; ?>"><i class="material-icons" style="color: #1565c0;">create</i></a></td>
-                        <td><a href="../crudEvento/excluireven?id_evento=<?= $dados2['id_evento']; ?>"><i class="material-icons" style="color: #c62828;">delete</i></a></td>
+                        <td><a href="../crudEvento/formediteven?id_evento=<?= $dados2['id_evento']; ?>"><i class="material-icons" style="color: green;">create</i></a></td>
+                        <td><a href="#modalExcluirEvento<?= $dados2['id_usuario']; ?>"><i class="material-icons modal-trigger" style="color: #c62828;">delete</i></a></td>
                     </tr>
+
+                    <div id="modalExcluirEvento<?= $dados2['id_evento']; ?>" class="modal">
+                        <div class="modal-content">
+                            <input type="text" value="<?= $dados2['id_usuario']; ?> ">
+                            <h4>Modal Header</h4>
+                            <p>A bunch of text</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                        </div>
+                    </div>
 
                 <?php endwhile; ?>
             </tbody>
@@ -147,6 +157,7 @@ $dados_user = mysqli_fetch_assoc($result1);
     $(document).ready(function() {
         $('.materialboxed').materialbox(); // Inicializando o materialbox
         $('.sidenav').sidenav(); // Iniciando o sidenav
+        $('.modal').modal();
     });
 </script>
 
