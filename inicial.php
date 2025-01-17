@@ -93,7 +93,7 @@ $agora = $data->format('Y-m-d H:i:s');
                             <p><?= $evento['data']; ?></p>
                         </div>
                         <div class="card-action">
-                        <?php if($agora > $evento['data']): ?>
+                        <?php if($agora > $evento['data'] && $dados['tipo_usuario'] == 2): ?>
                             <a class="btn disabled">Mais informações</a>
                             <?php else: ?>
                             <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href='informacoes?id_evento=<?= $evento["id_evento"] ?>'>Mais informações</a>

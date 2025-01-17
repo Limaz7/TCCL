@@ -46,17 +46,57 @@
     </head>
 
     <style>
-        .text-inic {
-            margin: 0;
-            background-color: green;
-            height: 15vw;
+        @font-face {
+            font-family: 'MinhaFonte';
+            src: url('fontes/SLICKYBOHEM-Regular.otf') format('opentype');
         }
-        h1{
-            position: absolute;
-            margin: 0;
-            left: 16.8%;
-            top: 20%;
+
+        .div-text-inic {
+            background: linear-gradient(to right, rgb(0, 0, 0) 20%, #263238 100%);
+            width: 100%;
+            height: 15vw;
+            background-color: green;
+            font-family: 'MinhaFonte';
+        }
+
+        .text-inic {
+            position: relative;
+            margin-inline-start: 17%;
             color: white;
+            font-size: 6vw;
+            top: 40%;
+        }
+
+        @media only screen and (min-width: 601px) {
+            .container {
+                width: 85%;
+            }
+        }
+
+        @media only screen and (min-width: 993px) {
+            .container {
+                width: 70%;
+            }
+        }
+
+        .endereco {
+            margin-inline: 15vw;
+        }
+
+        .icon-endereco {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon-endereco div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .endereco span {
+            font-style: italic;
+            color: grey;
         }
     </style>
 
@@ -67,13 +107,21 @@
 
 
 
-        <div class="text-inic">
-            <h1> <?= $evento['nome_evento']; ?> </h1>
+        <div class="div-text-inic">
+            <span class="text-inic"><?= $evento['nome_evento']; ?></span>
         </div><br>
-        <h5>Local do evento</h5>
-        <span><?= $evento['rua']; ?>, <?= $evento['numero_residencial']; ?></span> <br>
+        <div class="endereco">
+            <div class="icon-endereco">
+                <i class="large material-icons">room</i>
+                <div>
+                    <h5 style="margin: auto;">Local do evento</h5>
+                    <span><?= $evento['rua']; ?>, <?= $evento['numero_residencial']; ?></span>
+                    <span><?= $evento['bairro']; ?></span>
+                </div>
+            </div>
+        </div>
+        <hr>
         <span><?= $evento['descricao']; ?></span>
-        <span><?= $evento['bairro']; ?></span> <br>
         <span>Produtora</span> <br>
         <span><?= $evento['produtora']; ?></span>
 
@@ -108,7 +156,7 @@
 
 
                 <?php if ($usuario['tipo_usuario'] == 2) : ?>
-                    <?php if ($ingressos['id_evento']) : ?>
+                    <?php if (isset($ingressos['id_evento'])) : ?>
 
 
                         <?php if ($ingressos['status'] == 1): ?>

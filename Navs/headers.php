@@ -64,7 +64,7 @@ if (empty($_SESSION['cart']) || !$_SESSION['cart']) {
                             <?php endif; ?>
                             <li> <a class='white-text' href='inicial.php'>Tela inicial</a></li>
                             <li> <a class='white-text' href='Perfil/vizuPerfil.php'> Seu perfil </a> </li>
-                            <li> <a href="../logout.php" class="white-text">
+                            <li> <a href="logout.php" class="white-text">
                                     <i class="material-icons">power_settings_new</i>
                                 </a></li>
 
