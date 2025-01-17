@@ -34,7 +34,7 @@ if ($_POST) {
     $quantidade = strip_tags($Sh['quantidade']);
 
     $Product = "SELECT id_ingresso, estoque, status
-         FROM ingressos_cadastrados WHERE id_ingresso = $prodId AND status = 1";
+         FROM ingressos_cadastrados WHERE id_ingresso = $prodId";
     $Product = executarSQL($conexao, $Product);
 
     foreach ($Product as $Show) {
@@ -93,8 +93,8 @@ if ($_POST) {
     $prodId = strip_tags($resultSelect['id_ingresso']);
     $quantidade = strip_tags($resultSelect['quantidade']);
 
-    $Product = "SELECT id_ingresso, estoque, status
-         FROM ingressos_cadastrados WHERE id_ingresso = '$prodId' AND status = 1";
+    $Product = "SELECT id_ingresso, estoque
+         FROM ingressos_cadastrados WHERE id_ingresso = '$prodId'";
     $Product = executarSQL($conexao, $Product);
 
     foreach ($Product as $Show) {

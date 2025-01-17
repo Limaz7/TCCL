@@ -127,17 +127,17 @@ $dados_user = mysqli_fetch_assoc($result1);
                         <td><?= $dados2['bairro'] ?></td>
                         <td><?= $dados2['numero_residencial'] ?></td>
                         <td><a href="../crudEvento/formediteven?id_evento=<?= $dados2['id_evento']; ?>"><i class="material-icons" style="color: green;">create</i></a></td>
-                        <td><a href="#modalExcluirEvento<?= $dados2['id_usuario']; ?>"><i class="material-icons modal-trigger" style="color: #c62828;">delete</i></a></td>
+                        <td><a href="#modalExcluirEvento<?= $dados2['id_evento']; ?>" class="modal-trigger"><i class="material-icons" style="color: #c62828;">delete</i></a></td>
                     </tr>
 
                     <div id="modalExcluirEvento<?= $dados2['id_evento']; ?>" class="modal">
                         <div class="modal-content">
-                            <input type="text" value="<?= $dados2['id_usuario']; ?> ">
-                            <h4>Modal Header</h4>
-                            <p>A bunch of text</p>
+                            <h4>Confirmar exclusão</h4>
+                            <p>Você tem certeza que deseja excluir esse evento? Qualquer pessoa que possuir esse ingresso, irá perder ele.</p>
                         </div>
                         <div class="modal-footer">
-                            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                            <a href="#" class="modal-close waves-effect waves-red btn-flat">Cancelar</a>
+                            <a href="../crudevento/excluireven?id_evento=<?= $dados2['id_evento']; ?>" class="modal-close waves-effect waves-green btn-flat">Confirmar</a>
                         </div>
                     </div>
 
@@ -157,7 +157,10 @@ $dados_user = mysqli_fetch_assoc($result1);
     $(document).ready(function() {
         $('.materialboxed').materialbox(); // Inicializando o materialbox
         $('.sidenav').sidenav(); // Iniciando o sidenav
-        $('.modal').modal();
+    });
+
+    $(document).ready(function() {
+        $('.modal').modal(); // Inicializando os modais
     });
 </script>
 
