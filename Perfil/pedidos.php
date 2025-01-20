@@ -137,7 +137,7 @@ $exec = executarSQL($conexao, $sql);
                         <?php endif; ?>
                     </tr>
                     <?php else: ?>
-                        <td>Não há pedidos realizados no sistema.</td>
+                        <td colspan="7">Nenhum ingresso comprado.</td>
                     <?php endif; ?>
                 <?php endwhile; ?>
                 <?php else: ?>
