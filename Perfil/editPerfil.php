@@ -5,17 +5,12 @@ $conexao = conectar();
 
 session_start();
 
-$antfoto = $_POST['img_perfil'];
-
 $nome = $_POST['nome'];
 $email = $_POST['email'];
 
-$img = $_FILES['img_perfil'];
-
-
-$update_user = "UPDATE usuarios SET nome='$nome', email='$email'
+$updateUser = "UPDATE usuarios SET nome='$nome', email='$email'
         WHERE id_usuario=" . $_SESSION['user'][0];
-$exec_update = executarSQL($conexao, $update_user);
+$execUpdate = executarSQL($conexao, $updateUser);
 
 
 //Trocar a foto de perfil
@@ -43,9 +38,17 @@ if ($img['error'] == 0) {
         }
 } */
 
-if($exec_update){
+if ($execUpdate) {
+
+        $selectUser = "SELECT nome, email FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
+        $execSelectUser = executarSQL($conexao, $selectUser);
+        $updatedUser = mysqli_fetch_assoc($execSelectUser);
+
+        $_SESSION['user'][1] = $updatedUser['nome'];
+
         $_SESSION['mensagem'][0] = "Perfil atualizado com sucesso!";
         $_SESSION['mensagem'][1] = "#558b2f light-green darken-3";
+
         header('location: vizuperfil.php');
         die();
 } else {

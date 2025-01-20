@@ -28,7 +28,7 @@ $sql = "SELECT  ic.id_ingresso,
         WHERE 
             e.id_usuario =" . $_SESSION['user'][0];
 
-$result = executarSQL($conexao, $sql);
+$exec = executarSQL($conexao, $sql);
 
 ?>
 
@@ -120,7 +120,8 @@ $result = executarSQL($conexao, $sql);
                 </tr>
             </thead>
             <tbody>
-                <?php while ($results = mysqli_fetch_assoc($result)) : ?>
+                <?php if (mysqli_num_rows($exec)): ?>
+                <?php while ($results = mysqli_fetch_assoc($exec)) : ?>
                     <?php if ($results['pago'] == 1) : ?>
                     <tr>
                         <td><?= $results['id_ingresso']; ?></td>
@@ -139,6 +140,11 @@ $result = executarSQL($conexao, $sql);
                         <td>Não há pedidos realizados no sistema.</td>
                     <?php endif; ?>
                 <?php endwhile; ?>
+                <?php else: ?>
+                <tr>
+                    <td colspan="7">Nenhum ingresso comprado.</td>
+                </tr>
+                <?php endif; ?>
             </tbody>
         </table>
     </main>

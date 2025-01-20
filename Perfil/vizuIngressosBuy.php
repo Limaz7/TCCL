@@ -9,7 +9,7 @@ if (!isset($_SESSION['user'])) {
 include('../conexao.php');
 $conexao = conectar();
 
-$sql = "SELECT  ic.id_ingresso, 
+$selectIngComp = "SELECT  ic.id_ingresso, 
                 ic.cart_id,
                 ic.cart_session,
                 ic.ticket,
@@ -30,7 +30,7 @@ $sql = "SELECT  ic.id_ingresso,
         WHERE 
             ic.id_usuario =" . $_SESSION['user'][0];
 
-$result = executarSQL($conexao, $sql);
+$exec = executarSQL($conexao, $selectIngComp);
 
 ?>
 
@@ -132,7 +132,8 @@ $result = executarSQL($conexao, $sql);
                 </tr>
             </thead>
             <tbody>
-                <?php while ($results = mysqli_fetch_assoc($result)) : ?>
+            <?php if (mysqli_num_rows($exec)) : ?>
+                <?php while ($results = mysqli_fetch_assoc($exec)) : ?>
                         <tr>
                             <td><?= $results['id_ingresso']; ?></td>
                             <td><?= $results['nome_evento']; ?></td>
@@ -149,6 +150,11 @@ $result = executarSQL($conexao, $sql);
                             <?php endif; ?>
                         </tr>
                 <?php endwhile; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="8">Nenhuma compra realizada.</td>
+                </tr>
+            <?php endif; ?>
             </tbody>
         </table>
     </main>

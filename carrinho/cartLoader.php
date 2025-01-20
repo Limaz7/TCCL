@@ -4,7 +4,7 @@
 
     $Cart = "SELECT ib.*, ic.*, e.* FROM ingressos_comprados ib INNER JOIN ingressos_cadastrados ic
     ON ib.id_ingresso = ic.id_ingresso INNER JOIN eventos e ON e.id_evento = ic.id_evento
-    WHERE cart_session = '" . $_SESSION['cart'] . "' AND cart_status = 1 AND pago = 0";
+    WHERE cart_session = '" . $_SESSION['cart'] . "' AND pago = 0";
     $Cart = executarSQL($conexao, $Cart);
 
     $lines = mysqli_num_rows($Cart);
@@ -29,7 +29,7 @@
                 <input type="hidden" name="nome_ingresso" value="<?= strip_tags($Show['nome_ingresso']); ?>">
                 <input type="hidden" name="imagem" value="<?= strip_tags($Show['imagem']); ?>">
                 <input type="hidden" name="quantidade" value="<?= strip_tags($Show['quantidade']); ?>">
-                <input type="hidden" name="cart_valor" value="<?= number_format($Show['cart_valor'], 2, '.', ''); ?>">
+                <input type="hidden" name="cart_valor" value="<?= number_format($Show['ingresso_valor'], 2, '.', ''); ?>">
                 <input type="hidden" name="id_ingresso" value="<?= strip_tags($Show['id_ingresso']); ?>">
 
                 <div class="cart_img">
@@ -47,7 +47,7 @@
                 </div>
 
                 <div class="cart_value">
-                    <p class="value" id="loader1">R$ <span class="price"><?= number_format($Show['cart_valor'], 2, ',', '.') ?></span></p>
+                    <p class="value" id="loader1">R$ <span class="price"><?= number_format($Show['ingresso_valor'], 2, ',', '.') ?></span></p>
                 </div>
 
                 <div class="cart_delete">

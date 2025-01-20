@@ -59,7 +59,7 @@ $agora = $data->format('Y-m-d H:i:s');
         overflow: hidden;
     }
 
-    .card-action a{
+    .card-action a {
         width: 100%;
     }
 </style>
@@ -85,18 +85,18 @@ $agora = $data->format('Y-m-d H:i:s');
                             <img class="materialboxed" src="imagens/<?= $arq ?>" height="200">
                         </div>
                         <div class="card-content">
-                            <p style="text-align: center;"><b><?= $evento['nome_evento']; ?></b></p>
-                            <p style="text-align: justify"><?= $evento['descricao']; ?></p>
+                            <p style="text-align: center; font-size: 1vw;"><b><?= $evento['nome_evento']; ?></b></p>
+                            <p style="text-align: center"><?= $evento['descricao']; ?></p>
                             <p>Empresa: </p>
                             <p><?= $evento['produtora']; ?></p>
-                            <p>Data do evento: </p>
-                            <p><?= $evento['data']; ?></p>
+                            <span>Entrada:</span>
+                            <?= $evento['tipo_pagamento'] ?>
                         </div>
                         <div class="card-action">
-                        <?php if($agora > $evento['data'] && $dados['tipo_usuario'] == 2): ?>
-                            <a class="btn disabled">Mais informações</a>
+                            <?php if ($agora > $evento['data'] && $dados['tipo_usuario'] == 2): ?>
+                                <a class="btn disabled">Mais informações</a>
                             <?php else: ?>
-                            <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href='informacoes?id_evento=<?= $evento["id_evento"] ?>'>Mais informações</a>
+                                <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href='informacoes?id_evento=<?= $evento["id_evento"] ?>'>Mais informações</a>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -104,6 +104,63 @@ $agora = $data->format('Y-m-d H:i:s');
             <?php } ?>
         </div>
 
+        <!-- Modal Structure -->
+        <div id="modalCadastroEvento" class="modal">
+            <div class="modal-content">
+                <h4>Cadastrar evento</h4>
+                <form action="crudevento/cadastroeven.php" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="nomeEmp" value="<?php echo $_SESSION['user'][1]; ?>">
+
+                    <div class="input-field col s12">
+                        <p>Nome do evento: <input type="text" name="nomeEven" required></p>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <p>Descrição: <textarea type="text" name="desc" required></textarea></p>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <p>CEP: <input type="number" name="cep" required></p>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <p>Rua: <input type="text" name="rua" required></p>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <p>Número do imóvel: <input type="number" name="numImo" required></p>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <p>Bairro: <input type="text" name="bairro" required></p>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <p>Data: <input class="btn-datetime" type="datetime-local" name="data" required></p>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <p>Tipo de Pagamento:</p>
+                        <p><select name="tipoPagamento" required>
+                                <option value="" disabled selected>Escolha seu tipo de pagamento</option>
+                                <option value="1">Gratuito</option>
+                                <option value="2">Pago</option>
+                                <option value="3">Cesta básica</option>
+                            </select>
+                        </p>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <p>Imagem <input type="file" name="arquivo"></p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-close waves-effect waves-red btn-flat">Cancelar</a>
+                        <button class="waves-effect waves-green btn-flat">Cadastrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
 
 
@@ -111,29 +168,32 @@ $agora = $data->format('Y-m-d H:i:s');
     </main>
 
 
-    <!--JavaScript at end of body for optimized loading-->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="js/materialize.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            $('.materialboxed').materialbox(); // Inicializando o materialbox
-            $('.modal').modal(); // Inicializando os modais
-        });
-    </script>
-
-    <?php
-
-    include("functionMensagens.php");
-
-    if (isset($_SESSION['mensagem'])):
-        exibirMensagem($_SESSION['mensagem'][0], $_SESSION['mensagem'][1]);
-        unset($_SESSION['mensagem']);
-    endif;
-
-    ?>
-
-
 </body>
+
+<!--JavaScript at end of body for optimized loading-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="js/materialize.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.materialboxed').materialbox(); // Inicializando o materialbox
+        $('.modal').modal(); // Inicializando os modais
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems);
+    });
+</script>
+
+<script>
+    <?php if (isset($_SESSION['mensagem'])): ?>
+        M.toast({
+            html: '<?= $_SESSION['mensagem'][0] ?>',
+            classes: '<?= $_SESSION['mensagem'][1] ?>'
+        });
+    <?php unset($_SESSION['mensagem']);
+    endif; ?>
+</script>
 
 </html>

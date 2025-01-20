@@ -10,7 +10,7 @@ include_once "../conexao.php";
 $conexao = conectar();
 
 $sql_eve = "SELECT * FROM eventos WHERE id_usuario=" . $_SESSION['user'][0];
-$result_eve = executarSQL($conexao, $sql_eve);
+$exec = executarSQL($conexao, $sql_eve);
 
 $sql_user = "SELECT * FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
 $result1 = executarSQL($conexao, $sql_user);
@@ -113,7 +113,8 @@ $dados_user = mysqli_fetch_assoc($result1);
             </thead>
 
             <tbody>
-                <?php while ($dados2 = mysqli_fetch_assoc($result_eve)) : $arq = $dados2['imagem']; ?>
+                <?php if (mysqli_num_rows($exec)): ?>
+                <?php while ($dados2 = mysqli_fetch_assoc($exec)) : $arq = $dados2['imagem']; ?>
 
                     <tr>
                         <td><?= $dados2['id_evento'] ?></td>
@@ -142,6 +143,11 @@ $dados_user = mysqli_fetch_assoc($result1);
                     </div>
 
                 <?php endwhile; ?>
+                <?php else: ?>
+                <tr>
+                    <td colspan="11">Nenhum evento cadastrado.</td>
+                </tr>
+                <?php endif; ?>
             </tbody>
 
         </table>

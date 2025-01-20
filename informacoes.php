@@ -67,36 +67,55 @@
             top: 25%;
         }
 
-        @media only screen and (min-width: 601px) {
-            .container {
-                width: 85%;
+        @media only screen and (max-width: 1540px) {
+            .info {
+                flex-direction: column;
+                gap: 20px;
+                align-items: end;
+            }
+
+            .info .prod {
+                margin-inline: 0;
+                /* Remove qualquer deslocamento lateral para centralizar no layout */
+                right: 0;
+            }
+
+            .info .endereco {
+                margin: 0;
             }
         }
 
-        @media only screen and (min-width: 993px) {
-            .container {
-                width: 70%;
-            }
-        }
-
-        .endereco {
+        .info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-inline: 15vw;
         }
 
-        .icon-endereco {
+        .icon-endereco,
+        .icon-prod,
+        .icon-data {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .icon-endereco div {
+        .icon-endereco div,
+        .icon-prod div {
             display: flex;
             flex-direction: column;
+            max-width: 200px;
         }
 
-        .endereco span {
+        .endereco span,
+        .prod span,
+        .data span {
             font-style: italic;
             color: grey;
+        }
+
+        .icon-data div {
+            flex-direction: column;
         }
     </style>
 
@@ -110,20 +129,41 @@
         <div class="div-text-inic">
             <span class="text-inic"><?= $evento['nome_evento']; ?></span>
         </div><br>
-        <div class="endereco">
-            <div class="icon-endereco">
-                <i class="large material-icons">room</i>
-                <div>
-                    <h5 style="margin: auto;">Local do evento</h5>
-                    <span><?= $evento['rua']; ?>, <?= $evento['numero_residencial']; ?></span>
-                    <span><?= $evento['bairro']; ?></span>
+
+        <div class="info">
+            <div class="endereco">
+                <div class="icon-endereco">
+                    <i class="large material-icons">room</i>
+                    <div>
+                        <h5 style="margin: auto;">Local do evento</h5>
+                        <span><?= $evento['rua']; ?>, <?= $evento['numero_residencial']; ?></span>
+                        <span><?= $evento['bairro']; ?></span>
+                    </div>
+                </div>
+            </div>
+            <div class="prod">
+                <div class="icon-prod">
+                    <i class="large material-icons">work</i>
+                    <div>
+                        <h5 style="margin: auto;">Produtora</h5>
+                        <span><?= $evento['produtora']; ?></span>
+                    </div>
+                </div>
+            </div>
+            <div class="data">
+                <div class="icon-data">
+                    <i class="large material-icons">event</i>
+                    <div>
+                        <h5 style="margin: auto;">Data</h5>
+                        <span><?= $evento['data']; ?></span>
+                    </div>
                 </div>
             </div>
         </div>
+
         <hr>
         <span><?= $evento['descricao']; ?></span>
-        <span>Produtora</span> <br>
-        <span><?= $evento['produtora']; ?></span>
+
 
         <main class="container">
 
@@ -149,7 +189,6 @@
             <?php } ?>
 
 
-
             <?php $result = executarSQL($conexao, $sql); ?>
             <?php while ($ingressos = mysqli_fetch_assoc($result)) : ?>
 
@@ -157,24 +196,28 @@
                 <?php if ($usuario['tipo_usuario'] == 2) : ?>
                     <?php if (isset($ingressos['id_evento'])) : ?>
 
+                        <div class="card-panel #f5f5f5 grey lighten-4" style="max-width: 400px;">
+                            <h5><?= $ingressos['nome_ingresso'] ?></h5>
+                            <p><?= $ingressos['desc_ingresso']; ?></p>
+                            <p>
+                            <h4> R$ <?= number_format($ingressos['valor'], 2, ',', '.'); ?></h4>
+                            </p>
+                            <input type="hidden" name="id_ingresso" value="<?= $ingressos['id_ingresso']; ?>">
+                            <input type="hidden" name="id_evento" value="<?= $ingressos['id_evento']; ?>">
+                            <a style="background: black; color: white;" class="waves-effect waves-light btn buy"
+                                data-value="<?= $ingressos['nome_ingresso']; ?>" data-id="<?= $ingressos['id_evento']; ?>">Adicionar ao carrinho</a>
+                        </div>
 
-                        <?php if ($ingressos['status'] == 1): ?>
-                            <div class="card-panel #f5f5f5 grey lighten-4" style="max-width: 400px;">
-                                <h5><?= $ingressos['nome_ingresso'] ?></h5>
-                                <p><?= $ingressos['desc_ingresso']; ?></p>
-                                <p>
-                                <h4> R$ <?= number_format($ingressos['valor'], 2, ',', '.'); ?></h4>
-                                </p>
-                                <input type="hidden" name="id_ingresso" value="<?= $ingressos['id_ingresso']; ?>">
-                                <input type="hidden" name="id_evento" value="<?= $ingressos['id_evento']; ?>">
-                                <a style="background: black; color: white;" class="waves-effect waves-light btn buy"
-                                    data-value="<?= $ingressos['nome_ingresso']; ?>" data-id="<?= $ingressos['id_evento']; ?>">Adicionar ao carrinho</a>
-                            </div>
+                    <?php else: ?>
+                        <?php if ($ingressos['tipo_pagamento'] == 'Pago'): ?>
+                            <style>
+                                .sIng {
+                                    color: red;
+                                }
+                            </style>
+                            <h4 class="sIng">Nenhum ingresso cadastrado</h4>
                         <?php endif; ?>
-
-                    <?php else:
-                        echo "<style>h4{color: red;}</style><h4>Nenhum ingresso cadastrado</h4>";
-                    endif; ?>
+                    <?php endif; ?>
                 <?php endif; ?>
 
                 <!-- <div id="modalComprarIngresso" class="modal">

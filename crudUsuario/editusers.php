@@ -11,6 +11,11 @@ $id = $_POST['id'];
 $sql = "UPDATE usuarios SET nome='$nome', email='$email', cod_ativacao='$cod_atv' WHERE id_usuario='$id'";
 $resultUpdate = executarSQL($conexao, $sql);
 
+if($nome != $resultUpdate['nome']){
+    unset($_SESSION['user'][1]);
+    $_SESSION['user'][1] = $resultUpdate['nome'];
+}
+
 if ($resultUpdate) {
     $_SESSION['mensagem'] = [
         0 => 'Perfil editado com sucesso!',

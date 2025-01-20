@@ -27,7 +27,7 @@ $extensao = strtolower(pathinfo($img['name'], PATHINFO_EXTENSION));
 if ($_FILES['img']['name'] == null) {
 
     $sql = "UPDATE eventos
-            SET nome_evento = '$nomeEven', descricao = '$desc', 
+            SET produtora = '" . $_SESSION['user'][1] . "', nome_evento = '$nomeEven', descricao = '$desc', 
             data = '$data', cep = '$cep', rua = '$rua', bairro='$bairro', numero_residencial = '$numImo'
             WHERE id_evento = '$id'";
     $resultEditEven = executarSQL($conexao, $sql);

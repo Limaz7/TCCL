@@ -41,21 +41,29 @@
                 <br>
 
                 <div class="input-field col s10 offset-s1">
-                    <input id="nome" type="text" name="nome" class="validate" pattern="[A-z\s\W]+" required>
+                    <input id="nome" type="text" name="nome" class="validate" pattern="[A-Za-zÀ-ÿ\s\.]+" required>
                     <label for="nome">Nome</label>
                     <span class="helper-text" data-error="Campo com preenchimento obrigatório."></span>
                 </div>
 
                 <div class="input-field col s10 offset-s1">
-                    <input id="email" type="email" name="email" class="validate" pattern="/^\w*+@\w*+\.[a-z]+\(\.[a-z]+)+$/i" required>
+                    <input id="email" type="email" name="email" class="validate" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required>
                     <label for="email">Email</label>
                     <span class="helper-text" data-error="Campo com preenchimento obrigatório."></span>
                 </div>
 
                 <div class="input-field col s10 offset-s1">
-                    <input id="senha" type="password" name="senha" class="validate" required>
+                    <input id="senha" type="password" name="senha" class="validate"
+                        pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}" required>
                     <label for="senha">Senha</label>
-                    <span class="helper-text" data-error="Campo com preenchimento obrigatório."></span>
+                    <span class="helper-text" data-error="A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma minúscula, um número e um caractere especial."></span>
+                </div>
+
+                <div class="input-field col s10 offset-s1">
+                    <input id="cadastro" type="text" name="cadastro" class="validate"
+                        pattern="\d{3}\.\d{3}\.\d{3}-\d{2}|\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}" required>
+                    <label for="cadastro">CPF ou CNPJ</label>
+                    <span class="helper-text" data-error="Insira um CPF no formato 000.000.000-00 ou CNPJ no formato 00.000.000/0000-00."></span>
                 </div>
 
                 <div class="col s12">

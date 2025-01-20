@@ -13,6 +13,9 @@ $eoq = $_POST['eoq'];
 $nome = $_POST['nome'];
 $senha = $_POST['senha'];
 $email = $_POST['email'];
+$cadastro = $_POST['cadastro'];
+
+$newcadastro = str_replace(['.', '-', '/'], '', $cadastro);
 
 $hash = password_hash($senha, PASSWORD_ARGON2I);
 
@@ -35,8 +38,8 @@ if ($email === $dados['email']) {
 } else {
 
     if ($eoq == 3) {
-        $sql = "INSERT INTO usuarios (nome, email, senha, tipo_usuario, cod_ativacao) 
-        VALUES ('$nome', '$email', '$hash', '$eoq', '2')";
+        $sql = "INSERT INTO usuarios (nome, email, senha, cadastro, tipo_cadastro, tipo_usuario, cod_ativacao) 
+        VALUES ('$nome', '$email', '$hash', '$newcadastro', 'cnpj', '$eoq', '2')";
         $resultInsert = executarSQL($conexao, $sql);
 
         if ($resultInsert) {
@@ -55,8 +58,8 @@ if ($email === $dados['email']) {
             exit();
         }
     } elseif ($eoq == 2) {
-        $sql = "INSERT INTO usuarios (nome, email, senha, tipo_usuario, cod_ativacao) 
-    VALUES ('$nome', '$email', '$hash', '$eoq', '1')";
+        $sql = "INSERT INTO usuarios (nome, email, senha, cadastro, tipo_cadastro, tipo_usuario, cod_ativacao) 
+    VALUES ('$nome', '$email', '$hash','$newcadastro', 'cpf', '$eoq', '1')";
         $resultInsert = executarSQL($conexao, $sql);
 
         if ($resultInsert) {

@@ -1,69 +1,79 @@
-<?php
+    <?php
 
-session_start();
-session_regenerate_id(true);
+    session_start();
+    session_regenerate_id(true);
 
-include "../conexao.php";
-$conecta = conectar();
+    include "../conexao.php";
+    $conecta = conectar();
 
-$nomeEven = $_POST["nomeEven"];
-$nomeEmp = $_POST['nomeEmp'];
-$desc = $_POST["desc"];
-$data = $_POST["data"];
-$foto = $_FILES['arquivo'];
-$cep = $_POST['cep'];
-$rua = $_POST["rua"];
-$numImo = $_POST["numImo"];
-$bairro = $_POST["bairro"];
+    $nomeEven = $_POST["nomeEven"];
+    $nomeEmp = $_POST['nomeEmp'];
+    $desc = $_POST["desc"];
+    $data = $_POST["data"];
+    $foto = $_FILES['arquivo'];
+    $cep = $_POST['cep'];
+    $rua = $_POST["rua"];
+    $numImo = $_POST["numImo"];
+    $bairro = $_POST["bairro"];
+    $tipoPag = $_POST['tipoPagamento'];
 
-$extensao = strtolower(pathinfo($foto['name'], PATHINFO_EXTENSION));
+    $extensao = strtolower(pathinfo($foto['name'], PATHINFO_EXTENSION));
 
-if ($foto['size'] > 10000000) {
-    $_SESSION['mensagem'][0] = 'Essa imagem tem o tamanho maior que 10mb, escolha outra imagem';
-    $_SESSION['mensagem'][1] = '#c62828 red darken-3';
+    if ($foto['size'] > 10000000) {
+        $_SESSION['mensagem'][0] = 'Essa imagem tem o tamanho maior que 10mb, escolha outra imagem';
+        $_SESSION['mensagem'][1] = '#c62828 red darken-3';
 
-    header("location: ../inicial");
-    die();
-}
+        header("location: ../inicial");
+        die();
+    }
 
-if ($foto['error'] != 0) {
-    
-    $_SESSION['mensagem'][0] = 'Ocorreu um erro no cadastro do evento!';
-    $_SESSION['mensagem'][1] = '#c62828 red darken-3';
+    if ($foto['error'] != UPLOAD_ERR_OK) {
 
-    header("location: ../inicial.php");
-    die();
-}
+        $_SESSION['mensagem'][0] = 'Ocorreu um erro no cadastro da imagem!' . $foto['error'];
+        $_SESSION['mensagem'][1] = '#c62828 red darken-3';
 
-if (
-    $extensao != "jpg" && $extensao != "png"
-    && $extensao != "gif" && $extensao != "jfif"
-    && $extensao != "svg" && $extensao != "jpeg"
-) {
-    echo "Isso nao é uma imagem! <a href='formcadeventos.php'>Voltar</a>";
-    die();
-}
+        header("location: ../inicial.php");
+        die();
+    }
 
-if ($foto['error'] == 0) {
-    $pastaDestino = "../imagens/";
-    $novo_nome_ft = uniqid() . "." . $extensao;
-    $move_foto = move_uploaded_file($foto['tmp_name'], $pastaDestino . $novo_nome_ft);
-}
+    if (
+        $extensao != "jpg" && $extensao != "png"
+        && $extensao != "gif" && $extensao != "jfif"
+        && $extensao != "svg" && $extensao != "jpeg"
+    ) {
+        $_SESSION['mensagem'][0] = 'A imagem precisa ter uma das seguintes extensões: jpg, jpeg, png, gif, jfif, svg!';
+        $_SESSION['mensagem'][1] = '#c62828 red darken-3';
+        header('location: ../inicial.php');
+        die();
+    }
 
-if ($conecta->errno) {
-    die("erro" . $conecta->error);
-} else {
-    $_SESSION['mensagem'][0] = 'Ocorreu um erro no cadastro do evento!';
-    $_SESSION['mensagem'][1] = '#c62828 red darken-3';
+    if ($foto['error'] == UPLOAD_ERR_OK) {
+        $pastaDestino = "../imagens/";
+        $novo_nome_ft = uniqid() . "." . $extensao;
+        $move_foto = move_uploaded_file($foto['tmp_name'], $pastaDestino . $novo_nome_ft);
 
-    header("location: ../inicial");
-}
+        if (!$move_foto) {
+            $_SESSION['mensagem'][0] = 'Erro ao mover a imagem para o diretório!';
+            $_SESSION['mensagem'][1] = '#c62828 red darken-3';
+            header("location: ../inicial.php");
+            die();
+        }
+    }
 
-$sql_even = "INSERT INTO eventos (id_usuario, nome_evento, produtora, descricao, data, cep, rua, bairro, numero_residencial, imagem) 
-                VALUES ('" . $_SESSION['user'][0] . "', '$nomeEven', '$nomeEmp', '$desc', '$data', '$cep', '$rua', '$bairro', '$numImo', '$novo_nome_ft')";
-executarSQL($conecta, $sql_even);
+    if ($conecta->errno) {
+        die("erro" . $conecta->error);
+    } else {
+        $_SESSION['mensagem'][0] = 'Ocorreu um erro no cadastro do evento!';
+        $_SESSION['mensagem'][1] = '#c62828 red darken-3';
 
-$_SESSION['mensagem'][0] = 'Evento cadastrado com sucesso!';
-$_SESSION['mensagem'][1] = '#558b2f light-green darken-3';
+        header("location: ../inicial");
+    }
 
-header('location: ../inicial.php');
+    $sql_even = "INSERT INTO eventos (id_usuario, nome_evento, tipo_pagamento, produtora, descricao, data, cep, rua, bairro, numero_residencial, imagem) 
+                    VALUES ('" . $_SESSION['user'][0] . "', '$nomeEven', '$tipoPag', '$nomeEmp', '$desc', '$data', '$cep', '$rua', '$bairro', '$numImo', '$novo_nome_ft')";
+    executarSQL($conecta, $sql_even);
+
+    $_SESSION['mensagem'][0] = 'Evento cadastrado com sucesso!';
+    $_SESSION['mensagem'][1] = '#558b2f light-green darken-3';
+
+    header('location: ../inicial.php');

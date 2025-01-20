@@ -20,12 +20,12 @@ if (empty($_SESSION['cart']) || !$_SESSION['cart']) {
                     <?php if ($paginaCorrente == 'inicial.php') : ?>
 
                         <?php if ($dados['tipo_usuario'] == 3) : ?>
-                            <li> <a style="background: white; color: black;" class="waves-effect waves-light btn modal-trigger" href='crudEvento/formcadeventos.php'>Cadastrar evento</a></li>
+                            <li> <a style="background: white; color: black;" class="waves-effect waves-light btn modal-trigger" href="#modalCadastroEvento">Cadastrar evento</a></li>
                         <?php endif; ?>
                         <?php if ($dados['tipo_usuario'] == 2) :
 
                             $session = $_SESSION['cart'];
-                            $carrinho = "SELECT COUNT(*) as total FROM ingressos_comprados WHERE cart_status = 1 AND cart_session='$session'";
+                            $carrinho = "SELECT COUNT(*) as total FROM ingressos_comprados WHERE cart_session='$session'";
                             $carrinho = executarSQL($conexao, $carrinho);
                             $row = mysqli_fetch_assoc($carrinho);
                             $count = $row['total'];
@@ -53,7 +53,7 @@ if (empty($_SESSION['cart']) || !$_SESSION['cart']) {
 
 
                                 $session = $_SESSION['cart'];
-                                $carrinho = "SELECT COUNT(*) as total FROM ingressos_comprados WHERE cart_status = 1 AND cart_session='$session'";
+                                $carrinho = "SELECT COUNT(*) as total FROM ingressos_comprados WHERE cart_session='$session'";
                                 $carrinho = executarSQL($conexao, $carrinho);
                                 $row = mysqli_fetch_assoc($carrinho);
                                 $count = $row['total'];

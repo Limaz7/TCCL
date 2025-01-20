@@ -7,27 +7,103 @@ session_start();
 
 $sql1 = "SELECT * FROM eventos WHERE id_usuario=" . $_SESSION['user'][0];
 $result = executarSQL($conexao, $sql1);
-$dados = mysqli_fetch_assoc($result);
+$evn = mysqli_fetch_assoc($result);
 
-$pastaImg = "../imagens";
+$selectUser = "SELECT * FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
+$execSelUser = executarSQL($conexao, $selectUser);
+$resultSelUser = mysqli_fetch_assoc($execSelUser);
 
-$id = $dados['id_evento'];
+$pastaImg = "../imagens/";
 
-unlink($pastaImg . $dados['imagem']);
+if ($resultSelUser['tipo_usuario'] == 2) {
 
-$sql_ingresso = "DELETE FROM ingressos WHERE id_evento = '$id'";
-executarSQL($conexao, $sql_ingresso);
+    $selectIngComp = "SELECT * FROM ingressos_comprados WHERE id_usuario=" . $_SESSION['user'][0];
+    $execSelIngComp = executarSQL($conexao, $selectIngComp);
+    $rowsSelIngComp = mysqli_num_rows($execSelIngComp);
 
-$sql_endere = "DELETE FROM enderecos WHERE id_evento = '$id'";
-executarSQL($conexao, $sql_endere);
+    if ($rowsSelIngComp > 0) {
+        $deleteIngComp = "DELETE FROM ingressos_comprados WHERE id_usuario = " . $_SESSION['user'][0];
+        $execDelIngComp = executarSQL($conexao, $deleteIngComp);
+    } else {
+        $execDelIngComp = true;
+    }
 
-$sql_even = "DELETE FROM eventos WHERE id_usuario=" . $_SESSION['user'][0];
-executarSQL($conexao, $sql_even);
+    $deleteUser = "DELETE FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
+    $execDelUser = executarSQL($conexao, $deleteUser);
 
-$sql_info_ingresso = "DELETE FROM info_ingressos WHERE id_usuario=" . $_SESSION['user'][0];
-executarSQL($conexao, $sql_info_ingresso);
+    if ($execDelIngComp && $execDelUser) {
+        $_SESSION['mensagem'] = [
+            0 => 'Usuário excluido com sucesso!',
+            1 => '#558b2f light-green darken-3'
+        ];
+    } else {
+        $_SESSION['mensagem'] = [
+            0 => 'Não foi possivel excluir o usuario!',
+            1 => '#c62828 red darken-3'
+        ];
+    }
+} elseif ($resultSelUser['tipo_usuario'] == 3) {
 
-$sql_user = "DELETE FROM usuarios WHERE id_usuario=". $_SESSION['user'][0];
-executarSQL($conexao, $sql_user);
+    $selectIngComp = "SELECT * FROM ingressos_comprados WHERE id_usuario=" . $_SESSION['user'][0];
+    $execSelIngComp = executarSQL($conexao, $selectIngComp);
+    $rowsSelIngComp = mysqli_num_rows($execSelIngComp);
+
+    if ($rowsSelIngComp > 0) {
+        $deleteIngComp = "DELETE ico FROM ingressos_comprados ico
+                          INNER JOIN ingressos_cadastrados ica
+                          ON ico.id_ingresso = ica.id_ingresso
+                          INNER JOIN eventos e 
+                          ON ica.id_evento = e.id_evento
+                          WHERE e.id_usuario =" . $_SESSION['user'][0];
+        $execDelIngComp = executarSQL($conexao, $deleteIngComp);
+    } else {
+        $execDelIngComp = true;
+    }
+
+    $selectIngCad = "SELECT ica.* FROM ingressos_cadastrados ica
+                     INNER JOIN eventos e 
+                     ON ica.id_evento = e.id_evento 
+                     WHERE e.id_usuario=" . $_SESSION['user'][0];
+    $execSelIngCad = executarSQL($conexao, $selectIngCad);
+    $rowsSelIngCad = mysqli_num_rows($execSelIngCad);
+
+    if ($rowsSelIngCad > 0) {
+        $deleteIngCad = "DELETE ica FROM ingressos_cadastrados ica
+                         INNER JOIN eventos e 
+                         ON ica.id_evento = e.id_evento
+                         WHERE e.id_usuario=" . $_SESSION['user'][0];
+
+        $execDelIngCad = executarSQL($conexao, $deleteIngCad);
+    } else {
+        $execDelIngCad = true;
+    }
+
+    $selectEvn = "SELECT * FROM eventos WHERE id_usuario=" . $_SESSION['user'][0];
+    $execSelEvn = executarSQL($conexao, $selectEvn);
+    $rowsSelEvn = mysqli_num_rows($execSelEvn);
+
+    if ($rowsSelEvn > 0) {
+        unlink($pastaImg . $evn['imagem']);
+        $deleteEvn = "DELETE FROM eventos WHERE id_usuario=" . $_SESSION['user'][0];
+        $execDelEvn = executarSQL($conexao, $deleteEvn);
+    } else {
+        $execDelEvn = true;
+    }
+
+    $deleteUser = "DELETE FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
+    $execDeluser = executarSQL($conexao, $deleteUser);
+
+    if ($execDelEvn && $execDelIngCad && $execDelIngComp && $execDeluser) {
+        $_SESSION['mensagem'] = [
+            0 => 'Usuário excluido com sucesso!',
+            1 => '#558b2f light-green darken-3'
+        ];
+    } else {
+        $_SESSION['mensagem'] = [
+            0 => 'Não foi possivel excluir o usuario!',
+            1 => '#c62828 red darken-3'
+        ];
+    }
+}
 
 header('location: ../index.php');

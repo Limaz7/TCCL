@@ -30,27 +30,44 @@ $dados = mysqli_fetch_assoc($result);
 </head>
 
 <style>
-    .btn-enviar {
+    .row .btn-enviar {
         width: 100%;
-        background-color: black;
+        background-color: #000000 !important;
+        color: #ffffff !important;
     }
 
-    .btn-enviar:hover {
-        background-color: #eeeeee;
-        color: black
+    .row .btn-enviar:hover {
+        background-color: #eeeeee !important;
+        color: black !important;
     }
 
-    .card-panel {
+    .row .card-panel {
         padding: 20px;
         box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
     }
+
+    .dropdown-content li>span {
+        color: black;
+    }
+
+    input[type="file"] {
+        background-color: #000000;
+        /* Cor de fundo preta */
+        color: #ffffff;
+        /* Cor do texto do botão (se houver) */
+        border: none;
+        /* Remover borda */
+        padding: 5px;
+        /* Ajuste no padding para tornar o botão mais "bonito" */
+        font-size: 15px;
+        /* Ajustar o tamanho da fonte */
+    }
+
+    input[type="file"]:hover {
+        background-color: #333333;
+        /* Cor do fundo ao passar o mouse */
+    }
 </style>
-
-<body>
-
-    <!--JavaScript at end of body for optimized loading-->
-    <script type="text/javascript" src="js/materialize.min.js"></script>
-</body>
 
 <body>
 
@@ -68,38 +85,58 @@ $dados = mysqli_fetch_assoc($result);
 
                         <div class="input-field col s12">
                             <p>Descrição: <textarea type="text" name="desc" required></textarea></p>
-
-                            <div class="input-field col s12">
-                                <p>CEP: <input type="number" name="cep" required></p>
-                            </div>
-
-                            <div class="input-field col s12">
-                                <p>Rua: <input type="text" name="rua" required></p>
-                            </div>
-
-                            <div class="input-field col s12">
-                                <p>Número do imóvel: <input type="number" name="numImo" required></p>
-                            </div>
-
-                            <div class="input-field col s12">
-                                <p>Bairro: <input type="text" name="bairro" required></p>
-                            </div>
-
-                            <div class="input-field col s12">
-                                <p>Data: <input class="btn-datetime" type="datetime-local" name="data" required></p>
-                            </div>
-
-                            <div class="input-field col s12">
-                                <p>Imagem <input type="file" class="btn" name="arquivo"></p>
-                            </div>
-
-                            <p><input class="waves-effect waves-light btn-enviar btn" type="submit" value="Enviar"></p>
                         </div>
+
+                        <div class="input-field col s12">
+                            <p>CEP: <input type="number" name="cep" required></p>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <p>Rua: <input type="text" name="rua" required></p>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <p>Número do imóvel: <input type="number" name="numImo" required></p>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <p>Bairro: <input type="text" name="bairro" required></p>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <p>Data: <input class="btn-datetime" type="datetime-local" name="data" required></p>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <select name="tipoPagamento" required>
+                                <option value="" disabled selected>Escolha seu tipo de pagamento</option>
+                                <option value="1">Gratuito</option>
+                                <option value="2">Cesta Básica</option>
+                                <option value="3">Dinheiro</option>
+                            </select>
+                            <label>Tipo de pagamento:</label>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <p>Imagem <input type="file" class="btn" name="arquivo"></p>
+                        </div>
+
+                        <p><input class="waves-effect waves-light btn btn-enviar" type="submit" value="Enviar"></p>
+                    </div>
                 </form>
             </div>
         </div>
 
     </div>
 </body>
+
+<script src="../js/materialize.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems);
+    });
+</script>
 
 </html>

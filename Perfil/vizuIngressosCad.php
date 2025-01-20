@@ -11,7 +11,7 @@ if (!isset($_SESSION['user'])) {
 
 $ingressos = "SELECT * FROM ingressos_cadastrados ic INNER JOIN eventos e
         ON e.id_evento = ic.id_evento WHERE e.id_usuario=" . $_SESSION['user'][0];
-$result_ingressos = executarSQL($conexao, $ingressos);
+$exec = executarSQL($conexao, $ingressos);
 
 ?>
 
@@ -109,7 +109,8 @@ $result_ingressos = executarSQL($conexao, $ingressos);
                 </tr>
             </thead>
             <tbody>
-                <?php while ($results = mysqli_fetch_assoc($result_ingressos)) : ?>
+                <?php if(mysqli_num_rows($exec)): ?>
+                <?php while ($results = mysqli_fetch_assoc($exec)) : ?>
                     <tr>
                         <td><?= $results['id_ingresso'] ?></td>
                         <td><?= $results['nome_evento'] ?></td>
@@ -139,6 +140,11 @@ $result_ingressos = executarSQL($conexao, $ingressos);
 
 
                 <?php endwhile; ?>
+                <?php else: ?>
+                <tr>
+                    <td colspan="6">Nenhum ingresso cadastrado.</td>
+                </tr>
+                <?php endif; ?>
             </tbody>
         </table>
 

@@ -27,8 +27,8 @@ if (!$_SESSION['cart'] || empty($_SESSION['cart'])) {
     return;
 }
 
-$cart = "SELECT cart_id, cart_session, quantidade, cart_status, id_ingresso 
-         FROM ingressos_comprados WHERE cart_session = " . $_SESSION['cart'] . " AND cart_status = 1 AND cart_id = $index";
+$cart = "SELECT cart_id, cart_session, quantidade, id_ingresso 
+         FROM ingressos_comprados WHERE cart_session = " . $_SESSION['cart'] . " AND cart_id = $index";
 $cart = executarSQL($conexao, $cart);
 
 $lines = mysqli_fetch_row($cart);
@@ -55,8 +55,8 @@ if ($lines == 0) {
         $cart_quantity = $qtd - 1;
     }
 
-    $Product = "SELECT id_ingresso, estoque, status, valor
-         FROM ingressos_cadastrados WHERE id_ingresso = $product_id AND status = 1";
+    $Product = "SELECT id_ingresso, estoque, valor
+         FROM ingressos_cadastrados WHERE id_ingresso = $product_id";
     $Product = executarSQL($conexao, $Product);
 
     foreach ($Product as $Show) {
@@ -107,7 +107,7 @@ if ($lines == 0) {
         return;
     } else {
         $update = "UPDATE ingressos_comprados SET quantidade = $cart_quantity, estoque = $stock,
-        cart_valor = $product_price, cart_total  = $value
+        ingresso_valor = $product_price, cart_total  = $value
         WHERE cart_id = $index AND id_ingresso = $product_id AND cart_session =" . $_SESSION['cart'];
         executarSQL($conexao, $update);
 
