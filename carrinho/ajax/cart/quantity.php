@@ -27,8 +27,15 @@ if (!$_SESSION['cart'] || empty($_SESSION['cart'])) {
     return;
 }
 
-$cart = "SELECT cart_id, cart_session, quantidade, id_ingresso 
-         FROM carrinho WHERE cart_session = " . $_SESSION['cart'] . " AND cart_id = $index";
+$cart = "SELECT 
+            c.id_carrinho, 
+            c.cart_session, 
+            c.quantidade,
+            cic.id_ingresso
+         FROM carrinhos c
+         INNER JOIN carrinho_ingressos_cadastrados cic
+         ON cic.id_carrinho = c.id_carrinho
+         WHERE c.cart_session = " . $_SESSION['cart'] . " AND c.id_carrinho = $index";
 $cart = executarSQL($conexao, $cart);
 
 $lines = mysqli_fetch_row($cart);
@@ -77,7 +84,7 @@ if ($lines == 0) {
         $update = "UPDATE ingressos_cadastrados SET estoque = $stock WHERE id_ingresso = '$product_id'";
         executarSQL($conexao, $update);
 
-        $delete = "DELETE FROM carrinho WHERE cart_id = $index";
+        $delete = "DELETE FROM carrinhos WHERE id_carrinho = $index";
         executarSQL($conexao, $delete);
 
         if ($delete) {
@@ -106,9 +113,12 @@ if ($lines == 0) {
         echo json_encode($message);
         return;
     } else {
-        $update = "UPDATE carrinho SET quantidade = $cart_quantity, estoque = $stock,
-        ingresso_valor = $product_price, cart_total  = $value
-        WHERE cart_id = $index AND id_ingresso = $product_id AND cart_session =" . $_SESSION['cart'];
+        $update = "UPDATE carrinhos c 
+                   INNER JOIN carrinho_ingressos_cadastrados cic 
+                   ON c.id_carrinho = cic.id_carrinho
+                   SET c.quantidade = $cart_quantity, c.estoque = $stock,
+        c.ingresso_valor = $product_price, cart_total  = $value
+        WHERE c.id_carrinho = $index AND cic.id_ingresso = $product_id AND cart_session =" . $_SESSION['cart'];
         executarSQL($conexao, $update);
 
         $update = "UPDATE ingressos_cadastrados SET estoque = $stock WHERE id_ingresso = '$product_id'";

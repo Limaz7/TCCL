@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 20-Jan-2025 às 16:10
+-- Tempo de geração: 20-Jan-2025 às 18:17
 -- Versão do servidor: 8.0.31
 -- versão do PHP: 8.0.26
 
@@ -31,7 +31,7 @@ DROP TABLE IF EXISTS `carrinhos`;
 CREATE TABLE IF NOT EXISTS `carrinhos` (
   `id_carrinho` int NOT NULL AUTO_INCREMENT,
   `id_usuario` int NOT NULL,
-  `ticket` char(100) NOT NULL,
+  `ticket` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `quantidade` int NOT NULL,
   `data` datetime NOT NULL,
   `estoque` int NOT NULL,
@@ -41,14 +41,7 @@ CREATE TABLE IF NOT EXISTS `carrinhos` (
   `pago` tinyint(1) NOT NULL,
   PRIMARY KEY (`id_carrinho`),
   KEY `fk_id_usuario_2` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Extraindo dados da tabela `carrinhos`
---
-
-INSERT INTO `carrinhos` (`id_carrinho`, `id_usuario`, `ticket`, `quantidade`, `data`, `estoque`, `ingresso_valor`, `cart_total`, `cart_session`, `pago`) VALUES
-(5, 3, 'a97f8f6e8a89302b2ec2', 1, '2025-01-20 13:01:12', 6, '120.99', '120.99', 634243382, 0);
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -64,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `carrinho_ingressos_cadastrados` (
   PRIMARY KEY (`id_carrinho_ingressos_cadastrados`),
   KEY `fk_id_ingresso` (`id_ingresso`),
   KEY `fk_id_carrinho` (`id_carrinho`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -121,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `ingressos_cadastrados` (
 --
 
 INSERT INTO `ingressos_cadastrados` (`id_ingresso`, `id_evento`, `nome_ingresso`, `desc_ingresso`, `valor`, `estoque`) VALUES
-(1, 2, 'Ingresso VIP', 'Perto do palco', '120.99', 5);
+(1, 2, 'Ingresso VIP', 'Perto do palco', '120.99', 54);
 
 -- --------------------------------------------------------
 
@@ -135,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `recuperar_senha` (
   `token` char(100) NOT NULL,
   `data_criacao` datetime NOT NULL,
   `usado` tinyint(1) NOT NULL,
-  UNIQUE KEY `email` (`email`)
+  UNIQUE KEY `token` (`token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------

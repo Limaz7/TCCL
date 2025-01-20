@@ -68,15 +68,15 @@ foreach ($postFilters as $index => $value) {
         VALUES ('" . $_SESSION['user'][0] . "', '$token', 1,
         '$product_price', '$stock', '$product_price', '" . $_SESSION['cart'] . "', '$agora')";
         $createResult = executarSQL($conexao, $Create);
-        
         $UltimoIDCarrinho = mysqli_insert_id($conexao);
+
+        $CIC = "INSERT INTO carrinho_ingressos_cadastrados (id_ingresso, id_carrinho)
+                VALUES ('$product_id', '$UltimoIDCarrinho')";
+        executarSQL($conexao, $CIC);
 
         //Update no estoque desse produto
         $stock = "UPDATE ingressos_cadastrados SET estoque = $stock WHERE id_ingresso = '$product_id'";
         executarSQL($conexao, $stock);
-
-        $CIC = "INSERT INTO carrinho_ingressos_cadastrados (id_ingresso, id_carrinho)
-                VALUES ('$product_id', '$UltimoIDCarrinho')";
 
         if ($createResult) {
             $message = [
@@ -108,18 +108,18 @@ foreach ($postFilters as $index => $value) {
 
         $update = "UPDATE carrinhos c 
         INNER JOIN carrinho_ingressos_cadastrados cic ON cic.id_carrinho = c.id_carrinho
-        SET c.data = '$agora', 
-            c.quantidade = '$cart_quantity', 
+        SET c.data = '$agora',
+            c.quantidade = '$cart_quantity',
             c.estoque = '$stock',
             c.ingresso_valor = '$product_price',
             c.cart_total = '$value'
-        WHERE c.id_carrinho = '$cart_id' 
+        WHERE c.id_carrinho = '$cart_id'
         AND c.cart_session = " . $_SESSION['cart'];
         $updateResult = executarSQL($conexao, $update);
 
         //Update no estoque desse produto
         $stock = "UPDATE ingressos_cadastrados SET estoque = $stock WHERE id_ingresso = '$product_id'";
-        executarSQL($conexao, $stock);  
+        executarSQL($conexao, $stock);
 
         if ($updateResult) {
             $message = [

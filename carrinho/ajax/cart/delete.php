@@ -23,8 +23,10 @@ if ($_POST) {
         return;
     }
 
-    $cart = "SELECT cart_id, cart_session, quantidade, id_ingresso 
-         FROM carrinho WHERE cart_session = " . $_SESSION['cart'] . " AND cart_id = $index";
+    $cart = "SELECT c.id_carrinho, c.cart_session, c.quantidade, cic.id_ingresso 
+         FROM carrinhos c 
+         INNER JOIN carrinho_ingressos_cadastrados cic 
+         WHERE c.cart_session = " . $_SESSION['cart'] . " AND c.id_carrinho = $index";
     $cart = executarSQL($conexao, $cart);
 
     foreach ($cart as $Sh) {
@@ -47,7 +49,10 @@ if ($_POST) {
     $update = "UPDATE ingressos_cadastrados SET estoque = $stock WHERE id_ingresso = '$productId'";
     executarSQL($conexao, $update);
 
-    $delete = "DELETE FROM carrinho WHERE cart_id = $index";
+    $deleteCIC = "DELETE FROM carrinho_ingressos_cadastrados WHERE id_carrinho = $index";
+    executarSQL($conexao, $deleteCIC);
+
+    $delete = "DELETE FROM carrinhos WHERE id_carrinho = $index";
     executarSQL($conexao, $delete);
 
     if ($delete) {
@@ -84,8 +89,10 @@ if ($_POST) {
         exit();
     }
 
-    $cart = "SELECT cart_id, cart_session, quantidade, id_ingresso 
-         FROM carrinho WHERE cart_session = '$session' AND cart_id = '$cartId'";
+    $cart = "SELECT c.id_carrinho, c.cart_session, c.quantidade, cic.id_ingresso 
+         FROM carrinhos c 
+         INNER JOIN carrinho_ingressos_cadastrados cic
+         WHERE c.cart_session = '$session' AND c.id_carrinho = '$cartId'";
     $cart = executarSQL($conexao, $cart);
     $resultSelect = mysqli_fetch_assoc($cart);
     var_dump($resultSelect);
@@ -107,7 +114,10 @@ if ($_POST) {
     $update = "UPDATE ingressos_cadastrados SET estoque = $stock WHERE id_ingresso = '$productId'";
     executarSQL($conexao, $update);
 
-    $delete = "DELETE FROM carrinho WHERE cart_id = $cartId";
+    $deleteCIC = "DELETE FROM carrinho_ingressos_cadastrados WHERE id_carrinho = $cartId";
+    executarSQL($conexao, $deleteCIC);
+
+    $delete = "DELETE FROM carrinhos WHERE id_carrinho = $cartId";
     executarSQL($conexao, $delete);
 
     if ($delete) {
