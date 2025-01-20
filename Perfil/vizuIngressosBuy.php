@@ -9,26 +9,26 @@ if (!isset($_SESSION['user'])) {
 include('../conexao.php');
 $conexao = conectar();
 
-$selectIngComp = "SELECT  ic.id_ingresso, 
-                ic.cart_id,
-                ic.cart_session,
-                ic.ticket,
-                ic.id_usuario,
-                ic.quantidade,
-                ic.data,
-                ic.pago,
+$selectIngComp = "SELECT  c.id_ingresso, 
+                c.cart_id,
+                c.cart_session,
+                c.ticket,
+                c.id_usuario,
+                c.quantidade,
+                c.data,
+                c.pago,
                 u.nome,
                 e.nome_evento
         FROM 
-            ingressos_comprados ic 
+            carrinho c
         INNER JOIN
-            usuarios u ON u.id_usuario = ic.id_usuario
+            usuarios u ON u.id_usuario = c.id_usuario
         INNER JOIN 
-            ingressos_cadastrados ia ON ia.id_ingresso = ic.id_ingresso
+            ingressos_cadastrados ia ON ia.id_ingresso = c.id_ingresso
         INNER JOIN 
             eventos e ON ia.id_evento = e.id_evento
         WHERE 
-            ic.id_usuario =" . $_SESSION['user'][0];
+            c.id_usuario =" . $_SESSION['user'][0];
 
 $exec = executarSQL($conexao, $selectIngComp);
 
@@ -132,8 +132,8 @@ $exec = executarSQL($conexao, $selectIngComp);
                 </tr>
             </thead>
             <tbody>
-            <?php if (mysqli_num_rows($exec)) : ?>
-                <?php while ($results = mysqli_fetch_assoc($exec)) : ?>
+                <?php if (mysqli_num_rows($exec)) : ?>
+                    <?php while ($results = mysqli_fetch_assoc($exec)) : ?>
                         <tr>
                             <td><?= $results['id_ingresso']; ?></td>
                             <td><?= $results['nome_evento']; ?></td>
@@ -149,12 +149,12 @@ $exec = executarSQL($conexao, $selectIngComp);
                                 <td><i class="material-icons" style="color: #4caf50;">check</i></td>
                             <?php endif; ?>
                         </tr>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <tr>
-                    <td colspan="8">Nenhuma compra realizada.</td>
-                </tr>
-            <?php endif; ?>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="8">Nenhuma compra realizada.</td>
+                    </tr>
+                <?php endif; ?>
             </tbody>
         </table>
     </main>

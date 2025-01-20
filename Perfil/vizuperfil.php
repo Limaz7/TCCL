@@ -106,8 +106,7 @@ $dados = mysqli_fetch_assoc($result);
         <div style="margin-top: 10%;" class="card-panel">
             <h1> Meus dados </h1>
             <a href="formAlterarPass.php"> Alterar sua senha </a> <br><br>
-            <form action="editPerfil.php" method="post" enctype="multipart/form-data">
-                <img src="../imagens/<?= $dados['img_perfil']; ?>" alt="Imagem de perfil" height="100px"> <br><br>
+            <form action="editPerfil.php" method="post">
                 <label for="nome">
                     Nome: <input type="text" name="nome" id="nome" value="<?= $dados['nome']; ?>">
                 </label> <br> <br>

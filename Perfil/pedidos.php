@@ -9,20 +9,23 @@ if (!isset($_SESSION['user'])) {
 include('../conexao.php');
 $conexao = conectar();
 
-$sql = "SELECT  ic.id_ingresso, 
-                ic.ticket,
-                ic.id_usuario,
-                ic.quantidade,
-                ic.data,
-                ic.pago,
+$sql = "SELECT
+                c.ticket,
+                c.id_usuario,
+                c.quantidade,
+                c.data,
+                c.pago,
                 u.nome,
-                e.nome_evento
+                e.nome_evento,
+                cic.id_ingresso
         FROM 
-            ingressos_comprados ic 
+            carrinhos c
         INNER JOIN
-            usuarios u ON u.id_usuario = ic.id_usuario
+            usuarios u ON u.id_usuario = c.id_usuario
+        INNER JOIN
+            carrinho_ingressos_cadastrados cic ON cic.id_carrinho = c.id_carrinho
         INNER JOIN 
-            ingressos_cadastrados ia ON ia.id_ingresso = ic.id_ingresso
+            ingressos_cadastrados ia ON ia.id_ingresso = cic.id_ingresso
         INNER JOIN 
             eventos e ON ia.id_evento = e.id_evento
         WHERE 
@@ -121,29 +124,29 @@ $exec = executarSQL($conexao, $sql);
             </thead>
             <tbody>
                 <?php if (mysqli_num_rows($exec)): ?>
-                <?php while ($results = mysqli_fetch_assoc($exec)) : ?>
-                    <?php if ($results['pago'] == 1) : ?>
-                    <tr>
-                        <td><?= $results['id_ingresso']; ?></td>
-                        <td><?= $results['nome']; ?></td>
-                        <td><?= $results['nome_evento']; ?></td>
-                        <td><?= $results['ticket']; ?></td>
-                        <td><?= $results['quantidade']; ?></td>
-                        <td><?= $results['data']; ?></td>
-                        <?php if ($results['pago'] == 0) : ?>
-                            <td>Aguardando pagamento</td>
+                    <?php while ($results = mysqli_fetch_assoc($exec)) : ?>
+                        <?php if ($results['pago'] == 1) : ?>
+                            <tr>
+                                <td><?= $results['id_ingresso']; ?></td>
+                                <td><?= $results['nome']; ?></td>
+                                <td><?= $results['nome_evento']; ?></td>
+                                <td><?= $results['ticket']; ?></td>
+                                <td><?= $results['quantidade']; ?></td>
+                                <td><?= $results['data']; ?></td>
+                                <?php if ($results['pago'] == 0) : ?>
+                                    <td>Aguardando pagamento</td>
+                                <?php else: ?>
+                                    <td>Pago</td>
+                                <?php endif; ?>
+                            </tr>
                         <?php else: ?>
-                            <td>Pago</td>
+                            <td colspan="7">Nenhum ingresso comprado.</td>
                         <?php endif; ?>
-                    </tr>
-                    <?php else: ?>
-                        <td colspan="7">Nenhum ingresso comprado.</td>
-                    <?php endif; ?>
-                <?php endwhile; ?>
+                    <?php endwhile; ?>
                 <?php else: ?>
-                <tr>
-                    <td colspan="7">Nenhum ingresso comprado.</td>
-                </tr>
+                    <tr>
+                        <td colspan="7">Nenhum ingresso comprado.</td>
+                    </tr>
                 <?php endif; ?>
             </tbody>
         </table>

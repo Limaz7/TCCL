@@ -45,8 +45,8 @@ foreach ($postFilters as $index => $value) {
     }
 
     //Verifica se o produto foi ou nao cadastrado para esta sessão
-    $Cart = "SELECT cart_id, cart_session, id_ingresso, quantidade
-    FROM ingressos_comprados WHERE cart_session = " . $_SESSION['cart'] . " AND id_ingresso = '$product_id'";
+    $Cart = "SELECT id_carrinho, cart_session, quantidade
+    FROM carrinhos WHERE cart_session = " . $_SESSION['cart'] . "";
     $Cart = executarSQL($conexao, $Cart);
 
     $lines = mysqli_fetch_row($Cart);
@@ -63,15 +63,20 @@ foreach ($postFilters as $index => $value) {
         $data = new DateTime('now');
         $agora = $data->format('Y-m-d H:i:s');
 
-        $Create = "INSERT INTO ingressos_comprados (id_ingresso, id_usuario, ticket,
-        quantidade, ingresso_valor, cart_total, cart_session, data)
-        VALUES ('$product_id', '" . $_SESSION['user'][0] . "', '$token', 1,
-        '$product_price', '$product_price', '" . $_SESSION['cart'] . "', '$agora')";
+        $Create = "INSERT INTO carrinhos (id_usuario, ticket,
+        quantidade, ingresso_valor, estoque, cart_total, cart_session, data)
+        VALUES ('" . $_SESSION['user'][0] . "', '$token', 1,
+        '$product_price', '$stock', '$product_price', '" . $_SESSION['cart'] . "', '$agora')";
         $createResult = executarSQL($conexao, $Create);
+        
+        $UltimoIDCarrinho = mysqli_insert_id($conexao);
 
         //Update no estoque desse produto
         $stock = "UPDATE ingressos_cadastrados SET estoque = $stock WHERE id_ingresso = '$product_id'";
         executarSQL($conexao, $stock);
+
+        $CIC = "INSERT INTO carrinho_ingressos_cadastrados (id_ingresso, id_carrinho)
+                VALUES ('$product_id', '$UltimoIDCarrinho')";
 
         if ($createResult) {
             $message = [
@@ -95,19 +100,26 @@ foreach ($postFilters as $index => $value) {
         date_default_timezone_set('America/Sao_Paulo');
         $data = new DateTime('now');
         $agora = $data->format('Y-m-d H:i:s');
-        
+
         $cart_quantity = strip_tags($Sh['quantidade'] + 1);
-        $cart_id = strip_tags($Sh['cart_id']);
+        $cart_id = strip_tags($Sh['id_carrinho']);
         $value = number_format($product_price * $cart_quantity, 2, '.', '');
         $stock = $product_stock - 1;
 
-        $update = "UPDATE ingressos_comprados SET data = '$agora', quantidade = '$cart_quantity', estoque = '$stock', ingresso_valor = '$product_price', cart_total = '$value'
-        WHERE cart_id = '$cart_id' AND id_ingresso = '$product_id' AND cart_session = " . $_SESSION['cart'];
+        $update = "UPDATE carrinhos c 
+        INNER JOIN carrinho_ingressos_cadastrados cic ON cic.id_carrinho = c.id_carrinho
+        SET c.data = '$agora', 
+            c.quantidade = '$cart_quantity', 
+            c.estoque = '$stock',
+            c.ingresso_valor = '$product_price',
+            c.cart_total = '$value'
+        WHERE c.id_carrinho = '$cart_id' 
+        AND c.cart_session = " . $_SESSION['cart'];
         $updateResult = executarSQL($conexao, $update);
 
         //Update no estoque desse produto
         $stock = "UPDATE ingressos_cadastrados SET estoque = $stock WHERE id_ingresso = '$product_id'";
-        executarSQL($conexao, $stock);
+        executarSQL($conexao, $stock);  
 
         if ($updateResult) {
             $message = [

@@ -28,7 +28,7 @@ if (!$_SESSION['cart'] || empty($_SESSION['cart'])) {
 }
 
 $cart = "SELECT cart_id, cart_session, quantidade, id_ingresso 
-         FROM ingressos_comprados WHERE cart_session = " . $_SESSION['cart'] . " AND cart_id = $index";
+         FROM carrinho WHERE cart_session = " . $_SESSION['cart'] . " AND cart_id = $index";
 $cart = executarSQL($conexao, $cart);
 
 $lines = mysqli_fetch_row($cart);
@@ -77,7 +77,7 @@ if ($lines == 0) {
         $update = "UPDATE ingressos_cadastrados SET estoque = $stock WHERE id_ingresso = '$product_id'";
         executarSQL($conexao, $update);
 
-        $delete = "DELETE FROM ingressos_comprados WHERE cart_id = $index";
+        $delete = "DELETE FROM carrinho WHERE cart_id = $index";
         executarSQL($conexao, $delete);
 
         if ($delete) {
@@ -106,7 +106,7 @@ if ($lines == 0) {
         echo json_encode($message);
         return;
     } else {
-        $update = "UPDATE ingressos_comprados SET quantidade = $cart_quantity, estoque = $stock,
+        $update = "UPDATE carrinho SET quantidade = $cart_quantity, estoque = $stock,
         ingresso_valor = $product_price, cart_total  = $value
         WHERE cart_id = $index AND id_ingresso = $product_id AND cart_session =" . $_SESSION['cart'];
         executarSQL($conexao, $update);

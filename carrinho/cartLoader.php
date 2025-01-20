@@ -2,8 +2,8 @@
 
     <?php
 
-    $Cart = "SELECT ib.*, ic.*, e.* FROM ingressos_comprados ib INNER JOIN ingressos_cadastrados ic
-    ON ib.id_ingresso = ic.id_ingresso INNER JOIN eventos e ON e.id_evento = ic.id_evento
+    $Cart = "SELECT c.*, ic.*, e.* FROM carrinho c INNER JOIN ingressos_cadastrados ic
+    ON c.id_ingresso = ic.id_ingresso INNER JOIN eventos e ON e.id_evento = ic.id_evento
     WHERE cart_session = '" . $_SESSION['cart'] . "' AND pago = 0";
     $Cart = executarSQL($conexao, $Cart);
 

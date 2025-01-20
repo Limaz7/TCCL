@@ -87,7 +87,7 @@ $agora = $data->format('Y-m-d H:i:s');
                         <div class="card-content">
                             <p style="text-align: center; font-size: 1vw;"><b><?= $evento['nome_evento']; ?></b></p>
                             <p style="text-align: center"><?= $evento['descricao']; ?></p>
-                            <p>Empresa: </p>
+                            <p>Produtora: </p>
                             <p><?= $evento['produtora']; ?></p>
                             <span>Entrada:</span>
                             <?= $evento['tipo_pagamento'] ?>

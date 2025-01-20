@@ -9,8 +9,8 @@ if (!isset($_SESSION['user'])) {
 include('../conexao.php');
 $conexao = conectar();
 
-$sql = "SELECT * FROM ingressos_comprados ic INNER JOIN
-        usuarios u ON u.id_usuario = ic.id_usuario";
+$sql = "SELECT * FROM carrinho c INNER JOIN
+        usuarios u ON u.id_usuario = c.id_usuario";
 $result = executarSQL($conexao, $sql);
 
 ?>

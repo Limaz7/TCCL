@@ -94,7 +94,7 @@ if ($qtd > $quant['estoque']) {
     $data = new DateTime('now');
     $agora = $data->format('Y-m-d H:i:s');
 
-    $sql2 = "UPDATE ingressos_comprados SET
+    $sql2 = "UPDATE carrinho SET
             pago=1, data='$agora'
             WHERE cart_id='$cartId'";
     executarSQL($conexao, $sql2);

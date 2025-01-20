@@ -5,7 +5,7 @@ $conexao = conectar();
 
 $id = $_GET['id_ingresso'];
 
-$sql_inBuy = "DELETE FROM ingressos_comprados WHERE id_ingresso='$id'";
+$sql_inBuy = "DELETE FROM carrinho WHERE id_ingresso='$id'";
 $deleteInBuy = executarSQL($conexao, $sql_inBuy);
 
 $sql = "DELETE FROM ingressos_cadastrados WHERE id_ingresso='$id'";

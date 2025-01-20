@@ -23,8 +23,8 @@ if ($_POST) {
         return;
     }
 
-    $cart = "SELECT cart_id, cart_session, quantidade, cart_status, id_ingresso 
-         FROM ingressos_comprados WHERE cart_session = " . $_SESSION['cart'] . " AND cart_status = 1 AND cart_id = $index";
+    $cart = "SELECT cart_id, cart_session, quantidade, id_ingresso 
+         FROM carrinho WHERE cart_session = " . $_SESSION['cart'] . " AND cart_id = $index";
     $cart = executarSQL($conexao, $cart);
 
     foreach ($cart as $Sh) {
@@ -33,7 +33,7 @@ if ($_POST) {
     $prodId = strip_tags($Sh['id_ingresso']);
     $quantidade = strip_tags($Sh['quantidade']);
 
-    $Product = "SELECT id_ingresso, estoque, status
+    $Product = "SELECT id_ingresso, estoque
          FROM ingressos_cadastrados WHERE id_ingresso = $prodId";
     $Product = executarSQL($conexao, $Product);
 
@@ -47,7 +47,7 @@ if ($_POST) {
     $update = "UPDATE ingressos_cadastrados SET estoque = $stock WHERE id_ingresso = '$productId'";
     executarSQL($conexao, $update);
 
-    $delete = "DELETE FROM ingressos_comprados WHERE cart_id = $index";
+    $delete = "DELETE FROM carrinho WHERE cart_id = $index";
     executarSQL($conexao, $delete);
 
     if ($delete) {
@@ -84,8 +84,8 @@ if ($_POST) {
         exit();
     }
 
-    $cart = "SELECT cart_id, cart_session, quantidade, cart_status, id_ingresso 
-         FROM ingressos_comprados WHERE cart_session = '$session' AND cart_status = 1 AND cart_id = '$cartId'";
+    $cart = "SELECT cart_id, cart_session, quantidade, id_ingresso 
+         FROM carrinho WHERE cart_session = '$session' AND cart_id = '$cartId'";
     $cart = executarSQL($conexao, $cart);
     $resultSelect = mysqli_fetch_assoc($cart);
     var_dump($resultSelect);
@@ -107,7 +107,7 @@ if ($_POST) {
     $update = "UPDATE ingressos_cadastrados SET estoque = $stock WHERE id_ingresso = '$productId'";
     executarSQL($conexao, $update);
 
-    $delete = "DELETE FROM ingressos_comprados WHERE cart_id = $cartId";
+    $delete = "DELETE FROM carrinho WHERE cart_id = $cartId";
     executarSQL($conexao, $delete);
 
     if ($delete) {
