@@ -18,7 +18,14 @@ $dados = mysqli_fetch_assoc($result);
 
 if ($dados['tipo_usuario'] == 2) {
 
-    $delete_inc = "DELETE FROM ingressos_comprados WHERE id_usuario='$id'";
+    $selectCarrinho = "SELECT id_carrinho FROM carrinhos WHERE id_usuario ='$id'";
+    $execSelect = executarSQL($conexao, $selectCarrinho);
+    $resultSelCart = mysqli_fetch_assoc($execSelect);
+    $idCart = $resultSelCart['id_carrinho'];
+
+    $delete_cic = "DELETE FROM carrinho_ingressos_cadastrados WHERE id_carrinho='$idCart'";
+
+    $delete_inc = "DELETE FROM carrinhos WHERE id_usuario='$id'";
     $result_DelInc = executarSQL($conexao, $delete_inc);
 
     $delete_user = "DELETE FROM usuarios WHERE id_usuario='$id'";

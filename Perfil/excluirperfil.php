@@ -17,12 +17,19 @@ $pastaImg = "../imagens/";
 
 if ($resultSelUser['tipo_usuario'] == 2) {
 
-    $selectIngComp = "SELECT * FROM ingressos_comprados WHERE id_usuario=" . $_SESSION['user'][0];
+    $selectCarrinho = "SELECT id_carrinho FROM carrinhos WHERE id_usuario =" . $_SESSION['user'][0];
+    $execSelect = executarSQL($conexao, $selectCarrinho);
+    $resultSelCart = mysqli_fetch_assoc($execSelect);
+    $idCart = $resultSelCart['id_carrinho'];
+
+    $delete_cic = "DELETE FROM carrinho_ingressos_cadastrados WHERE id_carrinho='$idCart'";
+
+    $selectIngComp = "SELECT * FROM carrinhos WHERE id_usuario=" . $_SESSION['user'][0];
     $execSelIngComp = executarSQL($conexao, $selectIngComp);
     $rowsSelIngComp = mysqli_num_rows($execSelIngComp);
 
     if ($rowsSelIngComp > 0) {
-        $deleteIngComp = "DELETE FROM ingressos_comprados WHERE id_usuario = " . $_SESSION['user'][0];
+        $deleteIngComp = "DELETE FROM carrinhos WHERE id_usuario = " . $_SESSION['user'][0];
         $execDelIngComp = executarSQL($conexao, $deleteIngComp);
     } else {
         $execDelIngComp = true;
@@ -44,14 +51,16 @@ if ($resultSelUser['tipo_usuario'] == 2) {
     }
 } elseif ($resultSelUser['tipo_usuario'] == 3) {
 
-    $selectIngComp = "SELECT * FROM ingressos_comprados WHERE id_usuario=" . $_SESSION['user'][0];
+    $selectIngComp = "SELECT * FROM carrinhos WHERE id_usuario=" . $_SESSION['user'][0];
     $execSelIngComp = executarSQL($conexao, $selectIngComp);
     $rowsSelIngComp = mysqli_num_rows($execSelIngComp);
 
     if ($rowsSelIngComp > 0) {
-        $deleteIngComp = "DELETE ico FROM ingressos_comprados ico
+        $deleteIngComp = "DELETE c FROM carrinhos c
+                          INNER JOIN carrinho_ingressos_cadastrados cic
+                          ON  c.id_carrinho = cic.id_carrinho
                           INNER JOIN ingressos_cadastrados ica
-                          ON ico.id_ingresso = ica.id_ingresso
+                          ON c.id_ingresso = ica.id_ingresso
                           INNER JOIN eventos e 
                           ON ica.id_evento = e.id_evento
                           WHERE e.id_usuario =" . $_SESSION['user'][0];
