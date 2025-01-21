@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 20-Jan-2025 às 18:17
+-- Tempo de geração: 21-Jan-2025 às 12:32
 -- Versão do servidor: 8.0.31
 -- versão do PHP: 8.0.26
 
@@ -73,7 +73,6 @@ CREATE TABLE IF NOT EXISTS `eventos` (
   `produtora` varchar(50) NOT NULL,
   `descricao` varchar(255) NOT NULL,
   `data` datetime NOT NULL,
-  `cep` char(9) NOT NULL,
   `rua` varchar(255) NOT NULL,
   `bairro` varchar(255) NOT NULL,
   `numero_residencial` char(4) NOT NULL,
@@ -81,15 +80,15 @@ CREATE TABLE IF NOT EXISTS `eventos` (
   `imagem` varchar(255) NOT NULL,
   PRIMARY KEY (`id_evento`),
   KEY `fk_id_usuario` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `eventos`
 --
 
-INSERT INTO `eventos` (`id_evento`, `id_usuario`, `nome_evento`, `produtora`, `descricao`, `data`, `cep`, `rua`, `bairro`, `numero_residencial`, `tipo_pagamento`, `imagem`) VALUES
-(1, 2, 'Baile Funk', 'Event Urug', 'O melhor baile funk da cidade!', '2025-01-28 00:30:00', '11111111', 'Érico Verissimo', 'Vila Julia', '1122', 'Gratuito', '678e660997b5e.jpg'),
-(2, 2, 'Show de rock', 'Event Urug', 'O melhor show de rock da cidade', '2025-01-22 02:10:00', '22222222', 'José Garibaldi', 'Nova Esperança', '2233', 'Pago', '678e6682df4b8.jpg');
+INSERT INTO `eventos` (`id_evento`, `id_usuario`, `nome_evento`, `produtora`, `descricao`, `data`, `rua`, `bairro`, `numero_residencial`, `tipo_pagamento`, `imagem`) VALUES
+(1, 2, 'Baile Funk', 'Event Urug', 'O melhor baile funk da cidade!', '2025-01-28 00:30:00', 'Érico Verissimo', 'Vila Julia', '3344', 'Gratuito', '678e660997b5e.jpg'),
+(2, 2, 'Show de rock', 'Event Urug', 'O melhor show de rock da cidade', '2025-01-22 02:10:00', 'José Garibaldi', 'Nova Esperança', '2233', 'Pago', '678e6682df4b8.jpg');
 
 -- --------------------------------------------------------
 
@@ -114,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `ingressos_cadastrados` (
 --
 
 INSERT INTO `ingressos_cadastrados` (`id_ingresso`, `id_evento`, `nome_ingresso`, `desc_ingresso`, `valor`, `estoque`) VALUES
-(1, 2, 'Ingresso VIP', 'Perto do palco', '120.99', 54);
+(1, 2, 'Ingresso VIP', 'Perto do palco', '120.99', 55);
 
 -- --------------------------------------------------------
 

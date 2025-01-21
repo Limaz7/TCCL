@@ -9,8 +9,8 @@ if (!isset($_SESSION['user'])) {
 include('../conexao.php');
 $conexao = conectar();
 
-$selectIngComp = "SELECT  c.id_ingresso, 
-                c.cart_id,
+$selectIngComp = "SELECT  cic.id_ingresso, 
+                c.id_carrinho,
                 c.cart_session,
                 c.ticket,
                 c.id_usuario,
@@ -20,11 +20,13 @@ $selectIngComp = "SELECT  c.id_ingresso,
                 u.nome,
                 e.nome_evento
         FROM 
-            carrinho c
+            carrinhos c
+        INNER JOIN
+            carrinho_ingressos_cadastrados cic ON c.id_carrinho = cic.id_carrinho 
         INNER JOIN
             usuarios u ON u.id_usuario = c.id_usuario
         INNER JOIN 
-            ingressos_cadastrados ia ON ia.id_ingresso = c.id_ingresso
+            ingressos_cadastrados ia ON ia.id_ingresso = cic.id_ingresso
         INNER JOIN 
             eventos e ON ia.id_evento = e.id_evento
         WHERE 

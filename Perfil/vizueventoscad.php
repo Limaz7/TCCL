@@ -133,7 +133,7 @@ $dados_user = mysqli_fetch_assoc($result1);
                         <div id="modalEditarEvento<?= $dados2['id_evento']; ?>" class="modal">
                             <div class="modal-content">
                                 <h4>Editar evento:</h4>
-                                <form action="../crudEvento/formediteven.php" method="post">
+                                <form action="../crudEvento/editareven.php" method="post">
 
                                     <input type="hidden" value="<?= $dados2['imagem']; ?>" name="antfoto" />
                                     <input type="hidden" value="<?= $dados2['id_evento']; ?>" name="id" />

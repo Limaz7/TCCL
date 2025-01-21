@@ -180,8 +180,8 @@
                             <p>Valor: <input type="text" name="valor" required></p>
                             <p>Quantidade: <input type="number" name="qtd" required></p>
                             <div class="modal-footer">
-                                <a href="#!" style="background: red;" class="modal-close waves-effect waves-red btn">Cancelar</a>
-                                <button style="background: green;" type="submit" class="waves-effect waves-green btn">Cadastrar</button>
+                                <a href="#!" class="modal-close waves-effect waves-red btn-flat">Cancelar</a>
+                                <button type="submit" class="waves-effect waves-green btn-flat">Cadastrar</button>
                             </div>
                         </form>
                     </div>

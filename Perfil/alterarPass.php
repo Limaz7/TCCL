@@ -35,11 +35,18 @@ if (password_verify($senhaAtual, $dados['senha'])) {
         header('location: vizuperfil.php');
         exit();
     } else {
-        echo "Senhas diferentes! Tente novamente
-        <a href='formalterarsenha.php'>Voltar</a>";
+        $_SESSION['mensagem'] = [
+            0 => 'Senhas diferentes! Tente novamente.',
+            1 => '#c62828 red darken-3'
+        ];
+        header('location: formAlterarPass.php');
+        die();
     }
     die();
 } else {
-    echo "A senha atual esta incorreta! Tente mudar sua senha novamente
-    <a href='formalterarsenha.php'>Voltar</a>";
+    $_SESSION['mensagem'] = [
+        0 => 'A senha atual esta incorreta! Tente mudar sua senha novamente.',
+        1 => '#c62828 red darken-3'
+    ];
+    header('location: formAlterarSenha.php');
 }

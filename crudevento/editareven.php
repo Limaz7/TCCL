@@ -16,7 +16,6 @@ $id = $_POST["id"];
 $nomeEven = $_POST["nome"];
 $desc = $_POST["desc"];
 $data = $_POST["data"];
-$cep = $_POST["cep"];
 $rua = $_POST["rua"];
 $numImo = $_POST["numImo"];
 $bairro = $_POST["bairro"];
@@ -28,7 +27,7 @@ if ($_FILES['img']['name'] == null) {
 
     $sql = "UPDATE eventos
             SET produtora = '" . $_SESSION['user'][1] . "', nome_evento = '$nomeEven', descricao = '$desc', 
-            data = '$data', cep = '$cep', rua = '$rua', bairro='$bairro', numero_residencial = '$numImo'
+            data = '$data', rua = '$rua', bairro='$bairro', numero_residencial = '$numImo'
             WHERE id_evento = '$id'";
     $resultEditEven = executarSQL($conexao, $sql);
 

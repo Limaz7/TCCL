@@ -11,7 +11,6 @@
     $desc = $_POST["desc"];
     $data = $_POST["data"];
     $foto = $_FILES['arquivo'];
-    $cep = $_POST['cep'];
     $rua = $_POST["rua"];
     $numImo = $_POST["numImo"];
     $bairro = $_POST["bairro"];
@@ -69,8 +68,8 @@
         header("location: ../inicial");
     }
 
-    $sql_even = "INSERT INTO eventos (id_usuario, nome_evento, tipo_pagamento, produtora, descricao, data, cep, rua, bairro, numero_residencial, imagem) 
-                    VALUES ('" . $_SESSION['user'][0] . "', '$nomeEven', '$tipoPag', '$nomeEmp', '$desc', '$data', '$cep', '$rua', '$bairro', '$numImo', '$novo_nome_ft')";
+    $sql_even = "INSERT INTO eventos (id_usuario, nome_evento, tipo_pagamento, produtora, descricao, data, rua, bairro, numero_residencial, imagem) 
+                    VALUES ('" . $_SESSION['user'][0] . "', '$nomeEven', '$tipoPag', '$nomeEmp', '$desc', '$data', '$rua', '$bairro', '$numImo', '$novo_nome_ft')";
     executarSQL($conecta, $sql_even);
 
     $_SESSION['mensagem'][0] = 'Evento cadastrado com sucesso!';
