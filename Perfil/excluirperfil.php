@@ -23,6 +23,7 @@ if ($resultSelUser['tipo_usuario'] == 2) {
     $idCart = $resultSelCart['id_carrinho'];
 
     $delete_cic = "DELETE FROM carrinho_ingressos_cadastrados WHERE id_carrinho='$idCart'";
+    $execDelCIC = executarSQL($conexao, $delete_cic);
 
     $selectIngComp = "SELECT * FROM carrinhos WHERE id_usuario=" . $_SESSION['user'][0];
     $execSelIngComp = executarSQL($conexao, $selectIngComp);
@@ -38,7 +39,7 @@ if ($resultSelUser['tipo_usuario'] == 2) {
     $deleteUser = "DELETE FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
     $execDelUser = executarSQL($conexao, $deleteUser);
 
-    if ($execDelIngComp && $execDelUser) {
+    if ($execDelIngComp && $execDelUser && $execDelCIC) {
         $_SESSION['mensagem'] = [
             0 => 'Usuário excluido com sucesso!',
             1 => '#558b2f light-green darken-3'
