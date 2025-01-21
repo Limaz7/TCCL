@@ -77,7 +77,7 @@ $exec = executarSQL($conexao, $ingressos);
         width: 10%;
     }
 
-    .container .striped tbody tr td i{
+    .container .striped tbody tr td i {
         color: black;
     }
 </style>
@@ -109,45 +109,76 @@ $exec = executarSQL($conexao, $ingressos);
                 </tr>
             </thead>
             <tbody>
-                <?php if(mysqli_num_rows($exec)): ?>
-                <?php while ($results = mysqli_fetch_assoc($exec)) : ?>
-                    <tr>
-                        <td><?= $results['id_ingresso'] ?></td>
-                        <td><?= $results['nome_evento'] ?></td>
-                        <td><?= $results['desc_ingresso'] ?></td>
-                        <td><?= $results['valor'] ?></td>
-                        <td><?= $results['estoque'] ?></td>
+                <?php if (mysqli_num_rows($exec)): ?>
+                    <?php while ($results = mysqli_fetch_assoc($exec)) : ?>
+                        <tr>
+                            <td><?= $results['id_ingresso'] ?></td>
+                            <td><?= $results['nome_evento'] ?></td>
+                            <td><?= $results['desc_ingresso'] ?></td>
+                            <td><?= $results['valor'] ?></td>
+                            <td><?= $results['estoque'] ?></td>
 
-                        <td><a href="../crudIngresso/formEditIngresso?id_ingresso=<?= $results['id_ingresso']; ?>"><i class="material-icons" style="color: green;">create</i></a></td>
+                            <td><a href="#modalEditarIngresso<?= $results['id_ingresso']; ?>" class="modal-trigger"><i class="material-icons" style="color: green;">create</i></a></td>
 
-                        <td><a class="waves-effect waves-light modal-trigger" href="#modalConfirma<?= $results['id_ingresso']; ?>"><i class="material-icons" style="color: #c62828;">delete</i></a></td>
-                    </tr>
+                            <td><a class="waves-effect waves-light modal-trigger" href="#modalConfirma<?= $results['id_ingresso']; ?>"><i class="material-icons" style="color: #c62828;">delete</i></a></td>
+                        </tr>
 
+                        <div id="modalEditarIngresso<?= $results['id_ingresso']; ?>" class="modal">
+                            <div class="modal-content">
+                                <h4>Editar evento:</h4>
+                                <form action="../crudIngresso/editingresso.php" method="post">
 
+                                    <input type="hidden" value="<?= $results['id_ingresso']; ?>" name="id" />
 
-                    <!-- Modal -->
-                    <div id="modalConfirma<?= $results['id_ingresso']; ?>" class="modal">
-                        <div class="modal-content">
-                            <h4>Confirmar exclusão</h4>
-                            <p>Você tem certeza que deseja excluir esse ingresso? Qualquer pessoa que possuir esse ingresso, irá perder ele.</p>
+                                    <div class="input-field col s12">
+                                        <p>Nome do ingresso: <input type="text" value="<?= $results['nome_ingresso']; ?>" name="nome" /></p>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <p>Descrição: <input type="text" name="info" value="<?= $results['desc_ingresso']; ?>"></textarea></p>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <p>valor: <input type="text" name="valor" value="<?= $results['valor']; ?>"></p>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <p>Quantidade: <input type="number" name="quant" value="<?= $results['estoque']; ?>"></p>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <a href="#!" class="modal-close waves-effect waves-red btn-flat">Cancelar</a>
+                                        <button class="waves-effect waves-green btn-flat">Editar</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                            <a href="#" class="modal-close waves-effect waves-red btn-flat">Cancelar</a>
-                            <a href="../crudIngresso/excluirIngresso?id_ingresso=<?= $results['id_ingresso']; ?>" class="modal-close waves-effect waves-green btn-flat">Confirmar</a>
+
+
+
+                        <!-- Modal -->
+                        <div id="modalConfirma<?= $results['id_ingresso']; ?>" class="modal">
+                            <div class="modal-content">
+                                <h4>Confirmar exclusão</h4>
+                                <p>Você tem certeza que deseja excluir esse ingresso? Qualquer pessoa que possuir esse ingresso, irá perder ele.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#" class="modal-close waves-effect waves-red btn-flat">Cancelar</a>
+                                <a href="../crudIngresso/excluirIngresso?id_ingresso=<?= $results['id_ingresso']; ?>" class="modal-close waves-effect waves-green btn-flat">Confirmar</a>
+                            </div>
                         </div>
-                    </div>
 
 
 
-                <?php endwhile; ?>
+                    <?php endwhile; ?>
                 <?php else: ?>
-                <tr>
-                    <td colspan="6">Nenhum ingresso cadastrado.</td>
-                </tr>
+                    <tr>
+                        <td colspan="6">Nenhum ingresso cadastrado.</td>
+                    </tr>
                 <?php endif; ?>
             </tbody>
         </table>
-        
+
 
     </main>
 

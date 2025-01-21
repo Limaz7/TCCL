@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 21-Jan-2025 às 12:32
+-- Tempo de geração: 21-Jan-2025 às 18:17
 -- Versão do servidor: 8.0.31
 -- versão do PHP: 8.0.26
 
@@ -80,15 +80,14 @@ CREATE TABLE IF NOT EXISTS `eventos` (
   `imagem` varchar(255) NOT NULL,
   PRIMARY KEY (`id_evento`),
   KEY `fk_id_usuario` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `eventos`
 --
 
 INSERT INTO `eventos` (`id_evento`, `id_usuario`, `nome_evento`, `produtora`, `descricao`, `data`, `rua`, `bairro`, `numero_residencial`, `tipo_pagamento`, `imagem`) VALUES
-(1, 2, 'Baile Funk', 'Event Urug', 'O melhor baile funk da cidade!', '2025-01-28 00:30:00', 'Érico Verissimo', 'Vila Julia', '3344', 'Gratuito', '678e660997b5e.jpg'),
-(2, 2, 'Show de rock', 'Event Urug', 'O melhor show de rock da cidade', '2025-01-22 02:10:00', 'José Garibaldi', 'Nova Esperança', '2233', 'Pago', '678e6682df4b8.jpg');
+(4, 4, 'Baile funk', 'Eventos Uruguaiana', 'O melhor baile funk da cidade!', '2025-01-29 20:04:00', 'Érico Verrissimo', 'Vila Julia', '1122', 'Pago', '678fe1e76f5d6.jpg');
 
 -- --------------------------------------------------------
 
@@ -106,14 +105,14 @@ CREATE TABLE IF NOT EXISTS `ingressos_cadastrados` (
   `estoque` int NOT NULL,
   PRIMARY KEY (`id_ingresso`),
   KEY `fk_id_evento` (`id_evento`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `ingressos_cadastrados`
 --
 
 INSERT INTO `ingressos_cadastrados` (`id_ingresso`, `id_evento`, `nome_ingresso`, `desc_ingresso`, `valor`, `estoque`) VALUES
-(1, 2, 'Ingresso VIP', 'Perto do palco', '120.99', 55);
+(2, 4, 'Ingresso VIP', 'Perto do Som', '99.90', 10);
 
 -- --------------------------------------------------------
 
@@ -169,8 +168,9 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `tipo_usuario` int NOT NULL,
   `cod_ativacao` int NOT NULL,
   PRIMARY KEY (`id_usuario`),
+  UNIQUE KEY `email` (`email`),
   KEY `fk_tipo_usuario` (`tipo_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `usuarios`
@@ -178,8 +178,8 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 
 INSERT INTO `usuarios` (`id_usuario`, `nome`, `email`, `senha`, `cadastro`, `tipo_cadastro`, `tipo_usuario`, `cod_ativacao`) VALUES
 (1, 'adm', 'adm@example.com', '$argon2i$v=19$m=65536,t=4,p=1$RUFZNmlsSnpzemVFb3FyRQ$2s7vKXgXySkHr9driGyHvvHDG1LGTJyXXvqii/+Mhyk', '0', 'cpf', 1, 1),
-(2, 'Event Urug', 'eventurug@example.com', '$argon2i$v=19$m=65536,t=4,p=1$WWFwa0NvdEd4T2RjTDltRQ$/g9pQ1PbOm9pisk3QtAJW6nbfLEqcB2ufv5m/TWQ/sM', '11111111111111', 'cnpj', 3, 1),
-(3, 'Lázaro', 'lazaro.2022315968@aluno.iffar.edu.br', '$argon2i$v=19$m=65536,t=4,p=1$cjRobjlDUzJNd3VQOHdXMQ$RtKeF2M4TquNl8/kBwG0yyOl83NyGz2x23T3hgl1YfE', '11111111111', 'cpf', 2, 1);
+(3, 'Lázaro', 'lazaro.2022315968@aluno.iffar.edu.br', '$argon2i$v=19$m=65536,t=4,p=1$cjRobjlDUzJNd3VQOHdXMQ$RtKeF2M4TquNl8/kBwG0yyOl83NyGz2x23T3hgl1YfE', '11111111111', 'cpf', 2, 1),
+(4, 'Eventos Uruguaiana', 'eventurug@example.com', '$argon2i$v=19$m=65536,t=4,p=1$R20zbHVJeDhoZXd5MXQ4aw$7LzmE+jZo28cDzvT8V1S0rxM+RfIFAhf8tikHAlr0T0', '11111111111111', 'cnpj', 3, 1);
 
 --
 -- Restrições para despejos de tabelas
