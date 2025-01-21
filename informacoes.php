@@ -67,7 +67,7 @@
             top: 25%;
         }
 
-        @media only screen and (max-width: 1540px) {
+        @media only screen and (max-width: 800px) {
             .info {
                 flex-direction: column;
                 gap: 20px;

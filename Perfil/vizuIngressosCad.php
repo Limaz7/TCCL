@@ -147,6 +147,7 @@ $exec = executarSQL($conexao, $ingressos);
                 <?php endif; ?>
             </tbody>
         </table>
+        
 
     </main>
 

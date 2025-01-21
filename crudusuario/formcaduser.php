@@ -14,15 +14,22 @@
     <title>Cadastro</title>
 </head>
 
+<style>
+    .card-panel span{
+        font-size: 35px;
+        text-align: center;
+    }
+</style>
+
 <body>
 
 
     <div class="container">
         <form action="cadastrouser.php" method="post">
-            <h2 class="center-align"> Cadastre-se </h2>
             <br>
 
             <div class="card-panel">
+                <span>Cadastro</span>
                 <div class="col s12">
                     <p>
                         <label>

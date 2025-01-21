@@ -104,7 +104,6 @@ $dados_user = mysqli_fetch_assoc($result1);
                     <th>Produtora</th>
                     <th>Descrição</th>
                     <th>Data</th>
-                    <th>CEP</th>
                     <th>Rua</th>
                     <th>Bairro</th>
                     <th>Numero residencial</th>
@@ -114,39 +113,91 @@ $dados_user = mysqli_fetch_assoc($result1);
 
             <tbody>
                 <?php if (mysqli_num_rows($exec)): ?>
-                <?php while ($dados2 = mysqli_fetch_assoc($exec)) : $arq = $dados2['imagem']; ?>
+                    <?php while ($dados2 = mysqli_fetch_assoc($exec)) : $arq = $dados2['imagem']; ?>
 
-                    <tr>
-                        <td><?= $dados2['id_evento'] ?></td>
-                        <td><img src="../imagens/<?= $arq ?>" height="55"></td>
-                        <td><?= $dados2['nome_evento'] ?></td>
-                        <td><?= $dados2['produtora'] ?></td>
-                        <td><?= $dados2['descricao'] ?></td>
-                        <td><?= $dados2['data'] ?></td>
-                        <td><?= $dados2['cep'] ?></td>
-                        <td><?= $dados2['rua'] ?></td>
-                        <td><?= $dados2['bairro'] ?></td>
-                        <td><?= $dados2['numero_residencial'] ?></td>
-                        <td><a href="../crudEvento/formediteven?id_evento=<?= $dados2['id_evento']; ?>"><i class="material-icons" style="color: green;">create</i></a></td>
-                        <td><a href="#modalExcluirEvento<?= $dados2['id_evento']; ?>" class="modal-trigger"><i class="material-icons" style="color: #c62828;">delete</i></a></td>
-                    </tr>
+                        <tr>
+                            <td><?= $dados2['id_evento'] ?></td>
+                            <td><img src="../imagens/<?= $arq ?>" height="55"></td>
+                            <td><?= $dados2['nome_evento'] ?></td>
+                            <td><?= $dados2['produtora'] ?></td>
+                            <td><?= $dados2['descricao'] ?></td>
+                            <td><?= $dados2['data'] ?></td>
+                            <td><?= $dados2['rua'] ?></td>
+                            <td><?= $dados2['bairro'] ?></td>
+                            <td><?= $dados2['numero_residencial'] ?></td>
+                            <td><a href="#modalEditarEvento<?= $dados2['id_evento']; ?>" class="modal-trigger"><i class="material-icons" style="color: green;">create</i></a></td>
+                            <td><a href="#modalExcluirEvento<?= $dados2['id_evento']; ?>" class="modal-trigger"><i class="material-icons" style="color: #c62828;">delete</i></a></td>
+                        </tr>
 
-                    <div id="modalExcluirEvento<?= $dados2['id_evento']; ?>" class="modal">
-                        <div class="modal-content">
-                            <h4>Confirmar exclusão</h4>
-                            <p>Você tem certeza que deseja excluir esse evento? Qualquer pessoa que possuir esse ingresso, irá perder ele.</p>
+                        <!-- Modal Structure -->
+                        <div id="modalEditarEvento<?= $dados2['id_evento']; ?>" class="modal">
+                            <div class="modal-content">
+                                <h4>Editar evento:</h4>
+                                <form action="../crudEvento/formediteven.php" method="post">
+
+                                    <input type="hidden" value="<?= $dados2['imagem']; ?>" name="antfoto" />
+                                    <input type="hidden" value="<?= $dados2['id_evento']; ?>" name="id" />
+
+                                    <div class="input-field col s12">
+                                        <p>Nome do evento: <input type="text" name="nome" value="<?= $dados2['nome_evento']; ?>"></p>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <p>Descrição: <input type="text" name="desc" value="<?= $dados2['descricao']; ?>"></textarea></p>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <p>Rua: <input type="text" name="rua" value="<?= $dados2['rua']; ?>"></p>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <p>Número do imóvel: <input type="number" name="numImo" value="<?= $dados2['numero_residencial']; ?>"></p>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <p>Bairro: <input type="text" name="bairro" value="<?= $dados2['bairro']; ?>"></p>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <p>Data: <input class="btn-datetime" type="datetime-local" name="data" value="<?= $dados2['data']; ?>"></p>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <p>Tipo de Pagamento:</p>
+                                        <p><select name="tipoPagamento" required>
+                                                <option value="" disabled>Escolha seu tipo de pagamento</option>
+                                                <option value="1" <?= $dados2['tipo_pagamento'] == 'Gratuito' ? 'selected' : '' ?>>Gratuito</option>
+                                                <option value="2" <?= $dados2['tipo_pagamento'] == 'Pago' ? 'selected' : '' ?>>Pago</option>
+                                                <option value="3" <?= $dados2['tipo_pagamento'] == 'Cesta básica' ? 'selected' : '' ?>>Cesta básica</option>
+                                            </select>
+                                        </p>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <a href="#!" class="modal-close waves-effect waves-red btn-flat">Cancelar</a>
+                                        <button class="waves-effect waves-green btn-flat">Cadastrar</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                            <a href="#" class="modal-close waves-effect waves-red btn-flat">Cancelar</a>
-                            <a href="../crudevento/excluireven?id_evento=<?= $dados2['id_evento']; ?>" class="modal-close waves-effect waves-green btn-flat">Confirmar</a>
-                        </div>
-                    </div>
 
-                <?php endwhile; ?>
+
+                        <div id="modalExcluirEvento<?= $dados2['id_evento']; ?>" class="modal">
+                            <div class="modal-content">
+                                <h4>Confirmar exclusão</h4>
+                                <p>Você tem certeza que deseja excluir esse evento? Qualquer pessoa que possuir esse ingresso, irá perder ele.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#" class="modal-close waves-effect waves-red btn-flat">Cancelar</a>
+                                <a href="../crudevento/excluireven?id_evento=<?= $dados2['id_evento']; ?>" class="modal-close waves-effect waves-green btn-flat">Confirmar</a>
+                            </div>
+                        </div>
+
+                    <?php endwhile; ?>
                 <?php else: ?>
-                <tr>
-                    <td colspan="11">Nenhum evento cadastrado.</td>
-                </tr>
+                    <tr>
+                        <td colspan="11">Nenhum evento cadastrado.</td>
+                    </tr>
                 <?php endif; ?>
             </tbody>
 
@@ -167,6 +218,11 @@ $dados_user = mysqli_fetch_assoc($result1);
 
     $(document).ready(function() {
         $('.modal').modal(); // Inicializando os modais
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems);
     });
 </script>
 

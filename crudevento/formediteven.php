@@ -33,6 +33,12 @@ $dados = mysqli_fetch_assoc($resultado);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
+<style>
+    .card-panel span{
+        font-size: 35px;
+    }
+</style>
+
 <body>
 
     <!--JavaScript at end of body for optimized loading-->
@@ -42,22 +48,27 @@ $dados = mysqli_fetch_assoc($resultado);
 <body>
 
     <div class="container">
-        <h1> EDITAR EVENTOS </h1>
 
         <form method="post" action="editareven.php" enctype="multipart/form-data">
+            <main class="container">
+                <div class="card-panel">
+                    <p><span>Editar evento:</span></p>
 
-            <input type="hidden" value="<?= $dados['imagem']; ?>" name="antfoto" />
-            <input type="hidden" value="<?= $id; ?>" name="id" />
-            Nome: <input type="text" value="<?= $dados['nome_evento']; ?>" name="nome" /> <br>
-            Descrição: <input type="text" value="<?= $dados['descricao']; ?>" name="desc" /><br>
-            Data: <input type="datetime-local" value="<?= $dados['data']; ?>" name="data" /> <br>
-            CEP: <input type="number" value="<?= $dados['cep']; ?>" name="cep" /> <br>
-            Número do imóvel: <input type="number" value="<?= $dados['numero_residencial']; ?>" name="numImo" /> <br>
-            Rua: <input type="text" value="<?= $dados['rua']; ?>" name="rua" /> <br>
-            Bairro: <input type="text" value="<?= $dados['bairro']; ?>" name="bairro" /> <br>
-            Imagem: <input type="file" value="<?= $dados['imagem']; ?>" name="img" /> <br>
+                    <input type="hidden" value="<?= $dados['imagem']; ?>" name="antfoto" />
+                    <input type="hidden" value="<?= $id; ?>" name="id" />
+                    Nome: <input type="text" value="<?= $dados['nome_evento']; ?>" name="nome" /> <br>
+                    Descrição: <input type="text" value="<?= $dados['descricao']; ?>" name="desc" /><br>
+                    Data: <input type="datetime-local" value="<?= $dados['data']; ?>" name="data" /> <br>
+                    CEP: <input type="number" value="<?= $dados['cep']; ?>" name="cep" /> <br>
+                    Número do imóvel: <input type="number" value="<?= $dados['numero_residencial']; ?>" name="numImo" /> <br>
+                    Rua: <input type="text" value="<?= $dados['rua']; ?>" name="rua" /> <br>
+                    Bairro: <input type="text" value="<?= $dados['bairro']; ?>" name="bairro" /> <br>
+                    Imagem: <input type="file" value="<?= $dados['imagem']; ?>" name="img" /> <br>
 
-            <p><input type="submit" value="Enviar"></p>
+                    <p><input class="btn" type="submit" value="Enviar"></p>
+
+                </div>
+            </main>
         </form>
     </div>
 </body>

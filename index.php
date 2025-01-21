@@ -26,6 +26,12 @@
     .card-panel button {
         width: 100%;
     }
+
+    .card-panel span{
+        position: relative;
+        font-size: 30px;
+        text-align: center;
+    }
 </style>
 
 <body>
@@ -34,6 +40,8 @@
         <form action="login.php" method="post">
 
             <div class="card-panel">
+
+                <span>Login</span>
 
                 <div class="input-field col s10 offset-s1">
                     <input type="text" id="email" name="email" class="validade" required>

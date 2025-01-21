@@ -86,7 +86,6 @@ $agora = $data->format('Y-m-d H:i:s');
                         </div>
                         <div class="card-content">
                             <p style="text-align: center; font-size: 1vw;"><b><?= $evento['nome_evento']; ?></b></p>
-                            <p style="text-align: center"><?= $evento['descricao']; ?></p>
                             <p>Produtora: </p>
                             <p><?= $evento['produtora']; ?></p>
                             <span>Entrada:</span>
@@ -116,11 +115,7 @@ $agora = $data->format('Y-m-d H:i:s');
                     </div>
 
                     <div class="input-field col s12">
-                        <p>Descrição: <textarea type="text" name="desc" required></textarea></p>
-                    </div>
-
-                    <div class="input-field col s12">
-                        <p>CEP: <input type="number" name="cep" required></p>
+                        <p>Descrição: <input type="text" name="desc" required></input></p>
                     </div>
 
                     <div class="input-field col s12">
