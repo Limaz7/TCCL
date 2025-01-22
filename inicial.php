@@ -62,6 +62,7 @@ $agora = $data->format('Y-m-d H:i:s');
     .card-action a {
         width: 100%;
     }
+    
 </style>
 
 <body>
@@ -85,10 +86,8 @@ $agora = $data->format('Y-m-d H:i:s');
                             <img class="materialboxed" src="imagens/<?= $arq ?>" height="200">
                         </div>
                         <div class="card-content">
-                            <p style="text-align: center; font-size: 1vw;"><b><?= $evento['nome_evento']; ?></b></p>
-                            <p>Produtora: </p>
-                            <p><?= $evento['produtora']; ?></p>
-                            <span>Entrada:</span>
+                            <p style="text-align: justify; font-size: 1vw;"><b><?= $evento['nome_evento']; ?></b></p>
+                            <b><p>Entrada:</p></b>
                             <?= $evento['tipo_pagamento'] ?>
                         </div>
                         <div class="card-action">

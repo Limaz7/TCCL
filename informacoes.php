@@ -117,6 +117,81 @@
         .icon-data div {
             flex-direction: column;
         }
+
+        .container .cab-desc {
+            font-weight: bold;
+            font-size: 20px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Flex container para as informações do evento */
+        .event-info {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* Descrição do evento */
+        .description {
+            flex: 1;
+            max-width: 60%;
+            /* Ajuste para que a descrição ocupe até 60% do espaço */
+            margin-right: 20px;
+        }
+
+        /* Ingressos */
+        .tickets {
+            flex: 1;
+            max-width: 35%;
+            /* Ingressos ocupam até 35% do espaço */
+        }
+
+        .tickets a {
+            width: 100%;
+        }
+
+        /* Responsividade */
+        @media only screen and (max-width: 800px) {
+            .event-info {
+                flex-direction: column;
+            }
+
+            .description,
+            .tickets {
+                max-width: 100%;
+            }
+        }
+
+        .tickets .card-panel {
+            max-width: 300px;
+            /* Reduz o tamanho máximo do card */
+            padding: 15px;
+            /* Diminui o preenchimento dentro do card */
+            font-size: 13px;
+            /* Diminui o tamanho da fonte */
+            margin: 10px;
+            /* Dá um espaço entre os cards */
+        }
+
+        @media only screen and (max-width: 800px) {
+            .tickets .card-panel {
+                max-width: 100%;
+                /* O card vai ocupar toda a largura da tela em dispositivos menores */
+                margin: 10px 0;
+                /* Ajusta a margem para que não sobreponha outros elementos */
+            }
+        }
+
+        .tickets .desc-ing{
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .tickets span{
+            text-align: center;
+        }
     </style>
 
     <?php include('Navs/headers.php'); ?>
@@ -162,86 +237,65 @@
         </div>
 
         <hr>
-        <span><?= $evento['descricao']; ?></span>
 
 
-        <main class="container">
-
-            <?php if ($usuario['tipo_usuario'] == 3 and $evento['id_usuario'] == $_SESSION['user'][0]) { ?>
-
-
-                <div id="modalCadastroIngresso" class="modal">
-                    <div class="modal-content">
-                        <h4>Cadastro de ingressos</h4>
-                        <form action="crudIngresso/cadastroingresso.php" method="post">
-                            <input type="hidden" name="id_ev" value="<?= $id ?>">
-                            <p>Nome do ingresso: <input type="text" name="nome" required></p>
-                            <p>Descrição: <input type="text" name="desc" required></p>
-                            <p>Valor: <input type="text" name="valor" required></p>
-                            <p>Quantidade: <input type="number" name="qtd" required></p>
-                            <div class="modal-footer">
-                                <a href="#!" class="modal-close waves-effect waves-red btn-flat">Cancelar</a>
-                                <button type="submit" class="waves-effect waves-green btn-flat">Cadastrar</button>
-                            </div>
-                        </form>
-                    </div>
+        <<main class="container">
+            <div class="event-info">
+                <!-- Descrição do evento -->
+                <div class="description">
+                    <span class="cab-desc">Descrição do evento</span>
+                    <span class="text-desc"><?= nl2br(htmlspecialchars($evento['descricao'])); ?></span>
                 </div>
-            <?php } ?>
+
+                <?php if ($usuario['tipo_usuario'] == 3 and $evento['id_usuario'] == $_SESSION['user'][0]) { ?>
 
 
-            <?php $result = executarSQL($conexao, $sql); ?>
-            <?php while ($ingressos = mysqli_fetch_assoc($result)) : ?>
-
-
-                <?php if ($usuario['tipo_usuario'] == 2) : ?>
-                    <?php if (isset($ingressos['id_evento'])) : ?>
-
-                        <div class="card-panel #f5f5f5 grey lighten-4" style="max-width: 400px;">
-                            <h5><?= $ingressos['nome_ingresso'] ?></h5>
-                            <p><?= $ingressos['desc_ingresso']; ?></p>
-                            <p>
-                            <h4> R$ <?= number_format($ingressos['valor'], 2, ',', '.'); ?></h4>
-                            </p>
-                            <input type="hidden" name="id_ingresso" value="<?= $ingressos['id_ingresso']; ?>">
-                            <input type="hidden" name="id_evento" value="<?= $ingressos['id_evento']; ?>">
-                            <a style="background: black; color: white;" class="waves-effect waves-light btn buy"
-                                data-value="<?= $ingressos['nome_ingresso']; ?>" data-id="<?= $ingressos['id_evento']; ?>">Adicionar ao carrinho</a>
+                    <div id="modalCadastroIngresso" class="modal">
+                        <div class="modal-content">
+                            <h4>Cadastro de ingressos</h4>
+                            <form action="crudIngresso/cadastroingresso.php" method="post">
+                                <input type="hidden" name="id_ev" value="<?= $id ?>">
+                                <p>Nome do ingresso: <input type="text" name="nome" required></p>
+                                <p>Descrição: <input type="text" name="desc" required></p>
+                                <p>Valor: <input type="text" name="valor" required></p>
+                                <p>Quantidade: <input type="number" name="qtd" required></p>
+                                <div class="modal-footer">
+                                    <a href="#!" class="modal-close waves-effect waves-red btn-flat">Cancelar</a>
+                                    <button type="submit" class="waves-effect waves-green btn-flat">Cadastrar</button>
+                                </div>
+                            </form>
                         </div>
-
-                    <?php else: ?>
-                        <?php if ($ingressos['tipo_pagamento'] == 'Pago'): ?>
-                            <style>
-                                .sIng {
-                                    color: red;
-                                }
-                            </style>
-                            <h4 class="sIng">Nenhum ingresso cadastrado</h4>
-                        <?php endif; ?>
-                    <?php endif; ?>
-                <?php endif; ?>
-
-                <!-- <div id="modalComprarIngresso" class="modal">
-                    <div class="modal-content">
-                        <h4>Compre seu ingresso</h4>
-                        <form action="compraIngresso/compraringresso.php" method="post">
-                            <input type="hidden" name="id_evento" value="">
-                            <input type="hidden" name="id_ingresso" value="">
-                            <input type="hidden" name="id_usuario" value="">
-
-                            <p>Quantidade: <input type="number" name="qtd" required></p>
-                            <div class="modal-footer">
-                                <a href="#!" style="background: red;" class="modal-close waves-effect waves-red btn">Cancelar</a>
-                                <button style="background: green;" type="submit" class="waves-effect waves-green btn">Comprar</button>
-                            </div>
-                        </form>
                     </div>
-                </div> -->
+                <?php } ?>
 
 
-            <?php endwhile; ?>
-
-
-        </main>
+                <!-- Ingressos -->
+                <div class="tickets">
+                    <?php $result = executarSQL($conexao, $sql); ?>
+                    <?php while ($ingressos = mysqli_fetch_assoc($result)) : ?>
+                        <?php if (isset($ingressos['id_evento'])) : ?>
+                            <div class="card-panel #f5f5f5 grey lighten-4">
+                                <h5><?= $ingressos['nome_ingresso'] ?></h5>
+                                <span>R$ <?= number_format($ingressos['valor'], 2, ',', '.'); ?></span>
+                                <span class="desc-ing"><?= $ingressos['desc_ingresso']; ?></span>
+                                <input type="hidden" name="id_ingresso" value="<?= $ingressos['id_ingresso']; ?>">
+                                <input type="hidden" name="id_evento" value="<?= $ingressos['id_evento']; ?>">
+                                <a style="background: black; color: white;" class="waves-effect waves-light btn buy"
+                                    data-value="<?= $ingressos['nome_ingresso']; ?>" data-id="<?= $ingressos['id_evento']; ?>">Adicionar ao carrinho</a>
+                            </div>
+                        <?php else: ?>
+                            <?php if ($ingressos['tipo_pagamento'] == 'Pago'): ?>
+                                <style>
+                                    .sIng {
+                                        color: red;
+                                    }
+                                </style>
+                                <h4 class="sIng">Nenhum ingresso cadastrado</h4>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    <?php endwhile; ?>
+                </div>
+            </div>
     </body>
 
     <script src="carrinho/js/jquery.js"></script>

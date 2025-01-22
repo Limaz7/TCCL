@@ -33,6 +33,10 @@ $dados = mysqli_fetch_assoc($result);
 
 <?php include("../Navs/headers.php"); ?>
 
+<?php
+$maxHeight = ($dados['tipo_usuario'] == 2) ? "105px" : "190px";
+?>
+
 <style>
     .container {
         display: flex;
@@ -48,7 +52,7 @@ $dados = mysqli_fetch_assoc($result);
         padding: 10px;
         /* Substitui a margin-top para espaçamento interno */
         box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
+        border-radius: 15px;
         height: auto;
         /* Permite ajustar à altura do conteúdo */
         position: relative;
@@ -58,7 +62,7 @@ $dados = mysqli_fetch_assoc($result);
         margin-right: 20px;
         /* Espaço entre o side e o card */
         margin-top: 20%;
-        max-height: 190px;
+        max-height: <?= $maxHeight ?>;
     }
 
     .side a {
@@ -67,6 +71,7 @@ $dados = mysqli_fetch_assoc($result);
         padding: 10px 0;
         color: #333;
         text-decoration: none;
+        padding-left: 15px;
     }
 
     .side a:hover {
@@ -76,6 +81,14 @@ $dados = mysqli_fetch_assoc($result);
     .card-panel {
         flex-grow: 1;
         /* Expande o card-panel para ocupar o espaço restante */
+        border-radius: 15px;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
     }
 </style>
 
@@ -111,10 +124,13 @@ $dados = mysqli_fetch_assoc($result);
                     Nome: <input type="text" name="nome" id="nome" value="<?= $dados['nome']; ?>">
                 </label> <br> <br>
                 <label for="email">
-                    Email: <input type="text" name="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" value="<?= $dados['email']; ?>">
-                </label> <br>
-                <input style="background: #1fce3f; color: white;" class="waves-effect waves-light btn" type="submit" value="Enviar">
-                <p><a style="background: #c41707; color: white;" class="waves-effect waves-light btn" href="excluirPerfil.php">Excluir seu perfil</a></p>
+                    Email: <input type="text" name="email" id="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" value="<?= $dados['email']; ?>">
+                </label>
+                <div class="buttons">
+                    <a style="background: #c41707; color: white;" class="waves-effect waves-light btn btn-exc" href="excluirPerfil.php">Excluir seu perfil</a>
+                    <button type="submit" style="background: #1fce3f; color: white;" class="waves-effect waves-light btn">Enviar</button>
+                </div>
+            </form>
         </div>
     </div>
 </body>
@@ -125,7 +141,7 @@ $dados = mysqli_fetch_assoc($result);
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.sidenav');
-        var instances = M.Sidenav.init(elems, options);
+        var instances = M.Sidenav.init(elems);
     });
 
     // Initialize collapsible (uncomment the lines below if you use the dropdown variation)

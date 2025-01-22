@@ -49,7 +49,7 @@ $dados_user = mysqli_fetch_assoc($result1);
         padding: 10px;
         /* Substitui a margin-top para espaçamento interno */
         box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
+        border-radius: 15px;
         height: auto;
         /* Permite ajustar à altura do conteúdo */
         position: relative;
@@ -68,6 +68,7 @@ $dados_user = mysqli_fetch_assoc($result1);
         padding: 10px 0;
         color: #333;
         text-decoration: none;
+        padding-left: 15px;
     }
 
     .side a:hover {
@@ -79,6 +80,10 @@ $dados_user = mysqli_fetch_assoc($result1);
         /* Expande o card-panel para ocupar o espaço restante */
         margin-top: 10%;
         width: 10%;
+    }
+
+    body{
+        overflow: hidden;
     }
 </style>
 
@@ -120,7 +125,7 @@ $dados_user = mysqli_fetch_assoc($result1);
                             <td><img src="../imagens/<?= $arq ?>" height="55"></td>
                             <td><?= $dados2['nome_evento'] ?></td>
                             <td><?= $dados2['produtora'] ?></td>
-                            <td><?= $dados2['descricao'] ?></td>
+                            <td><?= strlen($dados2['descricao']) > 100 ? substr($dados2['descricao'], 0, 100) . '...' : $dados2['descricao'] ?></td>
                             <td><?= $dados2['data'] ?></td>
                             <td><?= $dados2['rua'] ?></td>
                             <td><?= $dados2['bairro'] ?></td>
@@ -133,7 +138,7 @@ $dados_user = mysqli_fetch_assoc($result1);
                         <div id="modalEditarEvento<?= $dados2['id_evento']; ?>" class="modal">
                             <div class="modal-content">
                                 <h4>Editar evento:</h4>
-                                <form action="../crudEvento/editareven.php" method="post">
+                                <form action="../crudEvento/editareven.php" method="post" enctype="multipart/form-data">
 
                                     <input type="hidden" value="<?= $dados2['imagem']; ?>" name="antfoto" />
                                     <input type="hidden" value="<?= $dados2['id_evento']; ?>" name="id" />
@@ -143,7 +148,7 @@ $dados_user = mysqli_fetch_assoc($result1);
                                     </div>
 
                                     <div class="input-field col s12">
-                                        <p>Descrição: <input type="text" name="desc" value="<?= $dados2['descricao']; ?>"></textarea></p>
+                                        <p>Descrição: <textarea id="desc" name="desc" class="materialize-textarea"><?= $dados2['descricao']; ?></textarea></p>
                                     </div>
 
                                     <div class="input-field col s12">
@@ -171,6 +176,10 @@ $dados_user = mysqli_fetch_assoc($result1);
                                                 <option value="3" <?= $dados2['tipo_pagamento'] == 'Cesta básica' ? 'selected' : '' ?>>Cesta básica</option>
                                             </select>
                                         </p>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <p>Imagem <input type="file" name="img"></p>
                                     </div>
 
                                     <div class="modal-footer">

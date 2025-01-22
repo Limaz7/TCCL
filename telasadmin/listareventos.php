@@ -57,7 +57,6 @@ $result = executarSQL($conexao, $sql);
                     <th>Produtora</th>
                     <th>Descrição</th>
                     <th>Data</th>
-                    <th>CEP</th>
                     <th>Rua</th>
                     <th>Bairro</th>
                     <th>Numero residencial</th>
@@ -77,11 +76,10 @@ $result = executarSQL($conexao, $sql);
                         <td><?= $results['produtora'] ?></td>
                         <td><?= $results['descricao'] ?></td>
                         <td><?= $results['data'] ?></td>
-                        <td><?= $results['cep'] ?></td>
                         <td><?= $results['rua'] ?></td>
                         <td><?= $results['bairro'] ?></td>
                         <td><?= $results['numero_residencial'] ?></td>
-                        <td><a href="../crudEvento/formediteven?id_evento=<?= $results['id_evento']; ?>">Editar</a></td>
+                        <td><a href="formediteven?id_evento=<?= $results['id_evento']; ?>">Editar</a></td>
                         <td><a href="../crudEvento/excluireven?id_evento=<?= $results['id_evento']; ?>">Excluir</a></td>
                     </tr>
                 <?php endforeach; ?>

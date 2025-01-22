@@ -73,7 +73,7 @@ $result = executarSQL($conexao, $sql);
                         <td><?= $results['valor'] ?></td>
                         <td><?= $results['estoque'] ?></td>
                         <td><a href="formEditIngresso?id_ingresso=<?= $results['id_ingresso']; ?>">Editar</a></td>
-                        <td><a href="excluirIngresso?id_ingresso=<?= $results['id_ingresso']; ?>">Excluir</a></td>
+                        <td><a href="../crudIngresso/excluirIngresso?id_ingresso=<?= $results['id_ingresso']; ?>">Excluir</a></td>
                     </tr>
                 <?php } ?>
             </tbody>

@@ -4,12 +4,13 @@ include_once "../conexao.php";
 $conexao = conectar();
 
 $info = $_POST['info'];
+$nome = $_POST['nome'];
 $valor = $_POST['valor'];
 $quant = $_POST['quant'];
 $id = $_POST['id'];
 
 $sql = "UPDATE ingressos_cadastrados SET desc_ingresso='$info', valor='$valor',
-        estoque='$quant' WHERE id_ingresso='$id'";
+        estoque='$quant', nome_ingresso = '$nome' WHERE id_ingresso='$id'";
 $resultEditIng = executarSQL($conexao, $sql);
 
 session_start();
@@ -26,6 +27,6 @@ if ($_SESSION['user'][2] == 3) {
         header('location: ../Perfil/vizuIngressosCad.php');
         exit();
 } elseif ($_SESSION['user'][2] == 1) {
-        header('location:  vizuIngressos.php');
+        header('location:  ../telasadmin/vizuIngressos.php');
         exit();
 }

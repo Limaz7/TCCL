@@ -25,10 +25,10 @@ $dados = mysqli_fetch_assoc($result);
     <title></title>
 </head>
 <body>
-    <form action="editIngresso.php" method="post">
+    <form action="../crudIngresso/editIngresso.php" method="post">
         <input type="hidden" name="id" value="<?= $id ?>">
         Informação <input type="text" name="info" value="<?= $dados['desc_ingresso'] ?>"> <br><br>
-        Valor <input type="number" name="valor" value="<?= $dados['valor'] ?>"> <br><br>
+        Valor <input type="text" name="valor" value="<?= $dados['valor'] ?>"> <br><br>
         Quantidade <input type="number" name="quant" value="<?= $dados['estoque'] ?>"> <br><br>
         <input type="submit" value="Enviar">
     </form>

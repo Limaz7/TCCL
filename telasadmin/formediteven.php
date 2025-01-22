@@ -49,7 +49,7 @@ $dados = mysqli_fetch_assoc($resultado);
 
     <div class="container">
 
-        <form method="post" action="editareven.php" enctype="multipart/form-data">
+        <form method="post" action="../crudevento/editareven.php" enctype="multipart/form-data">
             <main class="container">
                 <div class="card-panel">
                     <p><span>Editar evento:</span></p>

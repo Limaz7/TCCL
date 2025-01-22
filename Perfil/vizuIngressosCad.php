@@ -45,7 +45,7 @@ $exec = executarSQL($conexao, $ingressos);
         padding: 10px;
         /* Substitui a margin-top para espaçamento interno */
         box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
+        border-radius: 15px;
         height: auto;
         /* Permite ajustar à altura do conteúdo */
         position: relative;
@@ -64,6 +64,7 @@ $exec = executarSQL($conexao, $ingressos);
         padding: 10px 0;
         color: #333;
         text-decoration: none;
+        padding-left: 15px;
     }
 
     .side a:hover {
