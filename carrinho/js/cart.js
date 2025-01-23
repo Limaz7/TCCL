@@ -1,4 +1,4 @@
-$(document).ready(function () { 
+$(document).ready(function () {
 
     // Atualiza o contador do menu ao clicar em um botão específico
     $(document).on('click', '.buy', function () {
@@ -15,14 +15,20 @@ $(document).ready(function () {
     //Comprar produto
     $('body').on('click', '.buy', function (l) {
         l.preventDefault();
-        console.log('Botão clicado');
+
+        // Verifica se o usuário está logado
+        if (!isUserLoggedIn) {
+            M.toast({
+                html: 'Você precisa estar logado para adicionar ao carrinho.',
+                classes: '#c62828 red darken-3'
+            });
+            return; // Interrompe a execução se não estiver logado
+        }
 
         var form = {
             product: $(this).data('value'),
             id: $(this).data('id-ing')
         };
-
-        console.log('Form Data:', form);
 
         var url = "carrinho/ajax/cart/buy.php";
 

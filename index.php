@@ -27,10 +27,16 @@
         width: 100%;
     }
 
-    .card-panel span{
+    .card-panel .text-inic{
         position: relative;
         font-size: 30px;
         text-align: center;
+    }
+
+    .card-panel .text-cad-rec{
+        color: gray;
+        font-style: italic;
+        margin-right: 5px;
     }
 </style>
 
@@ -41,7 +47,7 @@
 
             <div class="card-panel">
 
-                <span>Login</span>
+                <span class="text-inic">Login</span>
 
                 <div class="input-field col s10 offset-s1">
                     <input type="text" id="email" name="email" class="validade" required>
@@ -55,9 +61,9 @@
                     <span class="helper-text" data-error="Campo com preenchimento obrigatório."></span>
                 </div>
 
-
-                <a href="crudusuario/formcaduser.php">Não tem conta? cadastre-se!</a><br>
-                <a href="rec-senha/form_rec_senha.php">Esqueceu a senha da sua conta? Recupere-a </a><br>
+                <p><a href="inicial.php">Voltar</a></p>
+                <span class="text-cad-rec">Não tem conta?</span><a href="crudusuario/formcaduser.php">cadastre-se!</a><br>
+                <span class="text-cad-rec">Esqueceu a senha da sua conta?</span><a href="rec-senha/form_rec_senha.php">Recupere-a </a><br>
 
                 <div class="col s12">
                     <p class="center-align">

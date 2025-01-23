@@ -17,7 +17,7 @@ if (empty($_SESSION['cart']) || !$_SESSION['cart']) {
 
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
 
-                    <?php if ($paginaCorrente == 'inicial.php') : ?>
+                    <?php if ($paginaCorrente == 'inicial.php' && !empty($_SESSION['user'])) : ?>
 
                         <?php if ($dados['tipo_usuario'] == 3) : ?>
                             <li> <a style="background: white; color: black;" class="waves-effect waves-light btn modal-trigger" href="#modalCadastroEvento">Cadastrar evento</a></li>
@@ -40,7 +40,7 @@ if (empty($_SESSION['cart']) || !$_SESSION['cart']) {
                                 <i class="material-icons">power_settings_new</i>
                             </a></li>
 
-                    <?php else: ?>
+                    <?php elseif (!empty($_SESSION['user'])): ?>
 
                         <?php if ($paginaCorrente == 'informacoes.php'):
 
@@ -71,7 +71,7 @@ if (empty($_SESSION['cart']) || !$_SESSION['cart']) {
                                     <i class="material-icons">power_settings_new</i>
                                 </a></li>
 
-                        <?php else: ?>
+                        <?php elseif (!empty($_SESSION['user'])): ?>
 
                             <li> <a class='white-text' href='../inicial.php'>Tela inicial</a></li>
                             <li> <a href="../logout.php" class="white-text">
@@ -80,6 +80,11 @@ if (empty($_SESSION['cart']) || !$_SESSION['cart']) {
 
                         <?php endif; ?>
 
+                    <?php endif; ?>
+
+                    <?php if(empty($_SESSION['user'])): ?> 
+                        <li> <a style="background-color: white; color: black;" class='waves-effect waves-light btn' href='index.php'>Login</a></li>
+                        <li> <a class='white-text' href='inicial.php'>Tela inicial</a></li>
                     <?php endif; ?>
 
                 </ul>

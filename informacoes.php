@@ -2,10 +2,6 @@
 
     session_start();
 
-    if (!isset($_SESSION['user'])) {
-        header('location: index.php');
-    }
-
     if (isset($_SESSION['event'])) {
         unset($_SESSION['event']);
     }
@@ -21,9 +17,11 @@
     $result = executarSQL($conexao, $sql);
     $evento = mysqli_fetch_assoc($result);
 
-    $sql_user = "SELECT * FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
-    $result1 = executarSQL($conexao, $sql_user);
-    $usuario = mysqli_fetch_assoc($result1);
+    if (isset($_SESSION['user'])) {
+        $sql_user = "SELECT * FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
+        $result1 = executarSQL($conexao, $sql_user);
+        $usuario = mysqli_fetch_assoc($result1);
+    }
 
 
     ?>
@@ -184,7 +182,7 @@
             }
         }
 
-        .tickets .desc-ing{
+        .tickets .desc-ing {
             display: block;
             margin-bottom: 10px;
             font-size: 13px;
@@ -246,27 +244,28 @@
                     <span class="text-desc"><?= nl2br(htmlspecialchars($evento['descricao'])); ?></span>
                 </div>
 
-                <?php if ($usuario['tipo_usuario'] == 3 and $evento['id_usuario'] == $_SESSION['user'][0]) { ?>
+                <?php if (!empty($_SESSION['user'])) : ?>
+                    <?php if ($usuario['tipo_usuario'] == 3 && $evento['id_usuario'] == $_SESSION['user'][0]) : ?>
 
 
-                    <div id="modalCadastroIngresso" class="modal">
-                        <div class="modal-content">
-                            <h4>Cadastro de ingressos</h4>
-                            <form action="crudIngresso/cadastroingresso.php" method="post">
-                                <input type="hidden" name="id_ev" value="<?= $id ?>">
-                                <p>Nome do ingresso: <input type="text" name="nome" required></p>
-                                <p>Descrição: <input type="text" name="desc" required></p>
-                                <p>Valor: <input type="text" name="valor" required></p>
-                                <p>Quantidade: <input type="number" name="qtd" required></p>
-                                <div class="modal-footer">
-                                    <a href="#!" class="modal-close waves-effect waves-red btn-flat">Cancelar</a>
-                                    <button type="submit" class="waves-effect waves-green btn-flat">Cadastrar</button>
-                                </div>
-                            </form>
+                        <div id="modalCadastroIngresso" class="modal">
+                            <div class="modal-content">
+                                <h4>Cadastro de ingressos</h4>
+                                <form action="crudIngresso/cadastroingresso.php" method="post">
+                                    <input type="hidden" name="id_ev" value="<?= $id ?>">
+                                    <p>Nome do ingresso: <input type="text" name="nome" required></p>
+                                    <p>Descrição: <input type="text" name="desc" required></p>
+                                    <p>Valor: <input type="text" name="valor" required></p>
+                                    <p>Quantidade: <input type="number" name="qtd" required></p>
+                                    <div class="modal-footer">
+                                        <a href="#!" class="modal-close waves-effect waves-red btn-flat">Cancelar</a>
+                                        <button type="submit" class="waves-effect waves-green btn-flat">Cadastrar</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                <?php } ?>
-
+                    <?php endif; ?>
+                <?php endif; ?>
 
                 <!-- Ingressos -->
                 <div class="tickets">
@@ -304,6 +303,10 @@
     <!--JavaScript at end of body for optimized loading-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/materialize.min.js"></script>
+
+    <script>
+        var isUserLoggedIn = <?= isset($_SESSION['user']) ? 'true' : 'false'; ?>;
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

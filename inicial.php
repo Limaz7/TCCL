@@ -2,10 +2,6 @@
 
 session_start();
 
-if (!isset($_SESSION['user'])) {
-    header('location: index.php');
-}
-
 if (isset($_SESSION['event'])) {
     unset($_SESSION['event']);
 }
@@ -13,12 +9,16 @@ if (isset($_SESSION['event'])) {
 include_once "conexao.php";
 $conexao = conectar();
 
+
+
 $sql = "SELECT * FROM eventos";
 $result1 = executarSQL($conexao, $sql);
 
-$sql2 = "SELECT * FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
-$result2 = executarSQL($conexao, $sql2);
-$dados = mysqli_fetch_assoc($result2);
+if (isset($_SESSION['user'])) {
+    $sql2 = "SELECT * FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
+    $result2 = executarSQL($conexao, $sql2);
+    $dados = mysqli_fetch_assoc($result2);
+}
 
 date_default_timezone_set('America/Sao_Paulo');
 $data = new DateTime('now');
@@ -99,10 +99,14 @@ $agora = $data->format('Y-m-d H:i:s');
                             <?= $evento['tipo_pagamento'] ?>
                         </div>
                         <div class="card-action">
-                            <?php if ($agora > $evento['data'] && $dados['tipo_usuario'] == 2): ?>
-                                <a class="btn disabled">Mais informações</a>
-                            <?php else: ?>
+                            <?php if (empty($_SESSION['user'])) : ?>
                                 <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href='informacoes?id_evento=<?= $evento["id_evento"] ?>'>Mais informações</a>
+                            <?php else: ?>
+                                <?php if ($agora > $evento['data'] && $dados['tipo_usuario'] == 2): ?>
+                                    <a class="btn disabled">Mais informações</a>
+                                <?php else: ?>
+                                    <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href='informacoes?id_evento=<?= $evento["id_evento"] ?>'>Mais informações</a>
+                                <?php endif; ?> 
                             <?php endif; ?>
                         </div>
                     </div>
@@ -122,7 +126,8 @@ $agora = $data->format('Y-m-d H:i:s');
                     </div>
 
                     <div class="input-field col s12">
-                        <p>Descrição: <textarea id="desc" name="desc" class="materialize-textarea"></textarea></p></p>
+                        <p>Descrição: <textarea id="desc" name="desc" class="materialize-textarea"></textarea></p>
+                        </p>
                     </div>
 
                     <div class="input-field col s12">

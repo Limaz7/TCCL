@@ -96,7 +96,7 @@ if ($qtd > $quant['estoque']) {
 
     $sql2 = "UPDATE carrinhos SET
             pago=1, data='$agora'
-            WHERE cart_id='$cartId'";
+            WHERE id_carrinho='$cartId'";
     executarSQL($conexao, $sql2);
 
     header("location: ../inicial.php");

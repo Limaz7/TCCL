@@ -75,7 +75,7 @@ if ($_POST) {
 } elseif ($_GET) {
 
     $session = $_GET['cart_session'];
-    $cartId = $_GET['cart_id'];
+    $cartId = $_GET['id_carrinho'];
     $get = filter_input_array(INPUT_GET, FILTER_DEFAULT);
     $getFilters = array_map("strip_tags", $get);
     //$index = filter_input(INPUT_GET, 'cart_id', FILTER_SANITIZE_NUMBER_INT);
