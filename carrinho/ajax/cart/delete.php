@@ -26,11 +26,13 @@ if ($_POST) {
     $cart = "SELECT c.id_carrinho, c.cart_session, c.quantidade, cic.id_ingresso 
          FROM carrinhos c 
          INNER JOIN carrinho_ingressos_cadastrados cic 
+         ON cic.id_carrinho = c.id_carrinho
          WHERE c.cart_session = " . $_SESSION['cart'] . " AND c.id_carrinho = $index";
     $cart = executarSQL($conexao, $cart);
 
     foreach ($cart as $Sh) {
     }
+
 
     $prodId = strip_tags($Sh['id_ingresso']);
     $quantidade = strip_tags($Sh['quantidade']);

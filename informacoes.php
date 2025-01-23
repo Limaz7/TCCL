@@ -187,10 +187,9 @@
         .tickets .desc-ing{
             display: block;
             margin-bottom: 10px;
-        }
-
-        .tickets span{
-            text-align: center;
+            font-size: 13px;
+            font-style: italic;
+            color: gray;
         }
     </style>
 
@@ -281,7 +280,8 @@
                                 <input type="hidden" name="id_ingresso" value="<?= $ingressos['id_ingresso']; ?>">
                                 <input type="hidden" name="id_evento" value="<?= $ingressos['id_evento']; ?>">
                                 <a style="background: black; color: white;" class="waves-effect waves-light btn buy"
-                                    data-value="<?= $ingressos['nome_ingresso']; ?>" data-id="<?= $ingressos['id_evento']; ?>">Adicionar ao carrinho</a>
+                                    data-value="<?= $ingressos['nome_ingresso']; ?>" data-id="<?= $ingressos['id_evento']; ?>"
+                                    data-id-ing="<?= $ingressos['id_ingresso']; ?>">Adicionar ao carrinho</a>
                             </div>
                         <?php else: ?>
                             <?php if ($ingressos['tipo_pagamento'] == 'Pago'): ?>

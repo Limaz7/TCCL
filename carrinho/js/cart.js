@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function () { 
 
     // Atualiza o contador do menu ao clicar em um botão específico
     $(document).on('click', '.buy', function () {
@@ -15,8 +15,15 @@ $(document).ready(function () {
     //Comprar produto
     $('body').on('click', '.buy', function (l) {
         l.preventDefault();
+        console.log('Botão clicado');
 
-        var form = { product: $(this).data('value') };
+        var form = {
+            product: $(this).data('value'),
+            id: $(this).data('id-ing')
+        };
+
+        console.log('Form Data:', form);
+
         var url = "carrinho/ajax/cart/buy.php";
 
         $.ajax({

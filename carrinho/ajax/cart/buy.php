@@ -12,10 +12,12 @@ foreach ($postFilters as $index => $value) {
     //Tirou os traços e tranformou em vazio.
     $product = str_replace('_', ' ', $value);
 
+    $id = $postFilters['id'];
+
     usleep(50000);
 
     $Product = "SELECT i.*, e.*
-    FROM ingressos_cadastrados i INNER JOIN eventos e ON i.id_evento = e.id_evento WHERE nome_ingresso = '$product'";
+        FROM ingressos_cadastrados i INNER JOIN eventos e ON i.id_evento = e.id_evento WHERE i.id_ingresso = '$id'";
     $Product = executarSQL($conexao, $Product);
 
     foreach ($Product as $show) {
@@ -45,8 +47,9 @@ foreach ($postFilters as $index => $value) {
     }
 
     //Verifica se o produto foi ou nao cadastrado para esta sessão
-    $Cart = "SELECT id_carrinho, cart_session, quantidade
-    FROM carrinhos WHERE cart_session = " . $_SESSION['cart'] . "";
+    $Cart = "SELECT c.id_carrinho, c.cart_session, c.quantidade, cic.id_ingresso
+    FROM carrinhos c
+    INNER JOIN carrinho_ingressos_cadastrados cic WHERE c.cart_session = " . $_SESSION['cart'] . " AND cic.id_ingresso = '$id'";
     $Cart = executarSQL($conexao, $Cart);
 
     $lines = mysqli_fetch_row($Cart);
