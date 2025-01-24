@@ -126,7 +126,6 @@ $exec = executarSQL($conexao, $sql);
             <tbody>
                 <?php if (mysqli_num_rows($exec)): ?>
                     <?php while ($results = mysqli_fetch_assoc($exec)) : ?>
-                        <?php if ($results['pago'] == 1) : ?>
                             <tr>
                                 <td><?= $results['id_ingresso']; ?></td>
                                 <td><?= $results['nome']; ?></td>
@@ -140,9 +139,6 @@ $exec = executarSQL($conexao, $sql);
                                     <td>Pago</td>
                                 <?php endif; ?>
                             </tr>
-                        <?php else: ?>
-                            <td colspan="7">Nenhum ingresso comprado.</td>
-                        <?php endif; ?>
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>

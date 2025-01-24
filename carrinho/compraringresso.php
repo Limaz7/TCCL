@@ -9,8 +9,6 @@ require '../rec-senha/PHPMailer/src/SMTP.php'; */
 
 session_start();
 
-var_dump($_POST);
-
 $id_user = $_SESSION['user'][0];
 $id_ingresso = $_POST['id_ingresso'];
 $qtd = $_POST['quantidade'];
@@ -27,6 +25,7 @@ $token = bin2hex(random_bytes(50));
 
 if ($qtd > $quant['estoque']) {
     header ("location: ../inicial.php");
+    exit();
 } else {
 
     $nova_qtd = $quant['estoque'] - $qtd;

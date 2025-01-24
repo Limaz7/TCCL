@@ -57,7 +57,8 @@ foreach ($postFilters as $index => $value) {
     foreach ($Cart as $Sh) {
     }
 
-    if ($lines == 0) {
+    if ($lines == 0 || empty($lines)) {
+
         $stock = $product_stock - 1;
 
         $token = bin2hex(random_bytes(10));
@@ -98,7 +99,7 @@ foreach ($postFilters as $index => $value) {
             echo json_encode($message);
             die();
         }
-    } else {
+    } else {        
 
         date_default_timezone_set('America/Sao_Paulo');
         $data = new DateTime('now');
@@ -117,7 +118,7 @@ foreach ($postFilters as $index => $value) {
             c.ingresso_valor = '$product_price',
             c.cart_total = '$value'
         WHERE c.id_carrinho = '$cart_id'
-        AND c.cart_session = " . $_SESSION['cart'];
+        AND c.cart_session = " . $_SESSION['cart'] . " AND c.id_usuario=" . $_SESSION['user'][0];
         $updateResult = executarSQL($conexao, $update);
 
         //Update no estoque desse produto

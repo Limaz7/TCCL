@@ -36,9 +36,20 @@ if (empty($_SESSION['cart']) || !$_SESSION['cart']) {
                         <?php endif; ?>
                         <li> <a class='white-text' href='inicial.php'>Tela inicial</a></li>
                         <li> <a class='white-text' href='Perfil/vizuPerfil.php'> Seu perfil </a> </li>
-                        <li> <a href="logout.php" class="white-text">
-                                <i class="material-icons">power_settings_new</i>
-                            </a></li>
+
+                        <?php $selectCart = "SELECT * FROM carrinhos WHERE id_usuario=" . $_SESSION['user'][0];
+                        $execSelCart = executarSQL($conexao, $selectCart);
+                        $resultSelCart = mysqli_fetch_row($execSelCart); ?>
+
+                        <?php if (!isset($resultSelCart)): ?>
+                            <li> <a href="logout.php" class="white-text">
+                                    <i class="material-icons">power_settings_new</i>
+                                </a></li>
+                        <?php else: ?>
+                            <li> <a href="logout.php" class="btn-floating disabled">
+                                    <i class="material-icons">power_settings_new</i>
+                                </a></li>
+                        <?php endif; ?>
 
                     <?php elseif (!empty($_SESSION['user'])): ?>
 

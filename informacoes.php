@@ -278,9 +278,25 @@
                                 <span class="desc-ing"><?= $ingressos['desc_ingresso']; ?></span>
                                 <input type="hidden" name="id_ingresso" value="<?= $ingressos['id_ingresso']; ?>">
                                 <input type="hidden" name="id_evento" value="<?= $ingressos['id_evento']; ?>">
-                                <a style="background: black; color: white;" class="waves-effect waves-light btn buy"
-                                    data-value="<?= $ingressos['nome_ingresso']; ?>" data-id="<?= $ingressos['id_evento']; ?>"
-                                    data-id-ing="<?= $ingressos['id_ingresso']; ?>">Adicionar ao carrinho</a>
+
+                                <?php if (isset($_SESSION['user'])) : ?>
+                                <?php $select = "SELECT * FROM carrinhos c INNER JOIN carrinho_ingressos_cadastrados cic
+                                ON c.id_carrinho = cic.id_carrinho WHERE cic.id_ingresso ='" . $ingressos['id_ingresso'] . "' AND c.id_usuario ='" . $usuario['id_usuario'] . "'";
+                                $execSel = executarSQL($conexao, $select);
+                                $resultSel = mysqli_fetch_row($execSel); ?>
+                                <?php endif; ?>
+
+                                <?php if (!isset($resultSel)): ?>
+
+                                    <a style="background: black; color: white;" class="waves-effect waves-light btn buy"
+                                        data-value="<?= $ingressos['nome_ingresso']; ?>" data-id="<?= $ingressos['id_evento']; ?>"
+                                        data-id-ing="<?= $ingressos['id_ingresso']; ?>">Adicionar ao carrinho</a>
+
+                                <?php else: ?>
+
+                                    <a class="btn disabled">Adicionar ao carrinho</a>
+
+                                <?php endif; ?>
                             </div>
                         <?php else: ?>
                             <?php if ($ingressos['tipo_pagamento'] == 'Pago'): ?>
