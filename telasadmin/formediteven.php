@@ -34,8 +34,15 @@ $dados = mysqli_fetch_assoc($resultado);
 </head>
 
 <style>
-    .card-panel span{
+    .card-panel span {
         font-size: 35px;
+    }
+
+    .buttons{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
     }
 </style>
 
@@ -59,14 +66,15 @@ $dados = mysqli_fetch_assoc($resultado);
                     Nome: <input type="text" value="<?= $dados['nome_evento']; ?>" name="nome" /> <br>
                     Descrição: <input type="text" value="<?= $dados['descricao']; ?>" name="desc" /><br>
                     Data: <input type="datetime-local" value="<?= $dados['data']; ?>" name="data" /> <br>
-                    CEP: <input type="number" value="<?= $dados['cep']; ?>" name="cep" /> <br>
                     Número do imóvel: <input type="number" value="<?= $dados['numero_residencial']; ?>" name="numImo" /> <br>
                     Rua: <input type="text" value="<?= $dados['rua']; ?>" name="rua" /> <br>
                     Bairro: <input type="text" value="<?= $dados['bairro']; ?>" name="bairro" /> <br>
                     Imagem: <input type="file" value="<?= $dados['imagem']; ?>" name="img" /> <br>
 
-                    <p><input class="btn" type="submit" value="Enviar"></p>
-
+                    <div class="buttons">
+                    <a href="listareventos.php" style="background-color:black; color: white;" class="waves-effect waves-light btn">voltar</a>
+                        <p><input class="btn" style="background-color: green" type="submit" value="Enviar"></p>
+                    </div>
                 </div>
             </main>
         </form>

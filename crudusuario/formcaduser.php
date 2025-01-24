@@ -56,7 +56,7 @@
                 <div class="input-field col s10 offset-s1">
                     <input id="email" type="email" name="email" class="validate" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required>
                     <label for="email">Email</label>
-                    <span class="helper-text" data-error="Campo com preenchimento obrigatório."></span>
+                    <span class="helper-text" data-error="Insira um email válido, como exemplo@dominio.com."></span>
                 </div>
 
                 <div class="input-field col s10 offset-s1">

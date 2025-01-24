@@ -63,7 +63,13 @@ $agora = $data->format('Y-m-d H:i:s');
         width: 100%;
     }
 
-    span {
+    .card-content span {
+        font-style: italic;
+        font-size: 12px;
+        color: grey;
+    }
+
+    .container .text-inic{
         font-size: 30px;
         font-weight: bold;
     }
@@ -76,7 +82,7 @@ $agora = $data->format('Y-m-d H:i:s');
 
     <main class="container">
 
-        <span>Eventos da cidade:</span>
+        <span class="text-inic">Eventos da cidade:</span>
 
         <div class="row">
 
@@ -93,10 +99,8 @@ $agora = $data->format('Y-m-d H:i:s');
                         </div>
                         <div class="card-content">
                             <p style="text-align: justify; font-size: 1vw;"><b><?= $evento['nome_evento']; ?></b></p>
-                            <b>
-                                <p>Entrada:</p>
-                            </b>
-                            <?= $evento['tipo_pagamento'] ?>
+                            <span> <?= $evento['rua']; ?>, <?= $evento['numero_residencial']; ?>, <?= $evento['bairro']; ?> - Entrada:
+                            <?= $evento['tipo_pagamento'] ?></span>
                         </div>
                         <div class="card-action">
                             <?php if (empty($_SESSION['user'])) : ?>

@@ -126,7 +126,7 @@ $exec = executarSQL($conexao, $ingressos);
 
                         <div id="modalEditarIngresso<?= $results['id_ingresso']; ?>" class="modal">
                             <div class="modal-content">
-                                <h4>Editar evento:</h4>
+                                <h4>Editar ingresso:</h4>
                                 <form action="../crudIngresso/editingresso.php" method="post">
 
                                     <input type="hidden" value="<?= $results['id_ingresso']; ?>" name="id" />

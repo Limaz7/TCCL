@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 22/01/2025 às 04:09
+-- Tempo de geração: 24/01/2025 às 04:02
 -- Versão do servidor: 8.3.0
 -- Versão do PHP: 8.2.18
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `carrinhos` (
   `pago` tinyint(1) NOT NULL,
   PRIMARY KEY (`id_carrinho`),
   KEY `fk_id_usuario_2` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `carrinho_ingressos_cadastrados` (
   PRIMARY KEY (`id_carrinho_ingressos_cadastrados`),
   KEY `fk_id_ingresso` (`id_ingresso`),
   KEY `fk_id_carrinho` (`id_carrinho`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `eventos` (
 --
 
 INSERT INTO `eventos` (`id_evento`, `id_usuario`, `nome_evento`, `produtora`, `descricao`, `data`, `rua`, `bairro`, `numero_residencial`, `tipo_pagamento`, `imagem`) VALUES
-(2, 2, 'LINKIN PARK - 2025', 'Eventos Uruguaiana', 'SHOW DO LINKIN PARK EM URUGUAIANA 2025\r\n\r\nPrepare-se para a noite mais inesquecível de 2025! O Linkin Park, uma das maiores bandas de rock do mundo, vai fazer história em Uruguaiana, trazendo seu som único para a cidade. Não perca a oportunidade de reviver os clássicos que marcaram gerações e de experimentar um show de altíssimo nível no coração do Rio Grande do Sul. A apresentação vai rolar no dia 15 de março de 2025, no Parque de Exposições de Uruguaiana, um espaço gigantesco que vai proporcionar uma experiência épica para todos os fãs.\r\n\r\nSe você é fã de músicas como \"In the End\", \"Numb\", \"Crawling\" e muitas outras, prepare-se para uma jornada sonora que vai fazer seu coração bater no ritmo da música! O show será um mix de nostalgia, energia e uma explosão de sons que só o Linkin Park sabe oferecer.\r\n\r\nAtrações\r\n\r\nLinkin Park\r\nReviva os maiores sucessos da banda em um show único, cheio de emoção e energia. Uma viagem no tempo para as melhores músicas do rock.\r\n\r\nConvidados Especiais\r\nBandas locais de Uruguaiana e regiões próximas, prometendo um espetáculo completo e recheado de surpresas.\r\n\r\nTIPOS DE INGRESSOS\r\n\r\nMeia-entrada\r\nDesconto garantido para estudantes, idosos, professores, pessoas com deficiência e acompanhantes, além de outros grupos previstos pela legislação.\r\n\r\nIngresso Social\r\nA entrada social pode ser adquirida mediante a doação de 1kg de alimento não perecível. O ingresso será validado com a entrega do alimento na entrada do evento.\r\n\r\nInteira\r\nIngressos para qualquer pessoa, sem restrições, para quem deseja curtir o show de forma completa.\r\n\r\nPONTOS DE VENDA\r\n\r\nVenda Online\r\nAdquira seus ingressos com segurança pelo BORA!.\r\n\r\nPontos de venda físicos\r\nLoja RockStore – Rua XV de Novembro, 1200 – Centro, Uruguaiana (Segunda a Sábado, das 10h às 18h).\r\nCentro Cultural Uruguaiana – Avenida Argentina, 400 – Centro, Uruguaiana (Diariamente, das 11h às 19h).\r\n\r\nSERVIÇO\r\n\r\nShow do Linkin Park em Uruguaiana 2025\r\nLocal: Saviana\r\nData: 22 de janeiro de 2025\r\nHorário: Abertura da casa às 18h, show às 20h\r\nClassificação: 16 anos (menores de 16 anos acompanhados dos responsáveis)\r\n\r\nPrepare-se para uma noite que vai ficar para sempre na memória de todos! Vem com a gente curtir a energia do Linkin Park em Uruguaiana!', '2025-01-22 02:10:00', 'José Garibaldi', 'Nova Esperança', '2233', 'Pago', '678e6682df4b8.jpg');
+(2, 2, 'LINKIN PARK - 2025', 'Eventos Uruguaiana', 'SHOW DO LINKIN PARK EM URUGUAIANA 2025\r\n\r\nPrepare-se para a noite mais inesquecível de 2025! O Linkin Park, uma das maiores bandas de rock do mundo, vai fazer história em Uruguaiana, trazendo seu som único para a cidade. Não perca a oportunidade de reviver os clássicos que marcaram gerações e de experimentar um show de altíssimo nível no coração do Rio Grande do Sul. A apresentação vai rolar no dia 15 de março de 2025, no Parque de Exposições de Uruguaiana, um espaço gigantesco que vai proporcionar uma experiência épica para todos os fãs.\r\n\r\nSe você é fã de músicas como \"In the End\", \"Numb\", \"Crawling\" e muitas outras, prepare-se para uma jornada sonora que vai fazer seu coração bater no ritmo da música! O show será um mix de nostalgia, energia e uma explosão de sons que só o Linkin Park sabe oferecer.\r\n\r\nAtrações\r\n\r\nLinkin Park\r\nReviva os maiores sucessos da banda em um show único, cheio de emoção e energia. Uma viagem no tempo para as melhores músicas do rock.\r\n\r\nConvidados Especiais\r\nBandas locais de Uruguaiana e regiões próximas, prometendo um espetáculo completo e recheado de surpresas.\r\n\r\nTIPOS DE INGRESSOS\r\n\r\nMeia-entrada\r\nDesconto garantido para estudantes, idosos, professores, pessoas com deficiência e acompanhantes, além de outros grupos previstos pela legislação.\r\n\r\nIngresso Social\r\nA entrada social pode ser adquirida mediante a doação de 1kg de alimento não perecível. O ingresso será validado com a entrega do alimento na entrada do evento.\r\n\r\nInteira\r\nIngressos para qualquer pessoa, sem restrições, para quem deseja curtir o show de forma completa.\r\n\r\nPONTOS DE VENDA\r\n\r\nVenda Online\r\nAdquira seus ingressos com segurança pelo BORA!.\r\n\r\nPontos de venda físicos\r\nLoja RockStore – Rua XV de Novembro, 1200 – Centro, Uruguaiana (Segunda a Sábado, das 10h às 18h).\r\nCentro Cultural Uruguaiana – Avenida Argentina, 400 – Centro, Uruguaiana (Diariamente, das 11h às 19h).\r\n\r\nSERVIÇO\r\n\r\nShow do Linkin Park em Uruguaiana 2025\r\nLocal: Saviana\r\nData: 22 de janeiro de 2025\r\nHorário: Abertura da casa às 18h, show às 20h\r\nClassificação: 16 anos (menores de 16 anos acompanhados dos responsáveis)\r\n\r\nPrepare-se para uma noite que vai ficar para sempre na memória de todos! Vem com a gente curtir a energia do Linkin Park em Uruguaiana!', '2025-01-29 02:10:00', 'José Garibaldi', 'Nova Esperança', '2233', 'Pago', '678e6682df4b8.jpg');
 
 -- --------------------------------------------------------
 
@@ -112,9 +112,9 @@ CREATE TABLE IF NOT EXISTS `ingressos_cadastrados` (
 --
 
 INSERT INTO `ingressos_cadastrados` (`id_ingresso`, `id_evento`, `nome_ingresso`, `desc_ingresso`, `valor`, `estoque`) VALUES
-(1, 2, 'Pista - Inteira', 'Perto do palco', 200.00, 10),
-(2, 2, 'Pista - Inteira | Social', 'Perto do palco', 150.00, 10),
-(3, 2, 'Pista - Meia', 'Perto do palco', 100.00, 10);
+(1, 2, 'Pista - Inteira', 'Perto do palco', 200.00, 8),
+(2, 2, 'Pista - Inteira | Social', 'Perto do palco', 150.00, 8),
+(3, 2, 'Pista - Meia', 'Perto do palco', 100.00, 14);
 
 -- --------------------------------------------------------
 
@@ -171,16 +171,18 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `cod_ativacao` int NOT NULL,
   PRIMARY KEY (`id_usuario`),
   KEY `fk_tipo_usuario` (`tipo_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Despejando dados para a tabela `usuarios`
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `nome`, `email`, `senha`, `cadastro`, `tipo_cadastro`, `tipo_usuario`, `cod_ativacao`) VALUES
-(1, 'adm', 'adm@example.com', '$argon2i$v=19$m=65536,t=4,p=1$RUFZNmlsSnpzemVFb3FyRQ$2s7vKXgXySkHr9driGyHvvHDG1LGTJyXXvqii/+Mhyk', '0', 'cpf', 1, 1),
+(1, 'adm', 'lazaro.2022315968@aluno.iffar.edu.br', '$argon2i$v=19$m=65536,t=4,p=1$RUFZNmlsSnpzemVFb3FyRQ$2s7vKXgXySkHr9driGyHvvHDG1LGTJyXXvqii/+Mhyk', '0', 'cpf', 1, 1),
 (2, 'Eventos Uruguaiana', 'eventurug@example.com', '$argon2i$v=19$m=65536,t=4,p=1$WWFwa0NvdEd4T2RjTDltRQ$/g9pQ1PbOm9pisk3QtAJW6nbfLEqcB2ufv5m/TWQ/sM', '11111111111111', 'cnpj', 3, 1),
-(3, 'Lázaro', 'lazaro.2022315968@aluno.iffar.edu.br', '$argon2i$v=19$m=65536,t=4,p=1$cjRobjlDUzJNd3VQOHdXMQ$RtKeF2M4TquNl8/kBwG0yyOl83NyGz2x23T3hgl1YfE', '11111111111', 'cpf', 2, 1);
+(8, 'Teste', 'aleatoriooo888@gmail.com', '$argon2i$v=19$m=65536,t=4,p=1$aUxsSFFRN2haWTMzbjMuTQ$Et895Nw22E9LIvvXnsEgTq1lIF0G6nWRxqIArf+qOEc', '11111111111111', 'cnpj', 3, 1),
+(9, 'Joao', 'joao@example.com', '$argon2i$v=19$m=65536,t=4,p=1$L01MOVhPTFFnWk05cWZlTg$CfnJk1q2NkbeXiai12pOVZ7fsKBGV0f0QZ7SIj6/Ves', '11111111111', 'cpf', 2, 1),
+(10, 'maria', 'maria@example.com', '$argon2i$v=19$m=65536,t=4,p=1$SXVLTzYxQ29zYXBUQ2dxaQ$P4dXbMZy5nloKRMuwPM0FcZFYywActUtn+l0LdMrosM', '11111111111', 'cpf', 2, 1);
 
 --
 -- Restrições para tabelas despejadas

@@ -13,7 +13,6 @@ $postFilters = array_map("strip_tags", $post);
 
 foreach ($postFilters as $index => $value) {
 }
-var_dump($index, $value);
 usleep(50000);
 
 if (!$_SESSION['cart'] || empty($_SESSION['cart'])) {
@@ -42,7 +41,7 @@ $lines = mysqli_fetch_row($cart);
 
 if ($lines == 0) {
     $message = [
-        'message' => "Este produto jao foi removido do pedido",
+        'message' => "Este produto ja foi removido do pedido",
         'status' => 'info',
         'redirect' => ''
     ];
@@ -84,10 +83,13 @@ if ($lines == 0) {
         $update = "UPDATE ingressos_cadastrados SET estoque = $stock WHERE id_ingresso = '$product_id'";
         executarSQL($conexao, $update);
 
-        $delete = "DELETE FROM carrinhos WHERE id_carrinho = $index";
-        executarSQL($conexao, $delete);
+        $deleteCIC = "DELETE FROM carrinho_ingressos_cadastrados WHERE id_carrinho = $index";
+        $execDelCIC = executarSQL($conexao, $deleteCIC);
 
-        if ($delete) {
+        $delete = "DELETE FROM carrinhos WHERE id_carrinho = $index";
+        $execDelCart = executarSQL($conexao, $delete);
+
+        if ($execDelCart && $execDelCIC) {
             $message = [
                 'message' => "O produto foi removido do carrinho",
                 'status' => 'success',

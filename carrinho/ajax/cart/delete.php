@@ -27,7 +27,7 @@ if ($_POST) {
          FROM carrinhos c 
          INNER JOIN carrinho_ingressos_cadastrados cic 
          ON cic.id_carrinho = c.id_carrinho
-         WHERE c.cart_session = " . $_SESSION['cart'] . " AND c.id_carrinho = $index";
+         WHERE c.cart_session = " . $_SESSION['cart'] . " OR c.id_carrinho = $index";
     $cart = executarSQL($conexao, $cart);
 
     foreach ($cart as $Sh) {

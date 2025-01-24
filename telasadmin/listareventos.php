@@ -74,7 +74,7 @@ $result = executarSQL($conexao, $sql);
                         <td><img src="../imagens/<?= $arq ?>" height="55"></td>
                         <td><?= $results['nome_evento'] ?></td>
                         <td><?= $results['produtora'] ?></td>
-                        <td><?= $results['descricao'] ?></td>
+                        <td><?= strlen($results['descricao']) > 100 ? substr($results['descricao'], 0, 100) . '...' : $results['descricao'] ?></td>
                         <td><?= $results['data'] ?></td>
                         <td><?= $results['rua'] ?></td>
                         <td><?= $results['bairro'] ?></td>

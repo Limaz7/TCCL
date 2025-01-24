@@ -10,7 +10,9 @@ include('../conexao.php');
 $conexao = conectar();
 
 $sql = "SELECT * FROM carrinhos c INNER JOIN
-        usuarios u ON u.id_usuario = c.id_usuario";
+        usuarios u ON u.id_usuario = c.id_usuario
+        INNER JOIN carrinho_ingressos_cadastrados cic
+        ON cic.id_carrinho = c.id_carrinho";
 $result = executarSQL($conexao, $sql);
 
 ?>
@@ -55,8 +57,8 @@ $result = executarSQL($conexao, $sql);
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Token</th>
                     <th>Usuário</th>
+                    <th>Token</th>
                     <th>Quantidade</th>
                     <th>Data</th>
                     <th>Confirmação de compra</th>
@@ -66,8 +68,8 @@ $result = executarSQL($conexao, $sql);
                 <?php foreach ($result as $results) { ?>
                     <tr>
                         <td><?= $results['id_ingresso'] ?></td>
-                        <td><?= $results['ticket'] ?></td>
                         <td><?= $results['nome'] ?></td>
+                        <td><?= $results['ticket'] ?></td>
                         <td><?= $results['quantidade'] ?></td>
                         <td><?= $results['data'] ?></td>
                         <?php if($results['pago'] == 0) : ?>

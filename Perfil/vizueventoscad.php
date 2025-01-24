@@ -184,7 +184,7 @@ $dados_user = mysqli_fetch_assoc($result1);
 
                                     <div class="modal-footer">
                                         <a href="#!" class="modal-close waves-effect waves-red btn-flat">Cancelar</a>
-                                        <button class="waves-effect waves-green btn-flat">Cadastrar</button>
+                                        <button class="waves-effect waves-green btn-flat">Editar</button>
                                     </div>
                                 </form>
                             </div>

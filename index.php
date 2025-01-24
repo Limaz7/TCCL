@@ -61,7 +61,7 @@
                     <span class="helper-text" data-error="Campo com preenchimento obrigatório."></span>
                 </div>
 
-                <p><a href="inicial.php">Voltar</a></p>
+                <p><a href="inicial.php">Acessar a tela inicial</a></p>
                 <span class="text-cad-rec">Não tem conta?</span><a href="crudusuario/formcaduser.php">cadastre-se!</a><br>
                 <span class="text-cad-rec">Esqueceu a senha da sua conta?</span><a href="rec-senha/form_rec_senha.php">Recupere-a </a><br>
 

@@ -63,7 +63,7 @@ if (empty($_SESSION['cart']) || !$_SESSION['cart']) {
                                 <li id="counter"><a href="carrinho/cart.php"><i class="material-icons qtd" style="color: white;">shopping_cart</i></a></li>
                             <?php endif; ?>
                             <?php if ($dados['tipo_usuario'] == 3) : ?>
-                            <li><a style="background: white; color: black;" class="waves-effect waves-light btn modal-trigger" href='#modalCadastroIngresso'>Cadastrar ingressos</a></li>
+                                <li><a style="background: white; color: black;" class="waves-effect waves-light btn modal-trigger" href='#modalCadastroIngresso'>Cadastrar ingressos</a></li>
                             <?php endif; ?>
                             <li> <a class='white-text' href='inicial.php'>Tela inicial</a></li>
                             <li> <a class='white-text' href='Perfil/vizuPerfil.php'> Seu perfil </a> </li>
@@ -82,7 +82,7 @@ if (empty($_SESSION['cart']) || !$_SESSION['cart']) {
 
                     <?php endif; ?>
 
-                    <?php if(empty($_SESSION['user'])): ?> 
+                    <?php if (empty($_SESSION['user'])): ?>
                         <li> <a style="background-color: white; color: black;" class='waves-effect waves-light btn' href='index.php'>Login</a></li>
                         <li> <a class='white-text' href='inicial.php'>Tela inicial</a></li>
                     <?php endif; ?>

@@ -8,7 +8,7 @@
     INNER JOIN ingressos_cadastrados ic
     ON ic.id_ingresso = cic.id_ingresso
     INNER JOIN eventos e ON e.id_evento = ic.id_evento
-    WHERE cart_session = '" . $_SESSION['cart'] . "' AND pago = 0";
+    WHERE cart_session = '" . $_SESSION['cart'] . "' OR pago = 0 AND c.id_usuario=" . $_SESSION['user'][0];
     $Cart = executarSQL($conexao, $Cart);   
 
     $lines = mysqli_num_rows($Cart);
