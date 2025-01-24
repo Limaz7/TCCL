@@ -49,7 +49,8 @@ foreach ($postFilters as $index => $value) {
     //Verifica se o produto foi ou nao cadastrado para esta sessão
     $Cart = "SELECT c.id_carrinho, c.cart_session, c.quantidade, cic.id_ingresso
     FROM carrinhos c
-    INNER JOIN carrinho_ingressos_cadastrados cic WHERE c.cart_session = " . $_SESSION['cart'] . " AND cic.id_ingresso = '$id'";
+    INNER JOIN carrinho_ingressos_cadastrados cic 
+    ON cic.id_carrinho = c.id_carrinho WHERE c.cart_session = " . $_SESSION['cart'] . " AND cic.id_ingresso = '$id' AND c.id_usuario=" . $_SESSION['user'][0];
     $Cart = executarSQL($conexao, $Cart);
 
     $lines = mysqli_fetch_row($Cart);
@@ -99,7 +100,10 @@ foreach ($postFilters as $index => $value) {
             echo json_encode($message);
             die();
         }
-    } else {        
+    } else {
+
+        //verificar se tem 
+        $select = "SELECT * FROM WHERE ";
 
         date_default_timezone_set('America/Sao_Paulo');
         $data = new DateTime('now');
