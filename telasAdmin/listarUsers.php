@@ -2,9 +2,9 @@
 
 session_start();
 
-if ($_SESSION['user'][2] == 3 || $_SESSION['user'][2] == 2) {
+if ($_SESSION['user'][2] == 3 || $_SESSION['user'][2] == 2 || !isset($_SESSION['user'])) {
     session_destroy();
-    header('location: ../index.php');
+    header('location: ../telalogin.php');
     die();
 }
 

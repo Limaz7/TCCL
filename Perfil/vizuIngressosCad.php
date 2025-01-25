@@ -6,7 +6,7 @@ $conexao = conectar();
 session_start();
 
 if (!isset($_SESSION['user'])) {
-    header('location: index.php');
+    header('location: ../telalogin.php');
 }
 
 $ingressos = "SELECT * FROM ingressos_cadastrados ic INNER JOIN eventos e

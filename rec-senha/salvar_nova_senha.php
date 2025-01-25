@@ -61,6 +61,6 @@ if ($resultado == null) {
 
     echo "Nova senha cadastrada com sucesso! Faça o login
     para acessar o sistema.<br>";
-    echo "<a href='../index.php'>Acessar Sistema</a>";
+    echo "<a href='../telalogin.php'>Acessar Sistema</a>";
  }
 ?>

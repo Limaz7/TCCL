@@ -6,7 +6,7 @@ include "../conexao.php";
 $conexao = conectar();
 
 if (!isset($_SESSION)) {
-    header("location: ../index.php");
+    header("location: ../telalogin.php");
     die();
 }
 

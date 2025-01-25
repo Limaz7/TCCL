@@ -15,9 +15,16 @@
 </head>
 
 <style>
-    .card-panel span{
+    .card-panel span {
         font-size: 35px;
         text-align: center;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
     }
 </style>
 
@@ -73,10 +80,9 @@
                     <span class="helper-text" data-error="Insira um CPF no formato 000.000.000-00 ou CNPJ no formato 00.000.000/0000-00."></span>
                 </div>
 
-                <div class="col s12">
-                    <p class="center-align">
-                        <button class="btn waves-effect waves-light black lighten-3" type="submit" name="action">Cadastrar
-                    </p>
+                <div class="buttons">
+                <a style="background: black; color: white;" class="waves-effect waves-light btn" href="../telalogin.php">voltar</a>
+                    <button class="btn waves-effect waves-light lighten-3" style="background-color: green" type="submit" name="action">Cadastrar
                 </div>
             </div>
         </form>

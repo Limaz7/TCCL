@@ -101,7 +101,7 @@ if ($eoq == 3) {
                 0 => 'Usuário cadastrado com sucesso!',
                 1 => '#558b2f light-green darken-3'
             ];
-            header('location: ../index.php');
+            header('location: ../telalogin.php');
             exit();
         } else {
             $_SESSION['mensagem'] = [
@@ -125,7 +125,7 @@ if ($eoq == 3) {
             0 => 'Usuário cadastrado com sucesso!',
             1 => '#558b2f light-green darken-3'
         ];
-        header('location: ../index.php');
+        header('location: ../telalogin.php');
         exit();
     } else {
         $_SESSION['mensagem'] = [

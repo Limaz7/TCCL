@@ -9,6 +9,15 @@
     <title>Formulário de Recuperação de Senha</title>
 </head>
 
+<style>
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+    }
+</style>
+
 <body>
     <main class="container">
         Digite o endereço de e-mail verificado da sua conta de usuário
@@ -16,8 +25,10 @@
         <div class="card-panel">
             <form action="recuperar.php" method="post">
                 <label>Email: <input type="email" name="email"></label><br><br>
-                <input type="submit" value="Enviar email de recuperação"> <br><br>
-                <a href="../index.php">Voltar</a>
+                <div class="buttons">
+                    <a href="../telalogin.php" style="background-color: black;" class="btn waves-effect waves-light lighten-3">Voltar</a>
+                    <button type="submit" style="background-color: green" class="btn waves-effect waves-light lighten-3">Enviar email de recuperação</button>
+                </div>
             </form>
         </div>
     </main>

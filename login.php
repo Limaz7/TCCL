@@ -20,7 +20,7 @@ if (!isset($dados['email'])) {
     ];
 
 
-    header('location: index.php');
+    header('location: telalogin.php');
     exit();
 } else {
 
@@ -62,7 +62,7 @@ if (!isset($dados['email'])) {
             ];
 
 
-            header('location: inicial.php');
+            header('location: index.php');
             exit();
         }
         if ($dados['tipo_usuario'] == 1 and $dados['cod_ativacao'] == 1) {
@@ -83,6 +83,6 @@ if (!isset($dados['email'])) {
         ];
 
 
-        header('location: index.php');
+        header('location: telalogin.php');
     }
 }
