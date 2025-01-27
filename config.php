@@ -5,8 +5,8 @@ $config = [
     'user' => 'root',
     'pass' => '',
     'bd' => 'tcc2',
-    'email' => 'lazaro.2022315968@aluno.iffar.edu.br',
-    'senha_email' => 'bfzwwodwbwwysnfj'
+    'email' => 'bora.sistema00@gmail.com',
+    'senha_email' => 'pncyifdtwyyssuij'
 ];
 
 ?>

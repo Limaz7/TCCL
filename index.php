@@ -69,9 +69,19 @@ $agora = $data->format('Y-m-d H:i:s');
         color: grey;
     }
 
-    .container .text-inic{
+    .container .text-inic {
         font-size: 30px;
         font-weight: bold;
+    }
+
+    body {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+    }
+
+    main {
+        flex: 1 0 auto;
     }
 </style>
 
@@ -100,7 +110,7 @@ $agora = $data->format('Y-m-d H:i:s');
                         <div class="card-content">
                             <p style="text-align: justify; font-size: 1vw;"><b><?= $evento['nome_evento']; ?></b></p>
                             <span> <?= $evento['rua']; ?>, <?= $evento['numero_residencial']; ?>, <?= $evento['bairro']; ?> - Entrada:
-                            <?= $evento['tipo_pagamento'] ?></span>
+                                <?= $evento['tipo_pagamento'] ?></span>
                         </div>
                         <div class="card-action">
                             <?php if (empty($_SESSION['user'])) : ?>
@@ -110,7 +120,7 @@ $agora = $data->format('Y-m-d H:i:s');
                                     <a class="btn disabled">Mais informações</a>
                                 <?php else: ?>
                                     <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href='informacoes?id_evento=<?= $evento["id_evento"] ?>'>Mais informações</a>
-                                <?php endif; ?> 
+                                <?php endif; ?>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -174,9 +184,23 @@ $agora = $data->format('Y-m-d H:i:s');
         </div>
 
 
-
-
     </main>
+
+    <footer class="black page-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Bora!</h5>
+                    <p class="grey-text text-lighten-4">Contato: lazaro.2022315968@aluno.iffar.edu.br</p>
+                </div>
+            </div>
+        </div>
+        <div class=" footer-copyright">
+            <div class="container center">
+                © 2025 by Lázaro
+            </div>
+        </div>
+    </footer>
 
 
 </body>

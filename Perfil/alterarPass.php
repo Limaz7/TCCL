@@ -27,7 +27,7 @@ if (password_verify($senhaAtual, $dados['senha'])) {
             ];
         } else {
             $_SESSION['mensagem'] = [
-                0 => 'Não foi possível alterar sua senha.',
+                0 => 'Não foi possível alterar sua senha!',
                 1 => '#c62828 red darken-3'
             ];
         }
@@ -45,8 +45,8 @@ if (password_verify($senhaAtual, $dados['senha'])) {
     die();
 } else {
     $_SESSION['mensagem'] = [
-        0 => 'A senha atual esta incorreta! Tente mudar sua senha novamente.',
+        0 => 'A senha atual está incorreta! Tente novamente alterar sua senha.',
         1 => '#c62828 red darken-3'
     ];
-    header('location: formAlterarSenha.php');
+    header('location: formAlterarPass.php');
 }

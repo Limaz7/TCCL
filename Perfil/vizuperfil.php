@@ -128,7 +128,7 @@ $maxHeight = ($dados['tipo_usuario'] == 2) ? "105px" : "190px";
                 </label>
                 <div class="buttons">
                     <a style="background: #c41707; color: white;" class="waves-effect waves-light btn btn-exc" href="excluirPerfil.php">Excluir seu perfil</a>
-                    <button type="submit" style="background-color: green; color: white;" class="waves-effect waves-light btn">Enviar</button>
+                    <button type="submit" class="green waves-effect waves-light btn">Enviar</button>
                 </div>
             </form>
         </div>

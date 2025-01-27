@@ -11,6 +11,7 @@ $conexao = conectar();
 
 $selectIngComp = "SELECT  cic.id_ingresso, 
                 c.id_carrinho,
+                ia.nome_ingresso,
                 c.cart_session,
                 c.ticket,
                 c.id_usuario,
@@ -76,6 +77,7 @@ $exec = executarSQL($conexao, $selectIngComp);
         margin-right: 20px;
         /* Espaço entre o side e o card */
         margin-top: 15.80%;
+        max-height: 105px;
     }
 
     .side a {
@@ -124,13 +126,14 @@ $exec = executarSQL($conexao, $selectIngComp);
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Ingresso</th>
                     <th>Evento</th>
                     <th>Ticket</th>
                     <th>Usuário</th>
                     <th>Quantidade</th>
                     <th>Data</th>
                     <th>Confirmação de compra</th>
-                    <th>Cancelar</th>
+                    <th>Opções</th>
                 </tr>
             </thead>
             <tbody>
@@ -138,6 +141,7 @@ $exec = executarSQL($conexao, $selectIngComp);
                     <?php while ($results = mysqli_fetch_assoc($exec)) : ?>
                         <tr>
                             <td><?= $results['id_ingresso']; ?></td>
+                            <td><?= $results['nome_ingresso']; ?></td>
                             <td><?= $results['nome_evento']; ?></td>
                             <td><?= $results['ticket']; ?></td>
                             <td><?= $results['nome']; ?></td>
@@ -154,7 +158,7 @@ $exec = executarSQL($conexao, $selectIngComp);
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="8">Nenhuma compra realizada.</td>
+                        <td colspan="8">Não foi realizada nenhuma compra.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>

@@ -61,7 +61,7 @@
             position: relative;
             margin-inline-start: 17%;
             color: white;
-            font-size: 6vw;
+            font-size: 6rem;
             top: 25%;
         }
 
@@ -236,7 +236,7 @@
         <hr>
 
 
-        <<main class="container">
+        <main class="container">
             <div class="event-info">
                 <!-- Descrição do evento -->
                 <div class="description">
@@ -246,7 +246,6 @@
 
                 <?php if (!empty($_SESSION['user'])) : ?>
                     <?php if ($usuario['tipo_usuario'] == 3 && $evento['id_usuario'] == $_SESSION['user'][0]) : ?>
-
 
                         <div id="modalCadastroIngresso" class="modal">
                             <div class="modal-content">
@@ -280,11 +279,12 @@
                                 <input type="hidden" name="id_evento" value="<?= $ingressos['id_evento']; ?>">
 
                                 <?php if (isset($_SESSION['user'])) : ?>
-                                <?php $select = "SELECT * FROM carrinhos c INNER JOIN carrinho_ingressos_cadastrados cic
+                                    <?php $select = "SELECT * FROM carrinhos c INNER JOIN carrinho_ingressos_cadastrados cic
                                 ON c.id_carrinho = cic.id_carrinho WHERE cic.id_ingresso ='" . $ingressos['id_ingresso'] . "' AND c.id_usuario ='" . $usuario['id_usuario'] . "'";
-                                $execSel = executarSQL($conexao, $select);
-                                $resultSel = mysqli_fetch_row($execSel); ?>
+                                    $execSel = executarSQL($conexao, $select);
+                                    $resultSel = mysqli_fetch_row($execSel); ?>
                                 <?php endif; ?>
+
 
                                 <?php if (!isset($resultSel)): ?>
 
@@ -311,6 +311,23 @@
                     <?php endwhile; ?>
                 </div>
             </div>
+        </main>
+
+        <footer class="black page-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h5 class="white-text">Bora!</h5>
+                        <p class="grey-text text-lighten-4">Contato: lazaro.2022315968@aluno.iffar.edu.br</p>
+                    </div>
+                </div>
+            </div>
+            <div class=" footer-copyright">
+                <div class="container center">
+                    © 2025 by Lázaro
+                </div>
+            </div>
+        </footer>
     </body>
 
     <script src="carrinho/js/jquery.js"></script>
@@ -322,6 +339,7 @@
 
     <script>
         var isUserLoggedIn = <?= isset($_SESSION['user']) ? 'true' : 'false'; ?>;
+        var tipoUser = <?= $_SESSION['user'][2]; ?>;
     </script>
 
     <script>

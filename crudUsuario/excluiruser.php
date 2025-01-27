@@ -35,7 +35,7 @@ if ($dados['tipo_usuario'] == 2) {
         $_SESSION['mensagem'][0] = "Usuário excluido com sucesso!";
         $_SESSION['mensagem'][1] = "#558b2f light-green darken-3";
     } else {
-        $_SESSION['mensagem'][0] = "Não foi possivel excluir o usuario!";
+        $_SESSION['mensagem'][0] = "Não foi possível excluir o usuário!";
         $_SESSION['mensagem'][1] = "#c62828 red darken-3";
     }
 
@@ -56,7 +56,7 @@ if ($dados['tipo_usuario'] == 2) {
         $_SESSION['mensagem'][0] = "Usuário excluido com sucesso!";
         $_SESSION['mensagem'][1] = "#558b2f light-green darken-3";
     } else {
-        $_SESSION['mensagem'][0] = "Não foi possivel excluir o usuario!";
+        $_SESSION['mensagem'][0] = "Não foi possível excluir o usuario!";
         $_SESSION['mensagem'][1] = "#c62828 red darken-3";
     }
 

@@ -31,7 +31,7 @@ while ($dados = mysqli_fetch_assoc($result)) {
 
     if ($nome == $dados['nome']) {
         $_SESSION['mensagem'] = [
-            0 => 'Já existe um usuário com esse nome! Tente se cadastrar com outro nome.',
+            0 => 'O nome de usuário já existe! Por favor, tente novamente utilizando outro nome.',
             1 => '#c62828 red darken-3'
         ];
         header('location: formcaduser.php');
@@ -40,7 +40,16 @@ while ($dados = mysqli_fetch_assoc($result)) {
 
     if ($email == $dados['email']) {
         $_SESSION['mensagem'] = [
-            0 => 'O email já existe, tente se cadastrar com outro email.',
+            0 => 'Este e-mail já está cadastrado! Por favor, tente novamente utilizando outro e-mail.',
+            1 => '#c62828 red darken-3'
+        ];
+        header('location: formcaduser.php');
+        die();
+    }
+
+    if ($newcadastro == $dados['cadastro']) {
+        $_SESSION['mensagem'] = [
+            0 => 'Este CPF/CNPJ já está cadastrado! Por favor, tente novamente utilizando outro CPF/CNPJ.',
             1 => '#c62828 red darken-3'
         ];
         header('location: formcaduser.php');
@@ -50,6 +59,15 @@ while ($dados = mysqli_fetch_assoc($result)) {
 
 
 if ($eoq == 3) {
+
+    if (strlen($newcadastro) < 14) {
+        $_SESSION['mensagem'] = [
+            0 => 'Você está tentando se cadastrar como empresa utilizando um CPF! Por favor, tente novamente utilizando o cadastro correto.',
+            1 => '#c62828 red darken-3'
+        ];
+        header('location: formcaduser.php');
+        die();
+    }
 
     $mail = new PHPMailer(true);
 
@@ -86,9 +104,9 @@ if ($eoq == 3) {
         $mail->isHTML(true);        //Set email format to HTML
         $mail->Subject = 'Validar a empresa';
         $mail->Body = 'Olá!<br>
-        Há uma solicitação de entrada em analise.
-        Para validar ou negar sua entrada, clique no link abaixo:<br>
-        <a href="http://' . $_SERVER['SERVER_NAME'] . '/tccl/index.php">Validar</a><br><br>';
+Há uma solicitação de entrada em análise.<br>
+Para validar ou negar a solicitação, clique no link abaixo:<br>
+        <a href="http://' . $_SERVER['SERVER_NAME'] . '/tccl/telalogin.php">Link</a><br><br>';
 
         $mail->send();
 
@@ -116,6 +134,17 @@ if ($eoq == 3) {
           Mailer Error: {$mail->ErrorInfo}";
     }
 } elseif ($eoq == 2) {
+
+
+    if (strlen($newcadastro) > 11) {
+        $_SESSION['mensagem'] = [
+            0 => 'Você está tentando se cadastrar como participante utilizando um CNPJ! Por favor, tente novamente utilizando o cadastro correto.',
+            1 => '#c62828 red darken-3'
+        ];
+        header('location: formcaduser.php');
+        die();
+    }
+
     $sql = "INSERT INTO usuarios (nome, email, senha, cadastro, tipo_cadastro, tipo_usuario, cod_ativacao) 
     VALUES ('$nome', '$email', '$hash','$newcadastro', 'cpf', '$eoq', '1')";
     $resultInsert = executarSQL($conexao, $sql);
@@ -129,7 +158,7 @@ if ($eoq == 3) {
         exit();
     } else {
         $_SESSION['mensagem'] = [
-            0 => 'Não foi possível cadastrar o usuário',
+            0 => 'Não foi possível cadastrar o usuário. Por favor, tente novamente.',
             1 => '#c62828 red darken-3'
         ];
         header('location: formcaduser.php');

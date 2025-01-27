@@ -46,13 +46,13 @@ if ($execUpdate) {
 
         $_SESSION['user'][1] = $updatedUser['nome'];
 
-        $_SESSION['mensagem'][0] = "Perfil atualizado com sucesso!";
+        $_SESSION['mensagem'][0] = "Perfil editado com sucesso!";
         $_SESSION['mensagem'][1] = "#558b2f light-green darken-3";
 
         header('location: vizuperfil.php');
         die();
 } else {
-        $_SESSION['mensagem'][0] = "Não foi possivel atualizar o perfil!";
+        $_SESSION['mensagem'][0] = "Não foi possível editar o perfil. Por favor, tente novamente.";
         $_SESSION['mensagem'][1] = "#c62828 red darken-3";
         header('location: vizuperfil.php');
         die();

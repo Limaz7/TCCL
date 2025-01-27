@@ -15,6 +15,30 @@
 </head>
 
 <style>
+    /* Tornar o body e html com altura total */
+    body,
+    html {
+        height: 100%;
+        margin: 0;
+    }
+
+    /* Centralizar o conteúdo dentro do main */
+    main.container {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        /* Usa toda a altura da tela */
+        right: 5%;
+    }
+
+    .card-panel {
+        width: 190%;
+        /* Ajuste o tamanho do card conforme necessário */
+        padding: 20px;
+    }
+
     .card-panel span {
         font-size: 35px;
         text-align: center;
@@ -31,7 +55,7 @@
 <body>
 
 
-    <div class="container">
+    <main class="container">
         <form action="cadastrouser.php" method="post">
             <br>
 
@@ -48,7 +72,7 @@
 
                         <label>
                             <input class="with-gap" name="eoq" value="2" type="radio" />
-                            <span>Pessoa</span>
+                            <span>Participante</span>
                         </label>
                     </p>
                 </div>
@@ -81,12 +105,12 @@
                 </div>
 
                 <div class="buttons">
-                <a style="background: black; color: white;" class="waves-effect waves-light btn" href="../telalogin.php">voltar</a>
-                    <button class="btn waves-effect waves-light lighten-3" style="background-color: green" type="submit" name="action">Cadastrar
+                    <a style="background: black; color: white;" class="waves-effect waves-light btn" href="../telalogin.php">voltar</a>
+                    <button class="green waves-effect waves-light btn" type="submit" name="action">Cadastrar</button>
                 </div>
             </div>
         </form>
-    </div>
+    </main>
 
 
 </body>

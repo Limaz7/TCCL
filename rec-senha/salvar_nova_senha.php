@@ -13,10 +13,11 @@ $sql = "SELECT * FROM recuperar_senha WHERE email='$email' AND token='$token'";
 $resultado = executarSQL($conexao, $sql);
 $recuperar = mysqli_fetch_assoc($resultado);
 if ($resultado == null) {
-    echo "Email ou token incorretos. Tente fazer um novo pedido
-    de recuperação de senha.";
-    echo "<a href='form_rec_senha.php'>Voltar</a>";
-    die();
+    $_SESSION['mensagem'] = [
+        0 => 'E-mail ou token incorretos. Por favor, tente fazer um novo pedido de recuperação de senha.',
+        1 => '#c62828 red darken-3'
+    ];
+    header('location: form_rec_senha.php');
 } else {
     // verificar a validade do pedido (data_criacao)
     // verificar se o link ja foi usado
@@ -30,37 +31,53 @@ if ($resultado == null) {
     $dataExpiracao = date_add($data_criacao, $UmDia);
 
     if ($data > $dataExpiracao) {
-        echo "Essa solicitação de recuperação de senha expirou!
-        Faça um novo pedido de recuperação de senha.";
-        echo "<a href='form_rec_senha.php'>Voltar</a>";
+        $_SESSION['mensagem'] = [
+            0 => 'Esta solicitação de recuperação de senha expirou. Por favor, faça um novo pedido de recuperação.',
+            1 => '#c62828 red darken-3'
+        ];
+        header('location: form_rec_senha.php');
         die();
     }
 
-    if ($recuperar['usado'] == 1){
-        echo "Esse pedido de recuperação de senha já foi utilizado
-        anteriomente! Para recuperar a senha faça um novo pedido
-        de recuperação de senha";
-        echo "<a href='form_rec_senha.php'>Voltar</a>";
-        die();
-    } 
+    if ($recuperar['usado'] == 1) {
+        $_SESSION['mensagem'] = [
+            0 => 'Este pedido de recuperação de senha já foi utilizado anteriormente. Para recuperar sua senha, faça um novo pedido.',
+            1 => '#c62828 red darken-3'
+        ];
+        header('location: form_rec_senha.php');
+    }
 
-    if ($senha != $repetirSenha){
-        echo "A senha que você digitou é diferente de senha que você 
-        digitou no repetir senha. Por favor tente novamente!";
-        echo "<a href='nova_senha.php'>Voltar</a>";
+    if ($senha != $repetirSenha) {
+        $_SESSION['mensagem'] = [
+            0 => 'As senhas não coincidem. Tente novamente.',
+            1 => '#c62828 red darken-3'
+        ];
+        header('location: form_rec_senha.php');
         die();
     }
 
-    
-    $sql2 = "UPDATE usuarios SET senha = '$hash' 
+
+    $updateUser = "UPDATE usuarios SET senha = '$hash' 
              WHERE email = '$email'";
-    executarSQL($conexao, $sql2);
-    $sql3 = "UPDATE recuperar_senha SET usado=1 
+    $execUpdtUser = executarSQL($conexao, $updateUser);
+    $updateRecPass = "UPDATE recuperar_senha SET usado=1 
              WHERE email='$email' AND token='$token'";
-    executarSQL($conexao, $sql3);
+    $execUpdtRecPass = executarSQL($conexao, $updateRecPass);
 
-    echo "Nova senha cadastrada com sucesso! Faça o login
-    para acessar o sistema.<br>";
-    echo "<a href='../telalogin.php'>Acessar Sistema</a>";
- }
-?>
+    if ($execUpdtRecPass && $execUpdtUser) {
+        $_SESSION['mensagem'] = [
+            0 => 'Nova senha cadastrada com sucesso! Faça o login
+    para acessar o sistema.',
+            1 => '#558b2f light-green darken-3'
+        ];
+        header('location: ../telalogin.php');
+        die();
+    } else {
+        $_SESSION['mensagem'] = [
+            0 => 'Não foi possível cadastrar a nova senha. Por favor, tente novamente.',
+            1 => '#c62828 red darken-3'
+        ];
+        header('location: ../salvar_nova_senha.php');
+        die();
+    }
+}

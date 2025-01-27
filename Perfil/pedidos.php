@@ -142,7 +142,7 @@ $exec = executarSQL($conexao, $sql);
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="7">Nenhum ingresso comprado.</td>
+                        <td colspan="7">Nenhum ingresso foi comprado até o momento.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>

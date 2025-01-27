@@ -19,10 +19,18 @@ $(document).ready(function () {
         // Verifica se o usuário está logado
         if (!isUserLoggedIn) {
             M.toast({
-                html: 'Você precisa estar logado para adicionar ao carrinho.',
+                html: 'Você precisa estar logado para adicionar o ingresso ao carrinho.',
                 classes: '#c62828 red darken-3'
             });
             return; // Interrompe a execução se não estiver logado
+        }
+
+        if (tipoUser == 3){
+            M.toast({
+                html: 'Você só pode comprar o ingresso se for participante.',
+                classes: '#c62828 red darken-3'
+            });
+            return;
         }
 
         var form = {

@@ -7,15 +7,19 @@ use PHPMailer\PHPMailer\Exception;
 require_once "../conexao.php";
 $conexao = conectar();
 
+session_start();
+
 $email = $_POST['email'];
 $sql = "SELECT * FROM usuarios WHERE email='$email'";
 $resultado = executarSQL($conexao, $sql);
 
 $usuario = mysqli_fetch_assoc($resultado);
 if ($usuario == null) {
-    echo "Email não cadastrado! Faça o cadastro e 
-          em seguida realize o login.";
-    echo "<a href='form_rec_senha.php'>Voltar</a>";
+    $_SESSION['mensagem'] = [
+        0 => 'E-mail não cadastrado! Por favor, faça o cadastro e, em seguida, realize o login.',
+        1 => '#c62828 red darken-3'
+    ];
+    header('location: form_rec_senha.php');
     die();
 }
 //gerar um token unico
@@ -61,17 +65,16 @@ try {
     $mail->isHTML(true);        //Set email format to HTML
     $mail->Subject = 'Recuperação de Senha do Sistema';
     $mail->Body = 'Olá!<br>
-        Você solicitou a recuperação da sua conta no nosso sistema.
-        Para isso, clique no link abaixo para realizar a troca de senha:<br>
+Você solicitou a recuperação de sua conta em nosso sistema.<br>
+Para concluir, clique no link abaixo e realize a troca de senha:<br>
         <a href="http://' . $_SERVER['SERVER_NAME'] . '/tccl/rec-senha/nova_senha.php?email=' . $usuario['email'] .
-        '&token=' . $token . 
+        '&token=' . $token .
         '">Clique aqui para recuperar o acesso à sua conta!</a><br>
         <br>
         Atenciosamente<br>
         Equipe do sistema...';
 
     $mail->send();
-    echo 'Email enviado com sucesso!<br>Confira o seu email.';
 
     // Gravar as informações na tabela recuperar senha
     date_default_timezone_set('America/Sao_Paulo');
@@ -80,10 +83,17 @@ try {
 
     $sql2 = "INSERT INTO recuperar_senha
             (email, token, data_criacao, usado) 
-            VALUES ('". $usuario['email'] . "', '$token', 
+            VALUES ('" . $usuario['email'] . "', '$token', 
             '$agora', 0)";
     executarSQL($conexao, $sql2);
+
+    $_SESSION['mensagem'] = [
+        0 => 'Email enviado com sucesso!<br>Por favor, confira sua caixa de entrada.',
+        1 => '#558b2f light-green darken-3'
+    ];
+
+    header('location: ../telalogin.php');
+    exit();
 } catch (Exception $e) {
-    echo "Não foi possível enviar o email. 
-          Mailer Error: {$mail->ErrorInfo}";
+    echo "Não foi possível enviar o e-mail. Erro no envio: {$mail->ErrorInfo}";
 }

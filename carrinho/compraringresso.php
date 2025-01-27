@@ -40,7 +40,7 @@ if ($qtd > $quant['estoque']) {
     if ($usuario == null) {
         echo "Email não cadastrado! Faça o cadastro e 
           em seguida realize o login.";
-        echo "<a href='../inicial.php>Voltar</a>";
+        echo "<a href='../index.php>Voltar</a>";
         die();
     }
 
@@ -98,5 +98,5 @@ if ($qtd > $quant['estoque']) {
             WHERE id_carrinho='$cartId'";
     executarSQL($conexao, $sql2);
 
-    header("location: ../inicial.php");
+    header("location: ../index.php");
 }

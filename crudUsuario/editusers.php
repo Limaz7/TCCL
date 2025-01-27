@@ -61,9 +61,9 @@ if ($resultSel['cod_ativacao'] == 1) {
         $mail->isHTML(true);        //Set email format to HTML
         $mail->Subject = 'Entrada aprovada';
         $mail->Body = 'Olá!<br>
-        Sua solicitação de entrada Foi aprovada.
-        Acesse o link abaixo para logar no sistema:<br>
-        <a href="http://' . $_SERVER['SERVER_NAME'] . '/tccl/index.php">Validar</a><br><br>';
+Sua solicitação de entrada foi aprovada.<br>
+Acesse o link abaixo para entrar no sistema:<br>
+        <a href="http://' . $_SERVER['SERVER_NAME'] . '/tccl/telalogin.php">Logar</a><br><br>';
 
         $mail->send();
     } catch (Exception $e) {
@@ -106,7 +106,7 @@ if ($resultSel['cod_ativacao'] == 1) {
         $mail->isHTML(true);        //Set email format to HTML
         $mail->Subject = 'Entrada negada';
         $mail->Body = 'Olá!<br>
-        Sua solicitação de entrada foi negada.';
+Sua solicitação de entrada foi negada. Caso tenha dúvidas, entre em contato conosco.';
 
         $mail->send();
     } catch (Exception $e) {
@@ -127,7 +127,7 @@ if ($execUpdate) {
     ];
 } else {
     $_SESSION['mensagem'] = [
-        0 => 'Não foi possível editar o perfil.',
+        0 => 'Não foi possível realizar a edição do perfil. Por favor, tente novamente.',
         1 => '#c62828 red darken-3'
     ];
 }

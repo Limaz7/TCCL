@@ -110,7 +110,7 @@ if ($resultSelUser['tipo_usuario'] == 2) {
         ];
     } else {
         $_SESSION['mensagem'] = [
-            0 => 'Não foi possivel excluir o usuario!',
+            0 => 'Não foi possível excluir o usuario!',
             1 => '#c62828 red darken-3'
         ];
     }

@@ -31,7 +31,7 @@ if (!isset($dados['email'])) {
             $_SESSION['user'][0] = $dados['id_usuario'];
             $_SESSION['user'][1] = $dados['nome'];
             $_SESSION['user'][2] = $dados['tipo_usuario'];
-            header("location: inicial.php");
+            header("location: index.php");
         } elseif ($dados['cod_ativacao'] == 2) {
 
             $_SESSION['mensagem'] = [

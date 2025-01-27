@@ -11,8 +11,7 @@ $sql = "SELECT * FROM recuperar_senha WHERE email='$email' AND token='$token'";
 $resultado = executarSQL($conexao, $sql);
 $recuperar = mysqli_fetch_assoc($resultado);
 if ($resultado == null) {
-    echo "Email ou token incorretos. Tente fazer um novo pedido
-    de recuperação de senha.<br>";
+    echo "Email ou token incorretos. Por favor, tente fazer um novo pedido de recuperação de senha.";
     echo "<a href='form_rec_senha.php'>Voltar</a>";
     die();
 } else {
@@ -28,10 +27,12 @@ if ($resultado == null) {
     $dataExpiracao = date_add($data_criacao, $UmDia);
 
     if ($data > $dataExpiracao) {
-        echo "Essa solicitação de recuperação de senha expirou!
-        Faça um novo pedido de recuperação de senha.<br>";
-        echo "<a href='form_rec_senha.php'>Voltar</a>";
-        die();
+        $_SESSION['mensagem'] = [
+            0 => 'SEsta solicitação de recuperação de senha expirou. Por favor, faça um novo pedido de recuperação de senha.',
+            1 => '#c62828 red darken-3'
+        ];
+        header('location: form_rec_senha.php');
+        exit();
     }
 }
 ?>
