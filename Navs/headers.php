@@ -84,11 +84,11 @@ if (empty($_SESSION['cart']) || !$_SESSION['cart']) {
                             $resultSelCart = mysqli_fetch_row($execSelCart); ?>
 
                             <?php if (!isset($resultSelCart)): ?>
-                                <li> <a href="logout.php" class="white-text">
+                                <li> <a href="logout.php?pagina=<?= $paginaCorrente ?>&id_evento=<?= $evento['id_evento'] ?>" class="white-text">
                                         <i class="material-icons">power_settings_new</i>
                                     </a></li>
                             <?php else: ?>
-                                <li> <a href="logout.php" class="btn-floating disabled">
+                                <li> <a href="logout.php?pagina=<?= $paginaCorrente ?>" class="btn-floating disabled">
                                         <i class="material-icons">power_settings_new</i>
                                     </a></li>
                             <?php endif; ?>

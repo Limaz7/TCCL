@@ -13,6 +13,7 @@ foreach ($postFilters as $index => $value) {
     $product = str_replace('_', ' ', $value);
 
     $id = $postFilters['id'];
+    $idEvent = $postFilters['idEvento'];
 
     usleep(50000);
 

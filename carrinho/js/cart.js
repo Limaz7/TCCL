@@ -35,7 +35,8 @@ $(document).ready(function () {
 
         var form = {
             product: $(this).data('value'),
-            id: $(this).data('id-ing')
+            id: $(this).data('id-ing'),
+            idEvento: $(this).data('id')
         };
 
         var url = "carrinho/ajax/cart/buy.php";
