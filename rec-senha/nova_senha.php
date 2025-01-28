@@ -42,18 +42,65 @@ if ($resultado == null) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Nova senha</title>
 </head>
 
+<style>
+    body,
+    html {
+        height: 100%;
+        margin: 0;
+    }
+
+    main.container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        /* Alinha verticalmente ao centro ocupando toda a altura */
+    }
+
+    .card-panel {
+        width: 40%;
+        padding: 20px;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .card-panel span {
+        font-size: 15px;
+        font-style: italic;
+    }
+</style>
+
 <body>
-    <form action="salvar_nova_senha.php" method="post">
-        <input type="hidden" name="email" value="<?= $email ?>">
-        <input type="hidden" name="token" value="<?= $token ?>">
-        Email: <?= $email ?><br>
-        <label>Senha: <input type="password" name="senha"></label><br>
-        <label>Repita a senha: <input type="password" name="repetirSenha"></label><br>
-        <input type="submit" value="Enviar">
-    </form>
+    <main class="container">
+        <div class="card-panel">
+            <form action="salvar_nova_senha.php" method="post">
+                <input type="hidden" name="email" value="<?= $email ?>">
+                <input type="hidden" name="token" value="<?= $token ?>">
+                <span>Email: <?= $email ?></span> <br>
+
+                <label for="senha">
+                    Senha: <input id="senha" type="password" name="senha" class="validate"
+                        pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}" required>
+                    <span class="helper-text" data-error="A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma minúscula, um número e um caractere especial."></span>
+                </label><br>
+
+                <label>Repita a senha: <input type="password" name="repetirSenha"></label><br>
+                <button class="green waves-effect waves-light btn" type="submit">Enviar</button>
+            </form>
+        </div>
+    </main>
 </body>
+
+<script type="text/javascript" src="../js/materialize.min.js"></script>
 
 </html>

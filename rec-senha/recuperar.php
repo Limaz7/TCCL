@@ -88,7 +88,7 @@ Para concluir, clique no link abaixo e realize a troca de senha:<br>
     executarSQL($conexao, $sql2);
 
     $_SESSION['mensagem'] = [
-        0 => 'Email enviado com sucesso!<br>Por favor, confira sua caixa de entrada.',
+        0 => 'Email enviado com sucesso! Por favor, confira sua caixa de entrada.',
         1 => '#558b2f light-green darken-3'
     ];
 
