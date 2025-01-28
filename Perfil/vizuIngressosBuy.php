@@ -126,10 +126,10 @@ $exec = executarSQL($conexao, $selectIngComp);
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Usuário</th>
                     <th>Ingresso</th>
                     <th>Evento</th>
                     <th>Ticket</th>
-                    <th>Usuário</th>
                     <th>Quantidade</th>
                     <th>Data</th>
                     <th>Confirmação de compra</th>
@@ -140,11 +140,11 @@ $exec = executarSQL($conexao, $selectIngComp);
                 <?php if (mysqli_num_rows($exec)) : ?>
                     <?php while ($results = mysqli_fetch_assoc($exec)) : ?>
                         <tr>
-                            <td><?= $results['id_ingresso']; ?></td>
+                            <td><?= $results['id_carrinho']; ?></td>
+                            <td><?= $results['nome']; ?></td>
                             <td><?= $results['nome_ingresso']; ?></td>
                             <td><?= $results['nome_evento']; ?></td>
                             <td><?= $results['ticket']; ?></td>
-                            <td><?= $results['nome']; ?></td>
                             <td><?= $results['quantidade']; ?></td>
                             <td><?= $results['data']; ?></td>
                             <?php if ($results['pago'] == 0) : ?>

@@ -41,9 +41,16 @@ $conexao = conectar();
         <div id="cart">
             <?php require 'cartLoader.php' ?>
         </div>
+
+        <?php $selectCart = "SELECT * FROM carrinhos WHERE id_usuario=" . $_SESSION['user'][0] . " AND pago=0";
+        $execSelCart = executarSQL($conexao, $selectCart);
+        $row = mysqli_fetch_row($execSelCart); 
+        ?>
+        <?php if(isset($row)): ?>
         <article class="container_top">
             <p class="container_top_paragraph"><button><span class="fa fa-caret-square-right"></span>Comprar</button></p>
         </article>
+        <?php endif; ?>
     </form>
 
     <div class="clear"></div>

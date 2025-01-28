@@ -7,15 +7,24 @@ require '../rec-senha/PHPMailer/src/Exception.php';
 require '../rec-senha/PHPMailer/src/PHPMailer.php';
 require '../rec-senha/PHPMailer/src/SMTP.php'; */
 
+include('../conexao.php');
+$conexao = conectar();
+
 session_start();
+
+$selectCart = "SELECT * FROM carrinhos WHERE id_usuario=" . $_SESSION['user'][0] . " AND pago=0";
+$execSelCart = executarSQL($conexao, $selectCart);
+$row = mysqli_fetch_row($execSelCart);
+
+if (!isset($row)) {
+    header('location: cart.php');
+    die();
+}
 
 $id_user = $_SESSION['user'][0];
 $id_ingresso = $_POST['id_ingresso'];
 $qtd = $_POST['quantidade'];
 $cartId = $_POST['cart_id'];
-
-include('../conexao.php');
-$conexao = conectar();
 
 $sql = "SELECT estoque FROM ingressos_cadastrados WHERE id_ingresso= '$id_ingresso'";
 $res = executarSQL($conexao, $sql);
