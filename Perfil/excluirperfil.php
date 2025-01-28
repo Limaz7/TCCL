@@ -19,11 +19,13 @@ if ($resultSelUser['tipo_usuario'] == 2) {
 
     $selectCarrinho = "SELECT id_carrinho FROM carrinhos WHERE id_usuario =" . $_SESSION['user'][0];
     $execSelect = executarSQL($conexao, $selectCarrinho);
-    $resultSelCart = mysqli_fetch_assoc($execSelect);
-    $idCart = $resultSelCart['id_carrinho'];
 
-    $delete_cic = "DELETE FROM carrinho_ingressos_cadastrados WHERE id_carrinho='$idCart'";
-    $execDelCIC = executarSQL($conexao, $delete_cic);
+    while ($resultSelCart = mysqli_fetch_assoc($execSelect)) {
+        $idCart = $resultSelCart['id_carrinho'];
+
+        $delete_cic = "DELETE FROM carrinho_ingressos_cadastrados WHERE id_carrinho='$idCart'";
+        $execDelCIC = executarSQL($conexao, $delete_cic);
+    }
 
     $selectIngComp = "SELECT * FROM carrinhos WHERE id_usuario=" . $_SESSION['user'][0];
     $execSelIngComp = executarSQL($conexao, $selectIngComp);
