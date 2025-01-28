@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 28/01/2025 às 01:52
--- Versão do servidor: 8.3.0
--- Versão do PHP: 8.2.18
+-- Tempo de geração: 28-Jan-2025 às 19:42
+-- Versão do servidor: 8.0.31
+-- versão do PHP: 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `carrinhos`
+-- Estrutura da tabela `carrinhos`
 --
 
 DROP TABLE IF EXISTS `carrinhos`;
@@ -41,12 +41,20 @@ CREATE TABLE IF NOT EXISTS `carrinhos` (
   `pago` tinyint(1) NOT NULL,
   PRIMARY KEY (`id_carrinho`),
   KEY `fk_id_usuario_2` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Extraindo dados da tabela `carrinhos`
+--
+
+INSERT INTO `carrinhos` (`id_carrinho`, `id_usuario`, `ticket`, `quantidade`, `data`, `estoque`, `ingresso_valor`, `cart_total`, `cart_session`, `pago`) VALUES
+(70, 9, '86b18175606b00d8414c', 5, '2025-01-28 16:06:03', 95, '0.00', '0.00', 928018146, 1),
+(76, 9, 'f42dd4b89b3a1154db1a', 1, '2025-01-28 16:21:11', 89, '0.00', '0.00', 916503446, 1);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `carrinho_ingressos_cadastrados`
+-- Estrutura da tabela `carrinho_ingressos_cadastrados`
 --
 
 DROP TABLE IF EXISTS `carrinho_ingressos_cadastrados`;
@@ -57,12 +65,19 @@ CREATE TABLE IF NOT EXISTS `carrinho_ingressos_cadastrados` (
   PRIMARY KEY (`id_carrinho_ingressos_cadastrados`),
   KEY `fk_id_ingresso` (`id_ingresso`),
   KEY `fk_id_carrinho` (`id_carrinho`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Extraindo dados da tabela `carrinho_ingressos_cadastrados`
+--
+
+INSERT INTO `carrinho_ingressos_cadastrados` (`id_carrinho_ingressos_cadastrados`, `id_carrinho`, `id_ingresso`) VALUES
+(69, 76, 7);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `eventos`
+-- Estrutura da tabela `eventos`
 --
 
 DROP TABLE IF EXISTS `eventos`;
@@ -83,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `eventos` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Despejando dados para a tabela `eventos`
+-- Extraindo dados da tabela `eventos`
 --
 
 INSERT INTO `eventos` (`id_evento`, `id_usuario`, `nome_evento`, `produtora`, `descricao`, `data`, `rua`, `bairro`, `numero_residencial`, `tipo_pagamento`, `imagem`) VALUES
@@ -94,7 +109,7 @@ INSERT INTO `eventos` (`id_evento`, `id_usuario`, `nome_evento`, `produtora`, `d
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `ingressos_cadastrados`
+-- Estrutura da tabela `ingressos_cadastrados`
 --
 
 DROP TABLE IF EXISTS `ingressos_cadastrados`;
@@ -110,22 +125,22 @@ CREATE TABLE IF NOT EXISTS `ingressos_cadastrados` (
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Despejando dados para a tabela `ingressos_cadastrados`
+-- Extraindo dados da tabela `ingressos_cadastrados`
 --
 
 INSERT INTO `ingressos_cadastrados` (`id_ingresso`, `id_evento`, `nome_ingresso`, `desc_ingresso`, `valor`, `estoque`) VALUES
-(1, 2, 'Pista - Inteira', 'Perto do palco', 200.00, 7),
-(2, 2, 'Pista - Inteira | Social', 'Perto do palco', 150.00, 9),
-(3, 2, 'Pista - Meia', 'Perto do palco', 100.00, 12),
-(4, 3, 'Inteira', 'Perto do palco', 200.00, 8),
-(5, 3, 'Meia-entrada', 'Leia da descrição do evento com atenção. perto do palco.', 100.00, 7),
-(6, 3, 'Ingresso Social', 'Leia a descrição do evento com atenção. Perto do palco.', 150.00, 10),
-(7, 4, 'Ingresso Unico', 'Leia a descrição do evento com atenção.', 0.00, 100);
+(1, 2, 'Pista - Inteira', 'Perto do palco', '200.00', 5),
+(2, 2, 'Pista - Inteira | Social', 'Perto do palco', '150.00', 8),
+(3, 2, 'Pista - Meia', 'Perto do palco', '100.00', 14),
+(4, 3, 'Inteira', 'Perto do palco', '200.00', 10),
+(5, 3, 'Meia-entrada', 'Leia da descrição do evento com atenção. perto do palco.', '100.00', 10),
+(6, 3, 'Ingresso Social', 'Leia a descrição do evento com atenção. Perto do palco.', '150.00', 10),
+(7, 4, 'Ingresso Unico', 'Leia a descrição do evento com atenção.', '0.00', 88);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `recuperar_senha`
+-- Estrutura da tabela `recuperar_senha`
 --
 
 DROP TABLE IF EXISTS `recuperar_senha`;
@@ -140,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `recuperar_senha` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `tipos_usuario`
+-- Estrutura da tabela `tipos_usuario`
 --
 
 DROP TABLE IF EXISTS `tipos_usuario`;
@@ -151,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `tipos_usuario` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Despejando dados para a tabela `tipos_usuario`
+-- Extraindo dados da tabela `tipos_usuario`
 --
 
 INSERT INTO `tipos_usuario` (`id_tipo_usuario`, `descricao`) VALUES
@@ -162,7 +177,7 @@ INSERT INTO `tipos_usuario` (`id_tipo_usuario`, `descricao`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `usuarios`
+-- Estrutura da tabela `usuarios`
 --
 
 DROP TABLE IF EXISTS `usuarios`;
@@ -180,46 +195,46 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Despejando dados para a tabela `usuarios`
+-- Extraindo dados da tabela `usuarios`
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `nome`, `email`, `senha`, `cadastro`, `tipo_cadastro`, `tipo_usuario`, `cod_ativacao`) VALUES
 (1, 'adm', 'bora.sistema00@gmail.com', '$argon2i$v=19$m=65536,t=4,p=1$RUFZNmlsSnpzemVFb3FyRQ$2s7vKXgXySkHr9driGyHvvHDG1LGTJyXXvqii/+Mhyk', '0', 'cpf', 1, 1),
 (2, 'Eventos Uruguaiana', 'eventurug@example.com', '$argon2i$v=19$m=65536,t=4,p=1$WWFwa0NvdEd4T2RjTDltRQ$/g9pQ1PbOm9pisk3QtAJW6nbfLEqcB2ufv5m/TWQ/sM', '11111111111111', 'cnpj', 3, 1),
 (9, 'Joao', 'joao@example.com', '$argon2i$v=19$m=65536,t=4,p=1$L01MOVhPTFFnWk05cWZlTg$CfnJk1q2NkbeXiai12pOVZ7fsKBGV0f0QZ7SIj6/Ves', '11111111111', 'cpf', 2, 1),
-(12, 'LL eventos', 'lazaro.2022315968@aluno.iffar.edu.br', '$argon2i$v=19$m=65536,t=4,p=1$ajVranZUdEp2ZGdSN3RSRQ$4TMTgthp70ZV1s8UJG6TLF6MRHeqZOvLpNUxItg3jWI', '22222222222222', 'cnpj', 3, 1);
+(12, 'LL eventos', 'll01@example.com', '$argon2i$v=19$m=65536,t=4,p=1$ajVranZUdEp2ZGdSN3RSRQ$4TMTgthp70ZV1s8UJG6TLF6MRHeqZOvLpNUxItg3jWI', '22222222222222', 'cnpj', 3, 1);
 
 --
--- Restrições para tabelas despejadas
+-- Restrições para despejos de tabelas
 --
 
 --
--- Restrições para tabelas `carrinhos`
+-- Limitadores para a tabela `carrinhos`
 --
 ALTER TABLE `carrinhos`
   ADD CONSTRAINT `fk_id_usuario_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
 
 --
--- Restrições para tabelas `carrinho_ingressos_cadastrados`
+-- Limitadores para a tabela `carrinho_ingressos_cadastrados`
 --
 ALTER TABLE `carrinho_ingressos_cadastrados`
   ADD CONSTRAINT `fk_id_carrinho` FOREIGN KEY (`id_carrinho`) REFERENCES `carrinhos` (`id_carrinho`),
   ADD CONSTRAINT `fk_id_ingresso` FOREIGN KEY (`id_ingresso`) REFERENCES `ingressos_cadastrados` (`id_ingresso`);
 
 --
--- Restrições para tabelas `eventos`
+-- Limitadores para a tabela `eventos`
 --
 ALTER TABLE `eventos`
   ADD CONSTRAINT `fk_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
 
 --
--- Restrições para tabelas `ingressos_cadastrados`
+-- Limitadores para a tabela `ingressos_cadastrados`
 --
 ALTER TABLE `ingressos_cadastrados`
   ADD CONSTRAINT `fk_id_evento` FOREIGN KEY (`id_evento`) REFERENCES `eventos` (`id_evento`);
 
 --
--- Restrições para tabelas `usuarios`
+-- Limitadores para a tabela `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD CONSTRAINT `fk_tipo_usuario` FOREIGN KEY (`tipo_usuario`) REFERENCES `tipos_usuario` (`id_tipo_usuario`);
