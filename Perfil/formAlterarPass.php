@@ -74,8 +74,8 @@ if (!isset($_SESSION['user'])) {
                 </label> <br><br>
 
                 <div class="buttons">
-                    <a href="vizuperfil.php" class="black waves-effect waves-green btn">voltar</a>
-                    <button type="submit" class="waves-effect waves-green btn green">Enviar</button>
+                    <a href="vizuperfil.php" class="black waves-effect waves-light btn">voltar</a>
+                    <button type="submit" class="waves-effect waves-light btn green">Enviar</button>
                 </div>
 
             </form>

@@ -24,7 +24,7 @@ $quant = mysqli_fetch_assoc($res);
 $token = bin2hex(random_bytes(50));
 
 if ($qtd > $quant['estoque']) {
-    header ("location: ../inicial.php");
+    header("location: ../inicial.php");
     exit();
 } else {
 
@@ -38,9 +38,11 @@ if ($qtd > $quant['estoque']) {
 
     $usuario = mysqli_fetch_assoc($resultado);
     if ($usuario == null) {
-        echo "Email não cadastrado! Faça o cadastro e 
-          em seguida realize o login.";
-        echo "<a href='../index.php>Voltar</a>";
+        $_SESSION['mensagem'] = [
+            0 => 'Email não cadastrado! Faça o cadastro e em seguida realize o login.',
+            1 => '#558b2f light-green darken-3'
+        ];
+        header('location: ../index.php');
         die();
     }
 
@@ -93,10 +95,22 @@ if ($qtd > $quant['estoque']) {
     $data = new DateTime('now');
     $agora = $data->format('Y-m-d H:i:s');
 
-    $sql2 = "UPDATE carrinhos SET
+    $updateCart = "UPDATE carrinhos SET
             pago=1, data='$agora'
             WHERE id_carrinho='$cartId'";
-    executarSQL($conexao, $sql2);
+    $execUpdtCart = executarSQL($conexao, $updateCart);
+
+    if ($execUpdtCart) {
+        $_SESSION['mensagem'] = [
+            0 => 'Ingresso comprado com sucesso!',
+            1 => '#558b2f light-green darken-3'
+        ];
+    } else {
+        $_SESSION['mensagem'] = [
+            0 => 'Não foi possivel comprar o ingresso.',
+            1 => '#c62828 red darken-3'
+        ];
+    }
 
     header("location: ../index.php");
 }

@@ -50,7 +50,7 @@ foreach ($postFilters as $index => $value) {
     $Cart = "SELECT c.id_carrinho, c.cart_session, c.quantidade, cic.id_ingresso
     FROM carrinhos c
     INNER JOIN carrinho_ingressos_cadastrados cic 
-    ON cic.id_carrinho = c.id_carrinho WHERE c.cart_session = " . $_SESSION['cart'] . " AND cic.id_ingresso = '$id' AND c.id_usuario=" . $_SESSION['user'][0];
+    ON cic.id_carrinho = c.id_carrinho WHERE c.cart_session = " . $_SESSION['cart'] . " AND cic.id_ingresso = '$id' AND c.id_usuario=" . $_SESSION['user'][0] . " AND c.pago=0";
     $Cart = executarSQL($conexao, $Cart);
 
     $lines = mysqli_fetch_row($Cart);

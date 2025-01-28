@@ -95,7 +95,6 @@ $exec = executarSQL($conexao, $ingressos);
             <a href="vizuPerfil.php">Meus dados</a>
             <a href="vizuEventosCad.php">Eventos cadastrados</a>
             <a href="vizuIngressosCad.php">Ingressos cadastrados</a>
-            <a href="pedidos.php">Pedidos</a>
         </div>
 
         <table class="striped" style="text-align: center;">

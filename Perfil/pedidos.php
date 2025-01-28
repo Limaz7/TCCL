@@ -9,6 +9,8 @@ if (!isset($_SESSION['user'])) {
 include('../conexao.php');
 $conexao = conectar();
 
+$idEvento = $_GET['id_evento'];
+
 $sql = "SELECT
                 c.ticket,
                 c.id_usuario,
@@ -29,7 +31,7 @@ $sql = "SELECT
         INNER JOIN 
             eventos e ON ia.id_evento = e.id_evento
         WHERE 
-            e.id_usuario =" . $_SESSION['user'][0];
+            e.id_evento = $idEvento";
 
 $exec = executarSQL($conexao, $sql);
 
@@ -108,7 +110,6 @@ $exec = executarSQL($conexao, $sql);
             <a href="vizuPerfil.php">Meus dados</a>
             <a href="vizuEventosCad.php">Eventos cadastrados</a>
             <a href="vizuIngressosCad.php">Ingressos cadastrados</a></li>
-            <a href="pedidos.php">Pedidos</a>
         </div>
 
         <table class="striped">

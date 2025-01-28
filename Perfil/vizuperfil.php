@@ -41,8 +41,7 @@ $maxHeight = ($dados['tipo_usuario'] == 2) ? "105px" : "190px";
     .container {
         display: flex;
         /* Usa flexbox para alinhar os itens lado a lado */
-        flex-wrap: wrap;
-        /* Permite que os itens ocupem múltiplas linhas em telas menores */
+        align-items: flex-start;
     }
 
     .side {
@@ -61,8 +60,8 @@ $maxHeight = ($dados['tipo_usuario'] == 2) ? "105px" : "190px";
         /* Remove margens desnecessárias */
         margin-right: 20px;
         /* Espaço entre o side e o card */
-        margin-top: 20%;
-        max-height: <?= $maxHeight ?>;
+        margin-top: 20.2%;
+        max-height: 190px;
     }
 
     .side a {
@@ -104,7 +103,6 @@ $maxHeight = ($dados['tipo_usuario'] == 2) ? "105px" : "190px";
                 <a href="vizuPerfil.php">Meus dados</a>
                 <a href="vizuEventosCad.php">Eventos cadastrados</a>
                 <a href="vizuIngressosCad.php">Ingressos cadastrados</a>
-                <a href="pedidos.php">Pedidos</a>
             </div>
         <?php endif; ?>
 

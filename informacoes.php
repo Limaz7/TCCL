@@ -280,7 +280,7 @@
 
                                 <?php if (isset($_SESSION['user'])) : ?>
                                     <?php $select = "SELECT * FROM carrinhos c INNER JOIN carrinho_ingressos_cadastrados cic
-                                ON c.id_carrinho = cic.id_carrinho WHERE cic.id_ingresso ='" . $ingressos['id_ingresso'] . "' AND c.id_usuario ='" . $usuario['id_usuario'] . "'";
+                                ON c.id_carrinho = cic.id_carrinho WHERE cic.id_ingresso ='" . $ingressos['id_ingresso'] . "' AND c.id_usuario ='" . $usuario['id_usuario'] . "' AND c.pago = 0";
                                     $execSel = executarSQL($conexao, $select);
                                     $resultSel = mysqli_fetch_row($execSel); ?>
                                 <?php endif; ?>
@@ -339,7 +339,7 @@
 
     <script>
         var isUserLoggedIn = <?= isset($_SESSION['user']) ? 'true' : 'false'; ?>;
-        var tipoUser = <?= $_SESSION['user'][2]; ?>;
+        var tipoUser = <?= isset($_SESSION['user'][2]) ? $_SESSION['user'][2] : 'null'; ?>;
     </script>
 
     <script>

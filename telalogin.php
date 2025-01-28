@@ -16,7 +16,6 @@
 <style>
     .card-panel {
         position: fixed;
-        background-color: rgb(238, 238, 238);
         padding: 20px;
         border-radius: 8px;
         top: 30%;

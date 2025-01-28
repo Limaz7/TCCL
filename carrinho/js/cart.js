@@ -27,7 +27,7 @@ $(document).ready(function () {
 
         if (tipoUser == 3){
             M.toast({
-                html: 'Você só pode comprar o ingresso se for participante.',
+                html: 'Você só pode comprar o ingresso se for um participante.',
                 classes: '#c62828 red darken-3'
             });
             return;

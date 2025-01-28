@@ -96,7 +96,6 @@ $dados_user = mysqli_fetch_assoc($result1);
             <a href="vizuPerfil.php">Meus dados</a>
             <a href="vizuEventosCad.php">Eventos cadastrados</a>
             <a href="vizuIngressosCad.php">Ingressos cadastrados</a>
-            <a href="pedidos.php">Pedidos</a>
         </div>
 
         <table class="striped">
@@ -112,7 +111,7 @@ $dados_user = mysqli_fetch_assoc($result1);
                     <th>Rua</th>
                     <th>Bairro</th>
                     <th>Numero residencial</th>
-                    <th colspan="2">Opções</th>
+                    <th colspan="3">Opções</th>
                 </tr>
             </thead>
 
@@ -131,6 +130,7 @@ $dados_user = mysqli_fetch_assoc($result1);
                             <td><?= $dados2['bairro'] ?></td>
                             <td><?= $dados2['numero_residencial'] ?></td>
                             <td><a href="#modalEditarEvento<?= $dados2['id_evento']; ?>" class="modal-trigger"><i class="material-icons" style="color: green;">create</i></a></td>
+                            <td><a href="pedidos?id_evento=<?= $dados2['id_evento']; ?>"><i class="material-icons">local_play</i></a></td>
                             <td><a href="#modalExcluirEvento<?= $dados2['id_evento']; ?>" class="modal-trigger"><i class="material-icons" style="color: #c62828;">delete</i></a></td>
                         </tr>
 
@@ -238,7 +238,7 @@ $dados_user = mysqli_fetch_assoc($result1);
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.sidenav');
-        var instances = M.Sidenav.init(elems, options);
+        var instances = M.Sidenav.init(elems);
     });
 </script>
 
