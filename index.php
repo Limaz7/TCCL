@@ -95,20 +95,24 @@ $agora = $data->format('Y-m-d H:i:s');
         <span class="text-inic">Eventos da cidade:</span>
 
         <div class="row">
-
             <?php
+            $count = 0; // Contador para rastrear os eventos
             while ($evento = mysqli_fetch_assoc($result1)) {
                 $_SESSION['evento'][0] = $evento['id_evento'];
                 $arq = $evento['imagem'];
-            ?>
 
+                // Se for o primeiro item de uma nova linha, inicia uma nova row
+                if ($count % 4 == 0 && $count != 0) {
+                    echo '</div><div class="row">';
+                }
+            ?>
                 <div class="col s12 m3">
                     <div class="card">
                         <div class="card-image">
                             <img class="materialboxed" src="imagens/<?= $arq ?>" height="200">
                         </div>
                         <div class="card-content">
-                            <p style="text-align: justify; font-size: 1vw;"><b><?= $evento['nome_evento']; ?></b></p>
+                            <p style="font-size: 1vw;"><b><?= $evento['nome_evento']; ?></b></p>
                             <span> <?= $evento['rua']; ?>, <?= $evento['numero_residencial']; ?>, <?= $evento['bairro']; ?> - Entrada:
                                 <?= $evento['tipo_pagamento'] ?></span>
                         </div>
@@ -125,7 +129,10 @@ $agora = $data->format('Y-m-d H:i:s');
                         </div>
                     </div>
                 </div>
-            <?php } ?>
+            <?php
+                $count++; // Incrementa contador
+            }
+            ?>
         </div>
 
         <!-- Modal Structure -->
@@ -166,13 +173,12 @@ $agora = $data->format('Y-m-d H:i:s');
                                 <option value="" disabled selected>Escolha seu tipo de pagamento</option>
                                 <option value="1">Gratuito</option>
                                 <option value="2">Pago</option>
-                                <option value="3">Cesta básica</option>
                             </select>
                         </p>
                     </div>
 
                     <div class="input-field col s12">
-                        <p>Imagem <input type="file" name="arquivo"></p>
+                        <p>Imagem <input type="file" name="arquivo" required></p>
                     </div>
 
                     <div class="modal-footer">

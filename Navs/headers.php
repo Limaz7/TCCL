@@ -13,11 +13,15 @@ if (empty($_SESSION['cart']) || !$_SESSION['cart']) {
     <div class="navbar-fixed">
         <nav class="black lighten-3">
             <div class="nav-wrapper">
-                <!--<a href="#" class="brand-logo"><img src="imagens/logo01.webp" height="55" width="60"></a>-->
+                <?php if ($paginaCorrente != 'index.php' && $paginaCorrente != 'informacoes.php') : ?>
+                    <a href="#" class="brand-logo center" style="font-weight: bold;">BORA!</a>
+                <?php endif; ?>
 
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
 
                     <?php if ($paginaCorrente == 'index.php' && !empty($_SESSION['user'])) : ?>
+
+                        <a href="#" class="brand-logo center" style="font-weight: bold;">BORA!</a>
 
                         <?php if ($dados['tipo_usuario'] == 3) : ?>
                             <li> <a style="background: white; color: black;" class="waves-effect waves-light btn modal-trigger" href="#modalCadastroEvento">Cadastrar evento</a></li>
@@ -54,12 +58,14 @@ if (empty($_SESSION['cart']) || !$_SESSION['cart']) {
                     <?php elseif (!empty($_SESSION['user'])): ?>
 
                         <?php if ($paginaCorrente == 'informacoes.php'):
-
                             $sql_usuario = "SELECT * FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
                             $result_usuario = executarSQL($conexao, $sql_usuario);
                             $dados = mysqli_fetch_assoc($result_usuario);
 
                         ?>
+
+                            <a href="#" class="brand-logo center" style="font-weight: bold;">BORA!</a>
+
                             <?php if ($dados['tipo_usuario'] == 2) :
 
 
@@ -116,6 +122,7 @@ if (empty($_SESSION['cart']) || !$_SESSION['cart']) {
                     <?php endif; ?>
 
                     <?php if (empty($_SESSION['user'])): ?>
+                        <a href="#" style="font-weight: bold;" class="brand-logo center">BORA!</a>
                         <li> <a style="background-color: white; color: black;" class='waves-effect waves-light btn' href='telalogin.php'>Login</a></li>
                         <li> <a class='white-text' href='index.php'>Tela inicial</a></li>
                     <?php endif; ?>

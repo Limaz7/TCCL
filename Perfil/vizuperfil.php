@@ -125,11 +125,23 @@ $maxHeight = ($dados['tipo_usuario'] == 2) ? "105px" : "190px";
                     Email: <input type="text" name="email" id="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" value="<?= $dados['email']; ?>">
                 </label>
                 <div class="buttons">
-                    <a style="background: #c41707; color: white;" class="waves-effect waves-light btn btn-exc" href="excluirPerfil.php">Excluir seu perfil</a>
+                    <a style="background: #c41707; color: white;" class="waves-effect waves-light btn btn-exc modal-trigger" href="#modalExcluirPerfil">Excluir seu perfil</a>
                     <button type="submit" class="green waves-effect waves-light btn">Enviar</button>
                 </div>
             </form>
         </div>
+
+        <div id="modalExcluirPerfil" class="modal">
+            <div class="modal-content">
+                <h4>Confirmar exclusão</h4>
+                <p>Você tem certeza que deseja excluir seu perfil?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="modal-close waves-effect waves-red btn-flat">Cancelar</a>
+                <a href="excluirperfil.php" class="modal-close waves-effect waves-green btn-flat">Confirmar</a>
+            </div>
+        </div>
+
     </div>
 </body>
 
@@ -141,6 +153,11 @@ $maxHeight = ($dados['tipo_usuario'] == 2) ? "105px" : "190px";
         var elems = document.querySelectorAll('.sidenav');
         var instances = M.Sidenav.init(elems);
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems);
+  });
 
     // Initialize collapsible (uncomment the lines below if you use the dropdown variation)
     // var collapsibleElem = document.querySelector('.collapsible');

@@ -194,7 +194,7 @@ $dados_user = mysqli_fetch_assoc($result1);
                         <div id="modalExcluirEvento<?= $dados2['id_evento']; ?>" class="modal">
                             <div class="modal-content">
                                 <h4>Confirmar exclusão</h4>
-                                <p>Você tem certeza que deseja excluir esse evento? Qualquer pessoa que possuir esse ingresso, irá perder ele.</p>
+                                <p>Você tem certeza que deseja excluir esse evento?</p>
                             </div>
                             <div class="modal-footer">
                                 <a href="#" class="modal-close waves-effect waves-red btn-flat">Cancelar</a>

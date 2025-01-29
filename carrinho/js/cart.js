@@ -9,7 +9,15 @@ $(document).ready(function () {
 
     // Atualiza o conteúdo do carrinho ao clicar em um botão específico
     $(document).on('click', '.plus, .minus, .delete', function () {
-        $('#cart').load("cart.php #loader");
+        $('#cart').load("cart.php #loader", function () {
+
+            // Após recarregar o carrinho, verifica se há itens
+            if ($('#loader').find('.container_cart').length === 0) {
+                $('.container_top_paragraph button').hide(); // Esconde o botão "Comprar"
+            } else {
+                $('.container_top_paragraph button').show(); // Mostra o botão "Comprar"
+            }
+        });
     });
 
     //Comprar produto
@@ -25,7 +33,7 @@ $(document).ready(function () {
             return; // Interrompe a execução se não estiver logado
         }
 
-        if (tipoUser == 3){
+        if (tipoUser == 3) {
             M.toast({
                 html: 'Você só pode comprar o ingresso se for um participante.',
                 classes: '#c62828 red darken-3'

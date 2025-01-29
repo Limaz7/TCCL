@@ -25,7 +25,7 @@
         header("location: ../index");
         die();
     }
-
+    
     if ($foto['error'] != UPLOAD_ERR_OK) {
 
         $_SESSION['mensagem'][0] = 'Ocorreu um erro no cadastro da imagem!' . $foto['error'];

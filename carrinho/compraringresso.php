@@ -32,30 +32,25 @@ $quant = mysqli_fetch_assoc($res);
 
 $token = bin2hex(random_bytes(50));
 
-if ($qtd > $quant['estoque']) {
-    header("location: ../inicial.php");
-    exit();
-} else {
+$nova_qtd = $quant['estoque'] - $qtd;
 
-    $nova_qtd = $quant['estoque'] - $qtd;
+$sql = "UPDATE ingressos_cadastrados SET estoque='$nova_qtd' WHERE id_ingresso=$id_ingresso";
+executarSQL($conexao, $sql);
 
-    $sql = "UPDATE ingressos_cadastrados SET estoque='$nova_qtd' WHERE id_ingresso=$id_ingresso";
-    executarSQL($conexao, $sql);
+$sql = "SELECT * FROM usuarios WHERE id_usuario='$id_user'";
+$resultado = executarSQL($conexao, $sql);
 
-    $sql = "SELECT * FROM usuarios WHERE id_usuario='$id_user'";
-    $resultado = executarSQL($conexao, $sql);
+$usuario = mysqli_fetch_assoc($resultado);
+if ($usuario == null) {
+    $_SESSION['mensagem'] = [
+        0 => 'Email não cadastrado! Faça o cadastro e em seguida realize o login.',
+        1 => '#558b2f light-green darken-3'
+    ];
+    header('location: ../index.php');
+    die();
+}
 
-    $usuario = mysqli_fetch_assoc($resultado);
-    if ($usuario == null) {
-        $_SESSION['mensagem'] = [
-            0 => 'Email não cadastrado! Faça o cadastro e em seguida realize o login.',
-            1 => '#558b2f light-green darken-3'
-        ];
-        header('location: ../index.php');
-        die();
-    }
-
-    /* include "../config.php";
+/* include "../config.php";
 
     // Instância da classe
     $mail = new PHPMailer(true);
@@ -100,26 +95,25 @@ if ($qtd > $quant['estoque']) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     } */
 
-    date_default_timezone_set('America/Sao_Paulo');
-    $data = new DateTime('now');
-    $agora = $data->format('Y-m-d H:i:s');
+date_default_timezone_set('America/Sao_Paulo');
+$data = new DateTime('now');
+$agora = $data->format('Y-m-d H:i:s');
 
-    $updateCart = "UPDATE carrinhos SET
+$updateCart = "UPDATE carrinhos SET
             pago=1, data='$agora'
             WHERE id_carrinho='$cartId'";
-    $execUpdtCart = executarSQL($conexao, $updateCart);
+$execUpdtCart = executarSQL($conexao, $updateCart);
 
-    if ($execUpdtCart) {
-        $_SESSION['mensagem'] = [
-            0 => 'Ingresso comprado com sucesso!',
-            1 => '#558b2f light-green darken-3'
-        ];
-    } else {
-        $_SESSION['mensagem'] = [
-            0 => 'Não foi possivel comprar o ingresso.',
-            1 => '#c62828 red darken-3'
-        ];
-    }
-
-    header("location: ../index.php");
+if ($execUpdtCart) {
+    $_SESSION['mensagem'] = [
+        0 => 'Ingresso comprado com sucesso!',
+        1 => '#558b2f light-green darken-3'
+    ];
+} else {
+    $_SESSION['mensagem'] = [
+        0 => 'Não foi possivel comprar o ingresso.',
+        1 => '#c62828 red darken-3'
+    ];
 }
+
+header("location: ../index.php");

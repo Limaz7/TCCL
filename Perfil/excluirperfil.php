@@ -54,22 +54,22 @@ if ($resultSelUser['tipo_usuario'] == 2) {
     }
 } elseif ($resultSelUser['tipo_usuario'] == 3) {
 
-    $selectIngComp = "SELECT * FROM carrinhos WHERE id_usuario=" . $_SESSION['user'][0];
+    $selectIngComp = "SELECT * FROM carrinho_ingressos_cadastrados cic INNER JOIN 
+    ingressos_cadastrados ica
+    ON ica.id_ingresso = cic.id_ingresso 
+    INNER JOIN eventos e
+    ON e.id_evento = ica.id_evento
+    WHERE e.id_usuario=" . $_SESSION['user'][0];
     $execSelIngComp = executarSQL($conexao, $selectIngComp);
     $rowsSelIngComp = mysqli_num_rows($execSelIngComp);
 
-    if ($rowsSelIngComp > 0) {
-        $deleteIngComp = "DELETE c FROM carrinhos c
-                          INNER JOIN carrinho_ingressos_cadastrados cic
-                          ON  c.id_carrinho = cic.id_carrinho
-                          INNER JOIN ingressos_cadastrados ica
-                          ON c.id_ingresso = ica.id_ingresso
-                          INNER JOIN eventos e 
-                          ON ica.id_evento = e.id_evento
-                          WHERE e.id_usuario =" . $_SESSION['user'][0];
-        $execDelIngComp = executarSQL($conexao, $deleteIngComp);
-    } else {
-        $execDelIngComp = true;
+    if($rowsSelIngComp > 0){
+        $_SESSION['mensagem'] = [
+            0 => 'Você não pode excluir seu perfil porque há ingressos comprados nos seus eventos',
+            1 => '#c62828 red darken-3'
+        ];
+        header('location: vizuperfil.php');
+        die();
     }
 
     $selectIngCad = "SELECT ica.* FROM ingressos_cadastrados ica
@@ -105,7 +105,7 @@ if ($resultSelUser['tipo_usuario'] == 2) {
     $deleteUser = "DELETE FROM usuarios WHERE id_usuario=" . $_SESSION['user'][0];
     $execDeluser = executarSQL($conexao, $deleteUser);
 
-    if ($execDelEvn && $execDelIngCad && $execDelIngComp && $execDeluser) {
+    if ($execDelEvn && $execDelIngCad && $execDeluser) {
         $_SESSION['mensagem'] = [
             0 => 'Usuário excluido com sucesso!',
             1 => '#558b2f light-green darken-3'
@@ -118,4 +118,6 @@ if ($resultSelUser['tipo_usuario'] == 2) {
     }
 }
 
+
+session_destroy();
 header('location: ../index.php');

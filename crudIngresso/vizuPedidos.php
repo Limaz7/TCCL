@@ -65,7 +65,8 @@ $result = executarSQL($conexao, $sql);
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($result as $results) { ?>
+                <?php if (mysqli_num_rows($result)): ?>
+                <?php while ($results = mysqli_fetch_assoc($result)) : ?>
                     <tr>
                         <td><?= $results['id_ingresso'] ?></td>
                         <td><?= $results['nome'] ?></td>
@@ -78,7 +79,10 @@ $result = executarSQL($conexao, $sql);
                             <td>Pago</td>
                         <?php endif; ?>
                     </tr>
-                <?php } ?>
+                <?php endwhile; ?>
+                <?php else: ?>
+                    <td colspan="6">Nenhuma compra realizada até o momento.</td>
+                <?php endif; ?>
             </tbody>
         </table>
     </main>

@@ -9,13 +9,16 @@ use PHPMailer\PHPMailer\Exception;
 
 $nome = $_POST['nome'];
 $email = $_POST['email'];
+$cadastro = $_POST['cadastro'];
 $cod_atv = $_POST['cod_atv'];
 $id = $_POST['id'];
 
-$sql = "UPDATE usuarios SET nome='$nome', email='$email', cod_ativacao='$cod_atv' WHERE id_usuario='$id'";
+$newcadastro = str_replace(['.', '-', '/'], '', $cadastro);
+
+$sql = "UPDATE usuarios SET nome='$nome', email='$email', cadastro='$newcadastro', cod_ativacao='$cod_atv' WHERE id_usuario='$id'";
 $execUpdate = executarSQL($conexao, $sql);
 
-$selecUser = "SELECT email, nome, cod_ativacao FROM usuarios WHERE id_usuario='$id'";
+$selecUser = "SELECT email, nome, cod_ativacao, tipo_usuario FROM usuarios WHERE id_usuario='$id'";
 $execSelect = executarSQL($conexao, $selecUser);
 $resultSel = mysqli_fetch_assoc($execSelect);
 
@@ -24,7 +27,7 @@ require_once '../rec-senha/PHPMailer/src/SMTP.php';
 require_once '../rec-senha/PHPMailer/src/Exception.php';
 include '../config.php';
 
-if ($resultSel['cod_ativacao'] == 1) {
+if ($resultSel['cod_ativacao'] == 1 && $resultSel['tipo_usuario'] == 3) {
 
     $mail = new PHPMailer(true);
 
@@ -70,7 +73,7 @@ Acesse o link abaixo para entrar no sistema:<br>
         echo "Não foi possível enviar o email. 
           Mailer Error: {$mail->ErrorInfo}";
     }
-} elseif ($resultSel['cod_ativacao'] == 3) {
+} elseif ($resultSel['cod_ativacao'] == 3 && $resultSel['tipo_usuario'] == 3) {
     $mail = new PHPMailer(true);
 
     try {

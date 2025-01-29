@@ -108,8 +108,7 @@ if ($lines == 0) {
     if ($product_stock == 0 and empty($minus)) {
         $message = [
             'message' => "Ops, temos apenas {$qtd} Un. desse estoque",
-            'status' => 'info',
-            'redirect' => ''
+            'status' => 'error'
         ];
 
         echo json_encode($message);

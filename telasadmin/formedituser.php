@@ -17,6 +17,23 @@ $sql = "SELECT * FROM usuarios WHERE id_usuario= '$id'";
 $result = executarSQL($conexao, $sql);
 $dados = mysqli_fetch_assoc($result);
 
+function formatarDocumento($documento)
+{
+    $documento = preg_replace('/\D/', '', $documento); // Remove tudo que não for número
+
+    if (strlen($documento) === 11) {
+        // CPF: 000.000.000-00
+        return preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "$1.$2.$3-$4", $documento);
+    } elseif (strlen($documento) === 14) {
+        // CNPJ: 00.000.000/0000-00
+        return preg_replace("/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/", "$1.$2.$3/$4-$5", $documento);
+    }
+
+    return $documento; // Retorna sem formatação caso não tenha 11 ou 14 dígitos
+}
+
+$cpf_cnpj = formatarDocumento($dados['cadastro']);
+
 ?>
 
 <!DOCTYPE html>
@@ -53,18 +70,14 @@ $dados = mysqli_fetch_assoc($result);
                 <input type="hidden" name="id" value="<?= $id ?>">
                 Nome: <input type="text" name="nome" value="<?= $dados['nome'] ?>"> <br><br>
                 Email: <input type="text" name="email" value="<?= $dados['email'] ?>"> <br></br>
-                Codigo para acesso no sistema:
-                <p>1 - Acesso liberado</p>
-                <p>2 - Em analise</p>
-                <p>3 - Acesso negado</p>
-                <hr>
+                CPF/CNPJ: <input type="text" name="cadastro" value="<?= $cpf_cnpj; ?>"> <br></br>
                 Acesso da empresa:
                 <div class="input-field col s12">
                     <select name="cod_atv">
                         <option value="" disabled selected>Selecione uma opção</option>
-                        <option value="1">Validada</option>
-                        <option value="2">Em analise</option>
-                        <option value="3">Negada</option>
+                        <option value="1" <?= $dados['cod_ativacao'] == '1' ? 'selected' : '' ?>>Validado</option>
+                        <option value="2" <?= $dados['cod_ativacao'] == '2' ? 'selected' : '' ?>>Em analise</option>
+                        <option value="3" <?= $dados['cod_ativacao'] == '3' ? 'selected' : '' ?>>Negado</option>
                     </select>
                 </div>
                 <div class="buttons">

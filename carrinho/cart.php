@@ -16,8 +16,8 @@ $conexao = conectar();
 </head>
 
 <style>
-    .container_top .container_top_paragraph button{
-        background-color:rgb(0, 0, 0);
+    .container_top .container_top_paragraph button {
+        background-color: rgb(0, 0, 0);
         color: #ffffff;
         padding: 20px 40px;
         border-radius: 5px;
@@ -26,7 +26,7 @@ $conexao = conectar();
     }
 
     .container_top .container_top_paragraph button:hover {
-        background-color:rgb(255, 255, 255);
+        background-color: rgb(255, 255, 255);
         color: #000000;
     }
 </style>
@@ -44,18 +44,20 @@ $conexao = conectar();
 
         <?php $selectCart = "SELECT * FROM carrinhos WHERE id_usuario=" . $_SESSION['user'][0] . " AND pago=0";
         $execSelCart = executarSQL($conexao, $selectCart);
-        $row = mysqli_fetch_row($execSelCart); 
+        $row = mysqli_fetch_row($execSelCart);
         ?>
-        <?php if(isset($row)): ?>
-        <article class="container_top">
-            <p class="container_top_paragraph"><button><span class="fa fa-caret-square-right"></span>Comprar</button></p>
-        </article>
+        <?php if (isset($row) && $row > 0): ?>
+            <article class="container_top">
+                <p class="container_top_paragraph"><button><span class="fa fa-caret-square-right"></span>Comprar</button></p>
+            </article>
         <?php endif; ?>
     </form>
 
     <div class="clear"></div>
-    <script src="js/jquery.js"></script>
-    <script src="js/cart.js"></script>
 </body>
+
+<script src="js/jquery.js"></script>
+<script src="js/cart.js"></script>
+<script src="../js/materialize.min.js"></script>
 
 </html>
