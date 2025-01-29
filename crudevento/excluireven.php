@@ -9,6 +9,55 @@ $conexao = conectar();
 
 $pastaImg = "../imagens/";
 
+$tipoUser = $_GET['tipo_usuario'];
+
+if ($tipoUser == 1) {
+
+    $selectCIC = "SELECT id_ingresso FROM ingressos_cadastrados WHERE id_evento='$id'";
+    $execSel = executarSQL($conexao, $selectCIC);
+
+    $idsIngressos = [];
+    while ($result = mysqli_fetch_assoc($execSel)) {
+        $idsIngressos[] = $result['id_ingresso'];
+    }
+
+    if (!empty($idsIngressos)) {
+        $idsIngressosStr = implode(",", $idsIngressos);
+        $deleteCIC = "DELETE FROM carrinho_ingressos_cadastrados WHERE id_ingresso IN ($idsIngressosStr)";
+        executarSQL($conexao, $deleteCIC);
+
+        $delete_incads = "DELETE FROM ingressos_cadastrados WHERE id_ingresso IN ($idsIngressosStr)";
+        executarSQL($conexao, $delete_incads);
+    }
+
+    $selectEventos = "SELECT imagem FROM eventos WHERE id_evento='$id'";
+    $execEventos = executarSQL($conexao, $selectEventos);
+
+    while ($img = mysqli_fetch_assoc($execEventos)) {
+        $caminhoImagem = $pastaImg . $img['imagem'];
+        if (file_exists($caminhoImagem)) {
+            unlink($caminhoImagem);
+        }
+    }
+
+    // 4️⃣ EXCLUIR O EVENTO
+    $delete_eve = "DELETE FROM eventos WHERE id_evento='$id'";
+    $resultDelEven = executarSQL($conexao, $delete_eve);
+
+    // ✅ FEEDBACK PARA O USUÁRIO
+    if ($resultDelEven) {
+        $_SESSION['mensagem'][0] = 'Evento excluído com sucesso!';
+        $_SESSION['mensagem'][1] = '#558b2f light-green darken-3';
+    } else {
+        $_SESSION['mensagem'][0] = "Não foi possível excluir o evento.";
+        $_SESSION['mensagem'][1] = "#c62828 red darken-3";
+    }
+
+    if ($conexao->error) {
+        die("Erro: " . $conexao->error);
+    }
+}
+
 $selectIngCad = "SELECT * FROM ingressos_cadastrados  ica
 INNER JOIN eventos e
 ON e.id_evento = ica.id_evento 

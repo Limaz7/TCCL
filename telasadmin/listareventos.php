@@ -71,24 +71,36 @@ $result = executarSQL($conexao, $sql);
             </thead>
 
             <tbody>
-                <?php if ($result): 
-                foreach ($result as $results) :
-                    $arq = $results['imagem']; ?>
+                <?php if ($result):
+                    foreach ($result as $results) :
+                        $arq = $results['imagem']; ?>
 
-                    <tr>
-                        <td><?= $results['id_evento'] ?></td>
-                        <td><img src="../imagens/<?= $arq ?>" height="55"></td>
-                        <td><?= $results['nome_evento'] ?></td>
-                        <td><?= $results['produtora'] ?></td>
-                        <td><?= strlen($results['descricao']) > 100 ? substr($results['descricao'], 0, 100) . '...' : $results['descricao'] ?></td>
-                        <td><?= $results['data'] ?></td>
-                        <td><?= $results['rua'] ?></td>
-                        <td><?= $results['bairro'] ?></td>
-                        <td><?= $results['numero_residencial'] ?></td>
-                        <td><a href="formediteven?id_evento=<?= $results['id_evento']; ?>">Editar</a></td>
-                        <td><a href="../crudEvento/excluireven?id_evento=<?= $results['id_evento']; ?>">Excluir</a></td>
-                    </tr>
-                <?php endforeach; ?>
+                        <tr>
+                            <td><?= $results['id_evento'] ?></td>
+                            <td><img src="../imagens/<?= $arq ?>" height="55"></td>
+                            <td><?= $results['nome_evento'] ?></td>
+                            <td><?= $results['produtora'] ?></td>
+                            <td><?= strlen($results['descricao']) > 100 ? substr($results['descricao'], 0, 100) . '...' : $results['descricao'] ?></td>
+                            <td><?= $results['data'] ?></td>
+                            <td><?= $results['rua'] ?></td>
+                            <td><?= $results['bairro'] ?></td>
+                            <td><?= $results['numero_residencial'] ?></td>
+                            <td><a href="formediteven?id_evento=<?= $results['id_evento']; ?>">Editar</a></td>
+                            <td><a href="#modalExcluirEvnt<?= $results['id_evento']; ?>" class="modal-trigger">Excluir</a></td>
+                        </tr>
+
+                        <div id="modalExcluirEvnt<?= $results['id_evento']; ?>" class="modal">
+                            <div class="modal-content">
+                                <h4>Confirmar exclusão</h4>
+                                <p>Você tem certeza que deseja excluir esse evento?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#" class="modal-close waves-effect waves-red btn-flat">Cancelar</a>
+                                <a href="../crudevento/excluireven?id_evento=<?= $results['id_evento']; ?>&tipo_usuario=<?= $_SESSION['user'][2]; ?>" class="modal-close waves-effect waves-green btn-flat">Confirmar</a>
+                            </div>
+                        </div>
+
+                    <?php endforeach; ?>
                 <?php else: ?>
                     <td>Nenhum evento cadastrado</td>
                 <?php endif; ?>
@@ -106,6 +118,11 @@ $result = executarSQL($conexao, $sql);
 <script type="text/javascript" src="../js/materialize.min.js"></script>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems);
+    });
+
     $(document).ready(function() {
         $('.sidenav').sidenav();
     });

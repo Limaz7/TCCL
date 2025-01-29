@@ -118,7 +118,11 @@ $agora = $data->format('Y-m-d H:i:s');
                         </div>
                         <div class="card-action">
                             <?php if (empty($_SESSION['user'])) : ?>
+                                <?php if ($agora > $evento['data']): ?>
+                                    <a class="btn disabled">Mais informações</a>
+                                <?php else: ?>
                                 <a style="background: black; color: white;" class="waves-effect waves-light btn modal-trigger" href='informacoes?id_evento=<?= $evento["id_evento"] ?>'>Mais informações</a>
+                                <?php endif; ?>
                             <?php else: ?>
                                 <?php if ($agora > $evento['data'] && $dados['tipo_usuario'] == 2): ?>
                                     <a class="btn disabled">Mais informações</a>

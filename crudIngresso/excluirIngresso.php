@@ -5,7 +5,24 @@ $conexao = conectar();
 
 $id = $_GET['id_ingresso'];
 
-$sql_inBuy = "DELETE FROM carrinhos WHERE id_ingresso='$id'";
+$selectCart = "SELECT * FROM carrinhos c INNER JOIN carrinho_ingressos_cadastrados cic ON c.id_carrinho = cic.id_carrinho WHERE cic.id_ingresso='$id'";
+$execSelCart = executarSQL($conexao, $selectCart);
+$result = mysqli_fetch_row($execSelCart);
+
+if ($result){
+    $_SESSION['mensagem'] = [
+        0 => 'Você não pode excluir esse ingresso, porque um participante ja efetuou a compra dele.',
+        1 => '#c62828 red darken-3',
+    ];
+    
+    header('location: ../Perfil/vizuIngressosCad.php');
+    die();
+}
+
+$deleteCIC = "DELETE FROM carrinho_ingressos_cadastrados WHERE id_ingresso='$id'";
+executarSQL($conexao, $deleteCIC);
+
+$sql_inBuy = "DELETE c FROM carrinhos c INNER JOIN carrinho_ingressos_cadastrados cic ON c.id_carrinho = cic.id_carrinho INNER JOIN ingressos_cadastrados ica ON cic.id_ingresso = ica.id_ingresso WHERE ica.id_ingresso='$id'";
 $deleteInBuy = executarSQL($conexao, $sql_inBuy);
 
 $sql = "DELETE FROM ingressos_cadastrados WHERE id_ingresso='$id'";

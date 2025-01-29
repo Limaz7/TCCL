@@ -12,106 +12,72 @@ $conexao = conectar();
 
 session_start();
 
+// Busca todos os ingressos do carrinho do usuário que ainda não foram pagos
 $selectCart = "SELECT * FROM carrinhos WHERE id_usuario=" . $_SESSION['user'][0] . " AND pago=0";
 $execSelCart = executarSQL($conexao, $selectCart);
-$row = mysqli_fetch_row($execSelCart);
 
-if (!isset($row)) {
+if (mysqli_num_rows($execSelCart) == 0) {
     header('location: cart.php');
     die();
 }
 
-$id_user = $_SESSION['user'][0];
-$id_ingresso = $_POST['id_ingresso'];
-$qtd = $_POST['quantidade'];
-$cartId = $_POST['cart_id'];
+$cart = mysqli_fetch_assoc($execSelCart);
+$cartId = $cart['id_carrinho'];
 
-$sql = "SELECT estoque FROM ingressos_cadastrados WHERE id_ingresso= '$id_ingresso'";
-$res = executarSQL($conexao, $sql);
-$quant = mysqli_fetch_assoc($res);
+// Buscar todos os ingressos no carrinho
+$selectIngressos = "SELECT cic.id_ingresso, ica.estoque, ica.estoque 
+                    FROM carrinho_ingressos_cadastrados cic
+                    INNER JOIN ingressos_cadastrados ica 
+                    ON cic.id_ingresso = ica.id_ingresso
+                    INNER JOIN carrinhos c
+                    ON c.id_carrinho = cic.id_carrinho
+                    WHERE cic.id_carrinho='$cartId'";
 
-$token = bin2hex(random_bytes(50));
+$execSelIngressos = executarSQL($conexao, $selectIngressos);
 
-$nova_qtd = $quant['estoque'] - $qtd;
-
-$sql = "UPDATE ingressos_cadastrados SET estoque='$nova_qtd' WHERE id_ingresso=$id_ingresso";
-executarSQL($conexao, $sql);
-
-$sql = "SELECT * FROM usuarios WHERE id_usuario='$id_user'";
-$resultado = executarSQL($conexao, $sql);
-
-$usuario = mysqli_fetch_assoc($resultado);
-if ($usuario == null) {
-    $_SESSION['mensagem'] = [
-        0 => 'Email não cadastrado! Faça o cadastro e em seguida realize o login.',
-        1 => '#558b2f light-green darken-3'
-    ];
-    header('location: ../index.php');
-    die();
+$ingressos = [];
+while ($ingresso = mysqli_fetch_assoc($execSelIngressos)) {
+    $ingressos[] = $ingresso;
 }
 
-/* include "../config.php";
+// Verifica se há estoque para todos os ingressos antes de atualizar qualquer coisa
+foreach ($ingressos as $ingresso) {
+    if ($ingresso['quantidade'] > $ingresso['estoque']) {
+        $_SESSION['mensagem'] = [
+            0 => 'Estoque insuficiente para um ou mais ingressos.',
+            1 => '#c62828 red darken-3'
+        ];
+        header('location: cart.php');
+        die();
+    }
+}
 
-    // Instância da classe
-    $mail = new PHPMailer(true);
-    try {
-        // Configurações do servidor
-        $mail->CharSet = 'UTF-8';
-        $mail->Encoding = 'base64';
-        $mail->setLanguage('br');
-        $mail->isSMTP();        //Devine o uso de SMTP no envio
-        $mail->SMTPAuth = true; //Habilita a autenticação SMTP
-        $mail->Username   = $config['email'];
-        $mail->Password   = $config['senha_email'];
-        // Criptografia do envio SSL também é aceito
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        // Informações específicadas pelo Google
-        $mail->Host = 'smtp.gmail.com';
-        $mail->Port = 587;
-        $mail->SMTPOptions = array(
-            'ssl' => array(
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-                'allow_self_signed' => true
-            )
-        );
-        // Define o remetente
-        $mail->setFrom($config['email'], 'Não responda!');
-        // Define o destinatário
-        $mail->addAddress($usuario['email'], $usuario['nome']);
-        $mail->addReplyTo($config['email'], 'Sistema de gerenciamento de eventos culturais');
-        // Conteúdo da mensagem
-        $mail->isHTML(true);  // Seta o formato do e-mail para aceitar conteúdo HTML
-        $mail->Subject = 'Confirmação da compra do ingresso';
-        $mail->Body    = 'Este é o corpo da mensagem <b>Olá!</b> <br><br>
-        <img src="cid:imagem_cid">'; //Pega a imagem do CID
+// Se passou pela verificação, atualizar o estoque de todos os ingressos
+foreach ($ingressos as $ingresso) {
+    $nova_qtd = $ingresso['estoque'] - $ingresso['quantidade'];
+    $updateEstoque = "UPDATE ingressos_cadastrados SET estoque='$nova_qtd' WHERE id_ingresso=" . $ingresso['id_ingresso'];
+    executarSQL($conexao, $updateEstoque);
+}
 
-        //Pega a imagem e colocar um ID nela
-        $mail->addEmbeddedImage('../imagens/6711658d195c6.png', 'imagem_cid');
-        // Enviar
-        $mail->send();
-        echo "A mensagem foi enviada! Verifique seu email. <br><br> <a href='../informacoes.php?id_evento=$id_evento'>Voltar</a>";
-    } catch (Exception $e) {
-        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-    } */
 
+// Atualizar o carrinho para pago
 date_default_timezone_set('America/Sao_Paulo');
 $data = new DateTime('now');
 $agora = $data->format('Y-m-d H:i:s');
 
-$updateCart = "UPDATE carrinhos SET
-            pago=1, data='$agora'
-            WHERE id_carrinho='$cartId'";
+$idUser = $_SESSION['user'][0];
+
+$updateCart = "UPDATE carrinhos SET pago=1, data='$agora' WHERE id_usuario='$idUser' AND cart_session=" . $_SESSION['cart'];
 $execUpdtCart = executarSQL($conexao, $updateCart);
 
 if ($execUpdtCart) {
     $_SESSION['mensagem'] = [
-        0 => 'Ingresso comprado com sucesso!',
+        0 => 'Todos os ingressos foram comprados com sucesso!',
         1 => '#558b2f light-green darken-3'
     ];
 } else {
     $_SESSION['mensagem'] = [
-        0 => 'Não foi possivel comprar o ingresso.',
+        0 => 'Não foi possível completar a compra.',
         1 => '#c62828 red darken-3'
     ];
 }

@@ -67,7 +67,7 @@ $result = executarSQL($conexao, $sql);
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($result as $results) { ?>
+                <?php foreach ($result as $results) : ?>
                     <tr>
                         <td><?= $results['id_ingresso'] ?></td>
                         <td><?= $results['nome_evento'] ?></td>
@@ -75,9 +75,21 @@ $result = executarSQL($conexao, $sql);
                         <td><?= $results['valor'] ?></td>
                         <td><?= $results['estoque'] ?></td>
                         <td><a href="formEditIngresso?id_ingresso=<?= $results['id_ingresso']; ?>">Editar</a></td>
-                        <td><a href="../crudIngresso/excluirIngresso?id_ingresso=<?= $results['id_ingresso']; ?>">Excluir</a></td>
+                        <td><a href="#modalExcluirIng<?= $results['id_ingresso']; ?>" class="modal-trigger">Excluir</a></td>
                     </tr>
-                <?php } ?>
+
+                    <div id="modalExcluirIng<?= $results['id_ingresso']; ?>" class="modal">
+                        <div class="modal-content">
+                            <h4>Confirmar exclusão</h4>
+                            <p>Você tem certeza que deseja excluir esse ingresso?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="modal-close waves-effect waves-red btn-flat">Cancelar</a>
+                            <a href="excluirIng?id_ingresso=<?= $results['id_ingresso']; ?>" class="modal-close waves-effect waves-green btn-flat">Confirmar</a>
+                        </div>
+                    </div>
+
+                <?php endforeach; ?>
             </tbody>
         </table>
     </main>
@@ -91,6 +103,11 @@ $result = executarSQL($conexao, $sql);
 <script type="text/javascript" src="../js/materialize.min.js"></script>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems);
+    });
+
     $(document).ready(function() {
         $('.sidenav').sidenav();
     });

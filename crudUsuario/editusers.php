@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 include("../conexao.php");
 $conexao = conectar();
 

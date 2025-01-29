@@ -14,6 +14,19 @@ $conexao = conectar();
 $sql = "SELECT * FROM usuarios";
 $result = executarSQL($conexao, $sql);
 
+function formatarDocumento($documento)
+{
+    $documento = preg_replace("/\D/", "", $documento); // Remove tudo que não for número
+
+    if (strlen($documento) === 11) { // CPF (XXX.XXX.XXX-XX)
+        return preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "\$1.\$2.\$3-\$4", $documento);
+    } elseif (strlen($documento) === 14) { // CNPJ (XX.XXX.XXX/XXXX-XX)
+        return preg_replace("/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/", "\$1.\$2.\$3/\$4-\$5", $documento);
+    }
+
+    return $documento; // Retorna sem alterações se não for CPF nem CNPJ
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -62,6 +75,7 @@ $result = executarSQL($conexao, $sql);
                     <th>ID</th>
                     <th>Nome</th>
                     <th>Email</th>
+                    <th>CPF/CNPJ</th>
                     <th>Validação de entrada</th>
                     <th>Tipo de usuário</th>
                     <th colspan="2">Opções</th>
@@ -71,15 +85,28 @@ $result = executarSQL($conexao, $sql);
                 <tr>
                     <?php foreach ($result as $results) : ?>
                         <?php if ($results['id_usuario'] > 1) : ?>
-                            <td><?= $results['id_usuario'] ?></td>
-                            <td><?= $results['nome'] ?></td>
-                            <td><?= $results['email'] ?></td>
-                            <td><?= $results['cod_ativacao'] ?></td>
-                            <td><?= $results['tipo_usuario'] ?> </td>
+                            <td><?= $results['id_usuario']; ?></td>
+                            <td><?= $results['nome']; ?></td>
+                            <td><?= $results['email']; ?></td>
+                            <td><?= formatarDocumento($results['cadastro']); ?></td>
+                            <td><?= $results['cod_ativacao']; ?></td>
+                            <td><?= $results['tipo_usuario']; ?> </td>
                             <td><a href="formedituser?id_usuario=<?= $results['id_usuario']; ?>">Editar</a></td>
-                            <td><a href="../crudUsuario/excluiruser?id_usuario=<?= $results['id_usuario']; ?>">Excluir</a></td>
+                            <td><a href="#modalExcluirUser<?= $results['id_usuario']; ?>" class="modal-trigger">Excluir</a></td>
                         <?php endif; ?>
                 </tr>
+
+                <div id="modalExcluirUser<?= $results['id_usuario']; ?>" class="modal">
+                    <div class="modal-content">
+                        <h4>Confirmar exclusão</h4>
+                        <p>Você tem certeza que deseja excluir esse usuário?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="modal-close waves-effect waves-red btn-flat">Cancelar</a>
+                        <a href="../crudUsuario/excluiruser?id_usuario=<?= $results['id_usuario']; ?>" class="modal-close waves-effect waves-green btn-flat">Confirmar</a>
+                    </div>
+                </div>
+
             <?php endforeach; ?>
             </tbody>
         </table>
@@ -100,6 +127,12 @@ $result = executarSQL($conexao, $sql);
 <script type="text/javascript" src="../js/materialize.min.js"></script>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems);
+    });
+
+
     $(document).ready(function() {
         $('.sidenav').sidenav();
     });
@@ -109,8 +142,9 @@ $result = executarSQL($conexao, $sql);
             html: '<?= $_SESSION['mensagem'][0] ?>',
             classes: '<?= $_SESSION['mensagem'][1] ?>'
         });
-        
-    <?php unset($_SESSION['mensagem']);  endif; ?>
+
+    <?php unset($_SESSION['mensagem']);
+    endif; ?>
 </script>
 
 </html>
